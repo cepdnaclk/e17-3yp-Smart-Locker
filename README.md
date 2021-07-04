@@ -27,5 +27,9 @@ book lockers for their acess in public places it would be a market opportunity.
 
 We are as a team will develop a locker with digital improvements where users can unlock the locker by purchasing it online for a certain time period.
 The Lock itself will be developed by a arduino based electronic system where set of lockers will be monitered by a centeralized system.
+
+> ## Project Page
+
+#### [Smart Locker](https://cepdnaclk.github.io/e17-3yp-Smart-Locker/)
  
 
