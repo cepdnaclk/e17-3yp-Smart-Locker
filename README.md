@@ -2,13 +2,13 @@
 
 ## Group Members
 
-PGAP Gallage - E/17/091 e17091@eng.pdn.ac.lk
+* PGAP Gallage - E/17/091 e17091@eng.pdn.ac.lk
 
-KPCDB Jayaweera - E/17/144 e17144@eng.pdn.ac.lk
+* KPCDB Jayaweera - E/17/144 e17144@eng.pdn.ac.lk
 
-KHSP Kodagoda - E/17/168 e17168@eng.pdn.ac.lk
+* KHSP Kodagoda - E/17/168 e17168@eng.pdn.ac.lk
 
-## Supervisers 
+## > Supervisers 
 
 Superviser1 - Dr. Isuru Nawinne
 
