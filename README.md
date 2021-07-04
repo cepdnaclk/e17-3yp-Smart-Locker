@@ -1,5 +1,4 @@
 # e17-3yp-Smart-Locker
-<hr>
 <br>
 
 > ## Group Members
