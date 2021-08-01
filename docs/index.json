@@ -1,0 +1,46 @@
+{
+    "title": "Smart Locker",
+    "team": [
+        {
+            "name": "Gallage P.G.A.P.",
+            "email": "e17091@eng.pdn.ac.lk",
+            "eNumber": "E/17/091",
+            "github_profile":"https://github.com/AdithyaGallage",
+            "linkedin_profile":"#",
+            "website": "#"
+        },
+        {
+            "name": "Jayaweera K.P.C.D.B",
+            "email": "e17144@eng.pdn.ac.lk",
+            "eNumber": "E/17/144",
+            "github_profile":"https://github.com/dadoright",
+            "linkedin_profile":"#",
+            "website": "#"
+        },
+        {
+            "name": "Kodagoda K.H.S.P.",
+            "email": "e17168@eng.pdn.ac.lk",
+            "eNumber": "E/17/168",
+            "github_profile":"https://github.com/Sandun",
+            "linkedin_profile":"#",
+            "website": "#"
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Dr. Isuru Nawinne",
+            "email": "isurunawinne@eng.pdn.ac.lk",
+            "linkedin_profile":"https://lk.linkedin.com/in/isuru-nawinne-73302833",
+            "researchgate_profile":"#",
+            "website": "#"
+        },
+        {
+            "name": "Dr. Mahanama Wickramasinghe",
+            "email": "mahanamaw@eng.pdn.ac.lk",
+            "linkedin_profile":"https://www.linkedin.com/in/mahanama",
+            "researchgate_profile":"#",
+            "website": "#"
+        }
+    ],
+    "tags": ["Web", "Embedded Systems"]
+}
