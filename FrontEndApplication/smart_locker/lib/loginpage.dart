@@ -45,36 +45,34 @@ class LogInPage extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
+                    SubmitButton(
+                      onSubmitHandler: () {},
+                      text: "LOG IN")
                   ],
                 ),
               ),
             ),
           ),
-          Center(
-            child:Container(
-              padding: EdgeInsets.fromLTRB(0.0, 450.0, 0.0, 0.0),
-              child: SubmitButton(
-                onSubmitHandler: () {},
-                text: "LOG IN",
-              ),
-            ),
-          ),
           Container(
-            padding: EdgeInsets.fromLTRB(71.0, 620.0, 0.0, 0.0),
-            child: Row(
-              children: [
-                Text("Don't have an account ?", style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),),
-                SizedBox(width: 6.0),
+              padding: EdgeInsets.fromLTRB(100.0, 540.0, 0.0, 0.0),
+              child: Row(
+                children: [
+                  Text(
+                    "Don't have an account ?",
+                    style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),
+                  ),
+                  SizedBox(width: 6.0),
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.blue.shade900, fontSize: 15.0),
+                    'Sign UP',
+                    style:
+                        TextStyle(color: Colors.blue.shade900, fontSize: 15.0),
                   ),
                 ),
               ],
+             ),
             ),
-          )
         ],
       ),
     );
