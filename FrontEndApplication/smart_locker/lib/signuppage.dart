@@ -27,7 +27,7 @@ class SignUpPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(30.0, 140.0, 0.0, 0.0),
             child: Text(
-              'SIGN IN',
+              'SIGN UP',
               style: TextStyle(
                 fontSize: 40.0,
                 color: Colors.black,
@@ -40,7 +40,7 @@ class SignUpPage extends StatelessWidget {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Center(
               child: Container(
-                padding: EdgeInsets.fromLTRB(0.0, 250.0, 0.0, 0.0),
+                padding: EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 0.0),
                 child: Column(
                   children: [
                     TextInput(
@@ -73,26 +73,30 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(185.0, 545.0, 0.0, 0.0),
-            child: SubmitButton(onSubmitHandler: () {},text: "SIGN IN",),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(71.0, 620.0, 0.0, 0.0),
-            child: Row(
-              children: [
-                Text("Don't have an account ?", style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),),
-                SizedBox(width: 6.0),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'Sign in',
-                    style: TextStyle(color: Colors.blue.shade900, fontSize: 15.0),
-                  ),
-                ),
-              ],
+          Center(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(0.0, 450.0, 0.0, 0.0),
+              child: SubmitButton(onSubmitHandler: () {},text: "SIGN UP",),
             ),
-          )
+          ),
+          Center(
+            child:Container(
+              padding: EdgeInsets.fromLTRB(90.0, 530.0, 0.0, 0.0),
+              child: Row(
+                children: [
+                  Text("Already have an account ?", style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),),
+                  SizedBox(width: 6.0),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Log in',
+                      style: TextStyle(color: Colors.blue.shade900, fontSize: 15.0),
+                    ),
+                 ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
