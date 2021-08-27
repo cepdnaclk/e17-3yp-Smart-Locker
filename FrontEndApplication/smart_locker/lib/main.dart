@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_locker/loginpage.dart';
+import 'package:smart_locker/signuppage.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +24,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home:LogInPage(),
+      //LogInPage(), 
+      //SignUpPage(),
+      ////MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
