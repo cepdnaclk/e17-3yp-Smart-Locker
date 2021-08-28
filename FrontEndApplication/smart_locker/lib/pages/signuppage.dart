@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'widgets/backgroundimage.dart';
-import 'widgets/textinput.dart';
-import 'widgets/passwordinput.dart';
-import 'widgets/submitbutton.dart';
+import '../widgets/backgroundimage.dart';
+import '../widgets/textinput.dart';
+import '../widgets/passwordinput.dart';
+import '../widgets/submitbutton.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // OnTap handler functions in line 76 and 86 have to implement
-    // Following controllers have to implement correctly to functioning of TextInputs and PasswordInputs  
+    // Following controllers have to implement correctly to functioning of TextInputs and PasswordInputs
     final myController = TextEditingController();
-
     final myController1 = TextEditingController();
-
     final myController2 = TextEditingController();
-
     final myController3 = TextEditingController();
 
     return Scaffold(
@@ -25,9 +22,9 @@ class SignUpPage extends StatelessWidget {
             image: 'assets/Background.png',
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(30.0, 140.0, 0.0, 0.0),
+            padding: EdgeInsets.fromLTRB(30.0, 160.0, 0.0, 0.0),
             child: Text(
-              'SIGN IN',
+              'SIGN UP',
               style: TextStyle(
                 fontSize: 40.0,
                 color: Colors.black,
@@ -40,7 +37,7 @@ class SignUpPage extends StatelessWidget {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Center(
               child: Container(
-                padding: EdgeInsets.fromLTRB(0.0, 250.0, 0.0, 0.0),
+                padding: EdgeInsets.only(top: 280),
                 child: Column(
                   children: [
                     TextInput(
@@ -68,31 +65,48 @@ class SignUpPage extends StatelessWidget {
                       passwordController: myController3,
                       hint: "Confirm Password",
                     ),
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(0.0, 23.0, 0.0, 0.0),
+                        child: SubmitButton(
+                          onSubmitHandler: () {},
+                          text: "SIGN UP",
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(185.0, 545.0, 0.0, 0.0),
-            child: SubmitButton(onSubmitHandler: () {},text: "SIGN IN",),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(71.0, 620.0, 0.0, 0.0),
-            child: Row(
-              children: [
-                Text("Don't have an account ?", style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),),
-                SizedBox(width: 6.0),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'Sign in',
-                    style: TextStyle(color: Colors.blue.shade900, fontSize: 15.0),
+          Center(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(90.0, 560.0, 0.0, 0.0),
+              child: Row(
+                children: [
+                  Text(
+                    "Already have an account ?",
+                    style:
+                        TextStyle(fontSize: 15.0, color: Colors.grey.shade600),
                   ),
-                ),
-              ],
+                  SizedBox(width: 6.0),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/login',
+                      );
+                    },
+                    child: Text(
+                      'Log in',
+                      style: TextStyle(
+                          color: Colors.blue.shade900, fontSize: 15.0),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
