@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_locker/signuppage.dart';
 import 'package:smart_locker/widgets/backgroundimage.dart';
 import 'package:smart_locker/widgets/submitbutton.dart';
 import 'package:smart_locker/widgets/textinput.dart';
@@ -18,7 +17,7 @@ class LogInPage extends StatelessWidget {
             image: 'assets/Background.png',
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(30.0, 140.0, 0.0, 0.0),
+            padding: EdgeInsets.fromLTRB(30.0, 160.0, 0.0, 0.0),
             child: Text(
               'LOG IN',
               style: TextStyle(
@@ -33,7 +32,7 @@ class LogInPage extends StatelessWidget {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Center(
               child: Container(
-                padding: EdgeInsets.fromLTRB(0.0, 250.0, 0.0, 0.0),
+                padding: EdgeInsets.only(top: 300),
                 child: Column(
                   children: [
                     TextInput(emailController: EmailController, hint: "Email"),
@@ -45,25 +44,28 @@ class LogInPage extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-                    SubmitButton(
-                      onSubmitHandler: () {},
-                      text: "LOG IN")
+                    SubmitButton(onSubmitHandler: () {}, text: "LOG IN")
                   ],
                 ),
               ),
             ),
           ),
           Container(
-              padding: EdgeInsets.fromLTRB(100.0, 540.0, 0.0, 0.0),
-              child: Row(
-                children: [
-                  Text(
-                    "Don't have an account ?",
-                    style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),
-                  ),
-                  SizedBox(width: 6.0),
+            padding: EdgeInsets.fromLTRB(100.0, 540.0, 0.0, 0.0),
+            child: Row(
+              children: [
+                Text(
+                  "Don't have an account ?",
+                  style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600),
+                ),
+                SizedBox(width: 6.0),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/signup',
+                    );
+                  },
                   child: Text(
                     'Sign UP',
                     style:
@@ -71,8 +73,8 @@ class LogInPage extends StatelessWidget {
                   ),
                 ),
               ],
-             ),
             ),
+          ),
         ],
       ),
     );
