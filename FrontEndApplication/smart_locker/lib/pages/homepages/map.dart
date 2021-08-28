@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -8,6 +9,41 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  Set<Marker> _markers = {};
+  BitmapDescriptor mapMarker = BitmapDescriptor.defaultMarker;
+  @override
+  void initState() {
+    super.initState();
+    setCustomMarker();
+  }
+  void setCustomMarker() async{
+    // Custom marcker can use here
+    //mapMarker = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/LockerIcon.png');
+    mapMarker = await BitmapDescriptor.defaultMarker;
+  }
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      // Can fetch from a api and update the _markers
+      _markers.add(
+        Marker(
+          markerId: MarkerId("id-1"),
+          position: LatLng(7.252321246065113, 80.59256273092281),
+          infoWindow: InfoWindow(title: "UoP Efac"),
+          icon: mapMarker,
+          // An ontap function can implement here
+          onTap: () {},
+        ),
+      );
+      _markers.add( Marker(
+          markerId: MarkerId("id-2"),
+          position: LatLng(7.2633009032347084, 80.59304870962823),
+          infoWindow: InfoWindow(title: "Peradeniya"),
+          icon: mapMarker,
+          onTap: () {},
+        ),);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,9 +61,13 @@ class _MapPageState extends State<MapPage> {
         ),
       ),
       body: Center(
-        child: Text(
-          'Map Page',
-          style: TextStyle(fontSize: 60),
+        child: GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target: LatLng(7.252321246065113, 80.59256273092281),
+            zoom: 16,
+          ),
+          onMapCreated: _onMapCreated,
+          markers: _markers,
         ),
       ),
     );
