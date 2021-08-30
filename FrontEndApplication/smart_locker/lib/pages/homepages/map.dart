@@ -18,8 +18,8 @@ class _MapPageState extends State<MapPage> {
   }
   void setCustomMarker() async{
     // Custom marcker can use here
-    //mapMarker = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/LockerIcon.png');
-    mapMarker = await BitmapDescriptor.defaultMarker;
+    mapMarker = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/LockerIcon.png');
+    //mapMarker = await BitmapDescriptor.defaultMarker;
   }
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
