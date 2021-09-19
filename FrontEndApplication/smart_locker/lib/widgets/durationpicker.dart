@@ -9,11 +9,12 @@ class DurationPicker extends StatefulWidget {
 class _DurationPickerState extends State<DurationPicker> {
   int _currentHoursIntValue = 1;
   int _currentDaysIntValue = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        //Divider(color: Colors.grey, height: 32),
+        // Divider(color: Colors.grey, height: 32),
         Text('Hours', style: Theme.of(context).textTheme.headline6),
         SizedBox(height: 5),
         NumberPicker(

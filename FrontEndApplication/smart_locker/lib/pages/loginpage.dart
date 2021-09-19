@@ -14,18 +14,18 @@ class LogInPage extends StatelessWidget {
       body: Stack(
         children: [
           BackgroundImage(
-            image: 'assets/Background.png',
+            image: 'assets/Log-inbg.png',
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(30.0, 160.0, 0.0, 0.0),
-            child: Text(
-              'LOG IN',
-              style: TextStyle(
-                fontSize: 40.0,
-                color: Colors.black,
-              ),
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.fromLTRB(30.0, 160.0, 0.0, 0.0),
+          //   child: Text(
+          //     'LOG IN',
+          //     style: TextStyle(
+          //       fontSize: 40.0,
+          //       color: Colors.black,
+          //     ),
+          //   ),
+          // ),
           SingleChildScrollView(
             reverse: true,
             padding: EdgeInsets.only(
