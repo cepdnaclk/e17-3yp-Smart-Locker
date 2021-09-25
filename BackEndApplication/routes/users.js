@@ -4,14 +4,16 @@ const express = require('express');
 const Joi = require('joi');
 const { v4: uuidv4 } = require('uuid');
 const passwordComplexity = require("joi-password-complexity");
+
 const bcrypt = require('bcrypt'); 
+
 
 const router = express.Router();
 
-const connection= config.connection;
+const connection = config.connection;
+
 
 router.post('/', (req, res) => {
-
     // defining password complexity
     const complexityOptions = {
         min: 8,
@@ -33,11 +35,14 @@ router.post('/', (req, res) => {
 
     const result = schema.validate(req.body);
 
-    if(result.error){
+
+    if (result.error) {
+
         return res.status(400).send(result.error.details[0].message);
     }
 
     // prevent from injection attacks
+
     connection.query('SELECT * FROM user WHERE UserEmail = ?',[req.body.email], (err, rows, fields) => {
         if(err) return res.send("Database failure");
         if(rows.length ) return res.status(400).send("User already exist");
