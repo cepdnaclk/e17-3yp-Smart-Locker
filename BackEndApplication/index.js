@@ -2,6 +2,9 @@
 const express = require('express');
 const home = require('./routes/home');
 const users = require('./routes/users');
+
+
+// create express app
 const login = require('./routes/login');
 const app = express();
 
@@ -10,7 +13,10 @@ app.use('/', home);
 app.use('/api/users', users);
 app.use('/api/login', login);
 
-// listening port 3000
+// setup the server port
 const port = process.env.PORT || 3000;
-app.listen(port, ()=> console.log(`Listening port ${port}...`));
 
+// listening port 3000
+app.listen(port, () => {
+    console.log(`Listening port ${port}...`)
+});

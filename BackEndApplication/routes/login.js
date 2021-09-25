@@ -2,11 +2,13 @@
 const config = require('../config/databaseConfig');
 const express = require('express');
 const Joi = require('joi');
-const bcrypt = require('bcrypt'); 
+
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
-const connection= config.connection;
+const connection = config.connection;
+
 
 router.post('/', (req, res) => {
 
@@ -18,7 +20,8 @@ router.post('/', (req, res) => {
 
     const result = schema.validate(req.body);
 
-    if(result.error){
+
+    if (result.error) {
         return res.status(400).send(result.error.details[0].message);
     }
 
@@ -30,6 +33,7 @@ router.post('/', (req, res) => {
             bcrypt.compare(req.body.password, rows[0].Password, (errHash, resultHash) => {
                if(!resultHash) return res.status(400).send("Incorrect Password");
                res.send(true);
+
             });
         }
     });
