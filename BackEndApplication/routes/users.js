@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
             req.body.email,
             uuidv4(),
             req.body.password,
-            req.body.mobile], (errInsert, resulInsert) => {
+            req.body.mobile], (errInsert, resultInsert) => {
                 if(errInsert) return res.send("Database failure");
                 res.send("Registration succeeded");
             });
