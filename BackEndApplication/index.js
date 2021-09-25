@@ -1,3 +1,4 @@
+// set database password before running the app
 const express = require('express');
 const home = require('./routes/home');
 const users = require('./routes/users');

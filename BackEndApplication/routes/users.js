@@ -1,8 +1,10 @@
+// set database password before running the app
 const config = require('../config/databaseConfig');
 const express = require('express');
 const Joi = require('joi');
 const { v4: uuidv4 } = require('uuid');
 const passwordComplexity = require("joi-password-complexity");
+const bcrypt = require('bcrypt'); 
 
 const router = express.Router();
 
@@ -40,14 +42,18 @@ router.post('/', (req, res) => {
         if(err) return res.send("Database failure");
         if(rows.length ) return res.status(400).send("User already exist");
         if(!rows.length){
-            connection.query('INSERT INTO user(UserName, UserEmail, UserId, Password, MobileNumber) values (?, ?, ?, ?, ?)',
-            [req.body.username,
-            req.body.email,
-            uuidv4(),
-            req.body.password,
-            req.body.mobile], (errInsert, resultInsert) => {
-                if(errInsert) return res.send("Database failure");
-                res.send("Registration succeeded");
+            // hashing password
+            const saltRounds = 10;
+            bcrypt.hash(req.body.password, saltRounds, function(errHash, hash) {
+                connection.query('INSERT INTO user(UserName, UserEmail, UserId, Password, MobileNumber) values (?, ?, ?, ?, ?)',
+                [req.body.username,
+                req.body.email,
+                uuidv4(),
+                hash,
+                req.body.mobile], (errInsert, resultInsert) => {
+                    if(errInsert) return res.send("Database failure");
+                    res.send("Registration succeeded");
+                });
             });
         }
     });
