@@ -1,3 +1,4 @@
+// set database password before running the app
 const config = require('../config/databaseConfig');
 const express = require('express');
 const Joi = require('joi');
@@ -50,7 +51,7 @@ router.post('/', (req, res) => {
                 uuidv4(),
                 hash,
                 req.body.mobile], (errInsert, resultInsert) => {
-                    if(errInsert) return res.send(errInsert);
+                    if(errInsert) return res.send("Database failure");
                     res.send("Registration succeeded");
                 });
             });
