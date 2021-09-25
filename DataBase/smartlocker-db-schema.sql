@@ -7,6 +7,7 @@ CREATE TABLE Role(
 );
 
 CREATE TABLE User(
+	UserName char(60),
 	UserEmail char(100),
     UserID char(60) not null,
     Password char(255),
