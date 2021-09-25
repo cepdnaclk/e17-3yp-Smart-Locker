@@ -1,7 +1,8 @@
+const config = require('../config/databaseConfig');
 const express = require('express');
 const Joi = require('joi');
 const { v4: uuidv4 } = require('uuid');
-const config = require('../config/databaseConfig');
+const passwordComplexity = require("joi-password-complexity");
 
 const router = express.Router();
 
@@ -9,11 +10,22 @@ const connection= config.connection;
 
 router.post('/', (req, res) => {
 
+    // defining password complexity
+    const complexityOptions = {
+        min: 8,
+        max: 25,
+        lowerCase: 1,
+        upperCase: 1,
+        numeric: 1,
+        symbol: 1,
+        requirementCount: 4,
+    };
+
     //validating request body
     const schema = Joi.object({
         username: Joi.string().min(8).max(60).required(),
         email: Joi.string().min(3).max(100).required().email(),
-        password: Joi.string().min(8).max(255).required(),
+        password: new passwordComplexity(complexityOptions).required(),
         mobile: Joi.string().max(10).max(20).required()
     });
 
