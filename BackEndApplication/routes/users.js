@@ -4,11 +4,11 @@ const express = require('express');
 const Joi = require('joi');
 const { v4: uuidv4 } = require('uuid');
 const passwordComplexity = require("joi-password-complexity");
-
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth');
 
 const router = express.Router();
-
 const connection = config.connection;
 
 router.post('/', (req, res) => {
@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
     // prevent from injection attacks
 
     connection.query('SELECT * FROM user WHERE UserEmail = ?', [req.body.email], (err, rows, fields) => {
-        if (err) return res.send("Database failure");
+        if (err) return res.status(500).send("Database failure");
         if (rows.length) return res.status(400).send("User already exist");
         if (!rows.length) {
             // hashing password
@@ -53,12 +53,23 @@ router.post('/', (req, res) => {
                     hash,
                     req.body.mobile
                 ], (errInsert, resultInsert) => {
-                    if (errInsert) return res.send("Database failure");
-                    res.send("Registration succeeded");
+                    if (errInsert) return res.status(500).send("Database failure");
+                    const token = jwt.sign({ jwtEmail: req.body.email }, 'smartLocker_jwtPrivateKey');
+                    //noramlly this token include in the header
+                    res.header('x-auth-token', token).send('Registration succeeded');
                 });
             });
         }
     });
 });
 
+// a route for get current user information
+// the jwt token is validated here
+// jwt token validate using signature in middleware/auth.js. So it prevents attacks using json web tokens
+router.get('/me', auth, (req, res) => {
+    connection.query('SELECT * FROM user WHERE UserEmail = ?', [req.fromUser.jwtEmail], (err, rows, fields) => {
+        if (err) return res.status(500).send("Database failure");
+        res.send(rows[0]);
+    })
+});
 module.exports = router;
