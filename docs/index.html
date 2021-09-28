@@ -18,13 +18,14 @@
     <div class="w3-top">
       <div class="w3-bar w3-black w3-card">
           <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-          <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+          <!--<a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a> -->
           <a href="#Overview" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Overview</a>
           <a href="#motivation" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Motivation</a>
-          <a href="#solution" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Our solution</a>
+          <a href="#solution" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Solution</a>
           <a href="#Architecture" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Architecture</a>
           <a href="#tech" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Technologies</a>
-          <a href="#security" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Security</a>
+          <a href="#security" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Security & Failure Handling</a>
+          <a href="#testing" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Testing</a>
           <a href="#Budget" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Budget</a>
           <a href="#demo" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Demonstration plan</a>
           <a href="#timeline" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Timeline</a>
@@ -39,7 +40,11 @@
       <img src="images/Name.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%" style="margin: 0px;">
     </div>
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="Overview">
-      <h1 class="w3-wide">Overview</h1>
+      <h1 class="w3-wide">Overview</h1><br>
+      <video width="600" height="350" controls>
+        <source src="vedios/overview_vedio.mp4" type="video/mp4">
+      </video>
+      <br><br><br>
       <p class="w3-justify"  style="font-size:20px">The Smart Locker is a improvement for the traditional locker where we are trying to provide the lockers for public usage.
         Normal traditional lockers were used privately but as a team we think if lockers can be provided in a public way where citizens will 
         book lockers for their access in public places it would be a market opportunity.
@@ -87,18 +92,35 @@
       <img src="images/hardware_components.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
 
       <p class="w3-justify"  style="font-size:20px">
-        This system consists of three main segments. First one is smart locker. Others are backend and frontend also known as mobile application. Smart locker includes four main parts. There are two input devices and they are Key pad and IR sensor. There are two output devices and they are LCD display and solenoid lock. Key pad is used to enter tokens and such other data. Using IR sensor user can detect locker is empty or not. Through LCD display user can observe messages from locker and entering token. 
-        Initially general information of lockers is stored in the cloud server database and it provide data to mobile application and lockers. Also, it collects user data through application. User can ask about lockers and it gives details and availability. If user book a locker, then backend generate a new token and it send to locker and user. Main functionalities of locker are handled by microcontroller and it make a connection to server through Wi-Fi network and send inputs data receive input data.
-        
+        This system consists of three main segments. The first one is the Locker. Others are
+         backend and frontend which is also known as the mobile application. Smart locker includes four main parts. 
+         There are two input devices and they are Keypad and Ultrasonic sensor. There are two output devices and 
+         they are LCD display and solenoid lock. The keypad is used to enter tokens and other data. The 
+         Ultrasonic Sensor, helps the user to detect locker is empty or not. Through LCD display user can observe 
+         messages from the locker and the token which is entred. 
+        Initially, general information of lockers is stored in the cloud server database and it provides data to 
+        the mobile application and lockers. Also, it collects user data through the mobile application and the Locker. Users 
+        can ask about lockers and it gives details such as availability etc. If the user books a locker, then the 
+        backend generates a new token and sends it to the locker and user. The main functionalities of the locker 
+        are handled by the microcontroller and it makes a connection to the server through a Wi-Fi network. In 
+        advance, as a security feature buzzer is used.   
       </p>
+
+      <br><h4 class="w3-wide">Circuit Diagram</h4><br>
+      <img src="images/circuit_diagram.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
+
+      <br><br><h4 class="w3-wide">Database Schema</h4><br>
+      <img src="images/database.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
+
 
     </div>
     <hr>
     <br>
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="tech">
-      <h1 class="w3-wide">Technologies Used</h1> <br>
+      <h1 class="w3-wide">Technologies Used</h1> <br><br>
       <img src="images/tech1.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width: 100%">
       <img src="images/tech2.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
+      <img src="images/tech3.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
     </div>
     <hr>
     <br>
@@ -106,21 +128,52 @@
       <h1 class="w3-wide">Security and Privacy</h1><br>
       <h4 class="w3-wide">In Software</h1>
       <p class="w3-justify  w3-end" style="font-size:20px">
-          ⚫&emsp;Prevent unauthorized people to access the mobile application
+          ⚫&emsp;Prevent unauthorized access from the mobile application
           <br>
           ⚫&emsp;Use two factor authentication for user accounts
           <br>
           ⚫&emsp;Validate user inputs
           <br>
-          ⚫&emsp;Time Based System for password
+          ⚫&emsp;JSON Web Tokens for authorization
           <br>
+          ⚫&emsp;JWT signature validation
+          <br>
+          ⚫&emsp;Encrypt the user password in the database
+          <br>
+          ⚫&emsp;Update locker password after every single usage
+          <br>
+          ⚫&emsp;Record login details
+          <br>
+          ⚫&emsp;Block unwanted traffic using built-in AWS firewalls
+          <br>
+      </p>
       <h4 class="w3-wide">In Hardware</h1>
       <p class="w3-justify  w3-end" style="font-size:20px">
           ⚫&emsp;Durable Solenoid locks and lockers
+          <br>
+          ⚫&emsp;Sound buzzer if something wrong went wrong or malicious thing happen
+          <br>
+          ⚫&emsp;Private wi-fi connection for each cluster of lockers
+      </p>
+      <br><br><h1 class="w3-wide">Failure Handling</h1><br>
+      <p class="w3-justify  w3-end" style="font-size:20px">
+        ⚫&emsp;Solenoid lock is in Locked state at a power failure
+        <br>
+        ⚫&emsp;Solenoid lock is in Locked state at a server failure
+        <br>
+        ⚫&emsp;Show warnings to users
+        <br>
+        ⚫&emsp;Data fetched from sensors are stored within the device for a certaion period
+        <br>
+        ⚫&emsp;Send that data again to the server to mitigate if lost updates happen
       </p>
     </div>
     <hr>
-    <br>
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="testing">
+      <h1 class="w3-wide">Testing Plan</h1> <br>
+      <img src="images/testingplan.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
+    </div>
+    <hr>
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="Budget">
       <h1 class="w3-wide">Budget</h1> <br>
       <img src="images/Budget.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:80%">
@@ -128,13 +181,14 @@
     <hr>
     <br>
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="demo">
-      <h1 class="w3-wide">Demonstration plan</h1>
+      <h1 class="w3-wide">Demonstration plan</h1><br>
       <p class="w3-justify"  style="font-size:20px">
-        We are implementing two lockers as a bunch with the functionalities described above. Then an item is put in one locker. 
-        So it is unavailable. One of our team members books the available locker using the mobile application with map assistance. 
-        Then he opens it through the mobile app and puts something in it. Afterwards he shares the token that he received with another 
-        team member. This other guy opens the same locker using the mobile application as well as the keypad by entering the token. 
-        Moreover after expiring the time duration, the owner cannot open the locker furthermore.
+        We are implementing two lockers as a bunch with the functionalities described above. 
+        Then an item is put in one locker. So it is unavailable. One of our team members books the 
+        available locker using the mobile application with map assistance. Then he opens it through the mobile 
+        app and puts something in it. Afterwards, he shares the token that he received with another team member. This other 
+        guy opens the same locker using the mobile application as well as the keypad by entering the token. Moreover, after 
+        expiring the time duration, the owner cannot open the locker furthermore.
       </p>
     </div>
     <hr>
@@ -151,7 +205,7 @@
       <h4 class="w1-wide">Dr. Mahanama Wickramasinghe</h4> <br>
 
       <h1 class="w3-wide">Mentors</h1> <br>
-      <h4 class="w1-wide">Mr. Dinidu Thilakarathna- E/16/366</h4> <br>
+      <h4 class="w1-wide">Mr. Dinidu Thilakarathna</h4> <br>
     </div>
     <br>
     <hr>
@@ -162,7 +216,7 @@
       <h4 class="w1-wide">KHSP Kodagoda - E/17/168</h4> <br>
 
       <h1 class="w3-wide">Project Page</h1> <br>
-      <h4 class="w1-wide"><a href = "https://github.com/cepdnaclk/e17-3yp-Smart-Locker">Github Project Repo</a></h4> <br>
+      <h4 class="w1-wide"><a href = "https://github.com/cepdnaclk/e17-3yp-Smart-Locker" style="color: black;">Github Project Repo</a></h4> <br>
     </div>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
