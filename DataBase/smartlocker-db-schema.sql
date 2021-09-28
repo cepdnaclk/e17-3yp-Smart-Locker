@@ -37,6 +37,7 @@ CREATE TABLE Locker(
     OneTimeToken char(60),
     SharedOneTimeToken char(60),
     LockerNumber int,
+    ExpireDate TIMESTAMP,
     
     PRIMARY KEY(LockerID),
     FOREIGN KEY(LockerUserID) REFERENCES User(UserID),
