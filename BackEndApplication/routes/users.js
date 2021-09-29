@@ -46,17 +46,28 @@ router.post('/', (req, res) => {
         if (!rows.length) {
             // hashing password
             const saltRounds = 10;
+            const userId = uuidv4();
             bcrypt.hash(req.body.password, saltRounds, function(errHash, hash) {
-                connection.query('INSERT INTO user(UserName, UserEmail, UserId, Password, MobileNumber) values (?, ?, ?, ?, ?)', [req.body.username,
+                connection.query('INSERT INTO user(UserName, UserEmail, UserID, Password, MobileNumber) values (?, ?, ?, ?, ?)', [
+                    req.body.username,
                     req.body.email,
-                    uuidv4(),
+                    userId,
                     hash,
                     req.body.mobile
                 ], (errInsert, resultInsert) => {
                     if (errInsert) return res.status(500).send("Database failure");
-                    const token = jwt.sign({ jwtEmail: req.body.email }, 'smartLocker_jwtPrivateKey');
-                    //noramlly this token include in the header
-                    res.header('x-auth-token', token).send('Registration succeeded');
+                    connection.query('SELECT * FROM Location',(errLoc, rowsLoc, fieldsLoc) =>{
+                        if(errLoc) return res.status(500).send("Database failure");
+                        let signInRes = {
+                            locations: rowsLoc,
+                            userData: [{
+                                UserName: req.body.username,
+                                UserEmail: req.body.email
+                            }]
+                        };
+                        const token = jwt.sign({ jwtEmail: req.body.email, jwtUserId: userId}, 'smartLocker_jwtPrivateKey');
+                        res.header('x-auth-token', token).send(signInRes);
+                    })
                 });
             });
         }
@@ -69,7 +80,8 @@ router.post('/', (req, res) => {
 router.get('/me', auth, (req, res) => {
     connection.query('SELECT * FROM user WHERE UserEmail = ?', [req.fromUser.jwtEmail], (err, rows, fields) => {
         if (err) return res.status(500).send("Database failure");
-        res.send(rows[0]);
+        const token = jwt.sign({ jwtEmail: req.fromUser.jwtEmail, jwtUserId: req.fromUser.jwtUserId}, 'smartLocker_jwtPrivateKey');
+        res.header('x-auth-token', token).send(rows);
     })
 });
 module.exports = router;

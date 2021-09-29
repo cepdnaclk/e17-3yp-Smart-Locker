@@ -30,8 +30,19 @@ router.post('/', (req, res) => {
         if (rows.length) {
             bcrypt.compare(req.body.password, rows[0].Password, (errHash, resultHash) => {
                 if (!resultHash) return res.status(400).send("Incorrect Password");
-                const token = jwt.sign({ jwtEmail: rows[0].UserEmail }, 'smartLocker_jwtPrivateKey');
-                res.header('x-auth-token', token).send('Successfully logged');
+                connection.query('SELECT * FROM Location',(errLoc, rowsLoc, fieldsLoc) =>{
+                    if(errLoc) return res.status(500).send("Database failure");
+                    connection.query('SELECT * FROM Locker WHERE LockerUserID = ? AND Availability = ?',[rows[0].UserID, false], (errLocker, rowsLocker, fieldsLocker) => {
+                        if(errLocker) return res.status(500).send("Database failure");
+                        let logInRes = {
+                            locations: rowsLoc,
+                            userData: rows,
+                            lockers: rowsLocker
+                        };
+                        const token = jwt.sign({ jwtEmail: rows[0].UserEmail, jwtUserId: rows[0].UserID}, 'smartLocker_jwtPrivateKey');
+                        res.header('x-auth-token', token).send(logInRes);
+                    })
+                })
             });
         }
     });
