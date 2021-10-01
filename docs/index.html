@@ -128,13 +128,23 @@
       <h1 class="w3-wide">Security and Privacy</h1><br>
       <h4 class="w3-wide">In Software</h1>
       <p class="w3-justify  w3-end" style="font-size:20px">
-          ⚫&emsp;Prevent unauthorized people to access the mobile application
+          ⚫&emsp;Prevent unauthorized access from the mobile application
           <br>
           ⚫&emsp;Use two factor authentication for user accounts
           <br>
           ⚫&emsp;Validate user inputs
           <br>
-          ⚫&emsp;Time Based System for password
+          ⚫&emsp;JSON Web Tokens for authorization
+          <br>
+          ⚫&emsp;JWT signature validation
+          <br>
+          ⚫&emsp;Encrypt the user password in the database
+          <br>
+          ⚫&emsp;Update locker password after every single usage
+          <br>
+          ⚫&emsp;Record login details
+          <br>
+          ⚫&emsp;Block unwanted traffic using built-in AWS firewalls
           <br>
       </p>
       <h4 class="w3-wide">In Hardware</h1>
@@ -142,18 +152,20 @@
           ⚫&emsp;Durable Solenoid locks and lockers
           <br>
           ⚫&emsp;Sound buzzer if something wrong went wrong or malicious thing happen
+          <br>
+          ⚫&emsp;Private wi-fi connection for each cluster of lockers
       </p>
       <br><br><h1 class="w3-wide">Failure Handling</h1><br>
       <p class="w3-justify  w3-end" style="font-size:20px">
-        ⚫&emsp;Solenoid lock is in Locked mode at a power failure
+        ⚫&emsp;Solenoid lock is in Locked state at a power failure
+        <br>
+        ⚫&emsp;Solenoid lock is in Locked state at a server failure
         <br>
         ⚫&emsp;Show warnings to users
         <br>
-        ⚫&emsp;Data fetched from sensors are Stored within the device for a certaion period
+        ⚫&emsp;Data fetched from sensors are stored within the device for a certaion period
         <br>
         ⚫&emsp;Send that data again to the server to mitigate if lost updates happen
-        <br>
-        ⚫&emsp;Lock all the lockers if a Server failure happens 
       </p>
     </div>
     <hr>

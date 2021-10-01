@@ -20,8 +20,8 @@ CREATE TABLE User(
 
 CREATE TABLE Location(
 	LocationID char(60),
-    Longitude float,
-    Latitude float,
+    Longitude char(60),
+    Latitude char(60),
     LocationDescription char(60),
     
 	PRIMARY KEY(LocationID)
@@ -37,6 +37,7 @@ CREATE TABLE Locker(
     OneTimeToken char(60),
     SharedOneTimeToken char(60),
     LockerNumber int,
+    ExpireDate DATETIME,
     
     PRIMARY KEY(LockerID),
     FOREIGN KEY(LockerUserID) REFERENCES User(UserID),
