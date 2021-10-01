@@ -9,13 +9,13 @@ config = {
 
 var connection = mysql.createConnection(config);
 
-connection.connect(function(err) {
-    if (err) {
-        return console.log('error connecting:' + JSON.stringify(err, undefined, 2));
-    }
-    console.log('connected successfully to DB.');
+connection.connect(function (err) {
+  if (err) {
+    return console.log('error connecting:' + JSON.stringify(err, undefined, 2));
+  }
+  console.log('connected successfully to DB.');
 });
 
 module.exports = {
-    connection: mysql.createConnection(config)
-}
+  connection: mysql.createConnection(config),
+};
