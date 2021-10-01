@@ -3,6 +3,8 @@ const express = require('express');
 const home = require('./routes/home');
 const users = require('./routes/users');
 const mapclick = require('./routes/mapclick');
+const controlPanel = require('./routes/controlPanel');
+const accountProfile = require('./routes/accountProfile');
 
 // create express app
 const login = require('./routes/login');
@@ -13,11 +15,13 @@ app.use('/', home);
 app.use('/api/users', users);
 app.use('/api/login', login);
 app.use('/api/mapclick', mapclick);
+app.use('/api/controlPanel', controlPanel);
+app.use('/api/accountProfile', accountProfile);
 
 // setup the server port
 const port = process.env.PORT || 3000;
 
 // listening port 3000
 app.listen(port, () => {
-    console.log(`Listening port ${port}...`)
+  console.log(`Listening port ${port}...`);
 });

@@ -5,7 +5,7 @@ DROP PROCEDURE IF EXISTS checking_expire;
 CREATE PROCEDURE checking_expire()
 BEGIN
 	UPDATE locker
-		SET Availability = false WHERE ExpireDate = NOW();
+		SET Availability = true WHERE ExpireDate <= NOW();
 END$$
 DELIMITER ;
 
