@@ -9,6 +9,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  bool _mapLoading = true;
+
   Set<Marker> _markers = {};
   BitmapDescriptor mapMarker = BitmapDescriptor.defaultMarker;
   @override
@@ -16,13 +18,17 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     setCustomMarker();
   }
-  void setCustomMarker() async{
+
+  void setCustomMarker() async {
     // Custom marcker can use here
-    mapMarker = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/LockerIcon.png');
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/LockerIcon.png');
     //mapMarker = await BitmapDescriptor.defaultMarker;
   }
+
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
+      _mapLoading = false;
       // Can fetch from a api and update the _markers
       _markers.add(
         Marker(
@@ -34,13 +40,15 @@ class _MapPageState extends State<MapPage> {
           onTap: () {},
         ),
       );
-      _markers.add( Marker(
+      _markers.add(
+        Marker(
           markerId: MarkerId("id-2"),
           position: LatLng(7.2633009032347084, 80.59304870962823),
           infoWindow: InfoWindow(title: "Peradeniya"),
           icon: mapMarker,
           onTap: () {},
-        ),);
+        ),
+      );
     });
   }
 
@@ -60,15 +68,25 @@ class _MapPageState extends State<MapPage> {
           style: TextStyle(fontSize: 22, color: Colors.black87),
         ),
       ),
-      body: Center(
-        child: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: LatLng(7.252321246065113, 80.59256273092281),
-            zoom: 16,
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(7.252321246065113, 80.59256273092281),
+              zoom: 16,
+            ),
+            onMapCreated: _onMapCreated,
+            markers: _markers,
           ),
-          onMapCreated: _onMapCreated,
-          markers: _markers,
-        ),
+          (_mapLoading)
+              ? Container(
+                  color: Colors.grey[100],
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Container(),
+        ],
       ),
     );
   }
