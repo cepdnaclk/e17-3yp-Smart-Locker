@@ -1,11 +1,11 @@
 const mysql = require('mysql2');
 
 config = {
-  host: 'localhost',
-  user: 'root',
-  password: 'root', // password
-  database: 'SMARTLOCKERSYSTEM', // databasename
-};
+    host: 'localhost',
+    user: 'root',
+    password: 'maths123456', // password
+    database: 'SMARTLOCKERSYSTEM' // databasename
+}
 
 var connection = mysql.createConnection(config);
 
