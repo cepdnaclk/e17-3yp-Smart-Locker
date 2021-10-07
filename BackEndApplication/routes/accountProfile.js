@@ -25,7 +25,7 @@ router.get("/", auth, (req, res) => {
   }
   //retrive from database
   connection.query(
-    "SELECT * FROM user WHERE UserID = ?",
+    "SELECT * FROM User WHERE UserID = ?",
     [req.fromUser.jwtUserId],
     (err, rows, fields) => {
       if (err) return res.status(500).send("Database failure");

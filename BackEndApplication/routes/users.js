@@ -39,10 +39,10 @@ router.post("/", (req, res) => {
   // prevent from injection attacks
 
   connection.query(
-    "SELECT * FROM user WHERE UserEmail = ?",
+    "SELECT * FROM User WHERE UserEmail = ?",
     [req.body.email],
     (err, rows, fields) => {
-      if (err) return res.status(500).send("Database failure");
+      if (err) return res.status(500).send("Database failure1");
       if (rows.length) return res.status(400).send("User already exist");
       if (!rows.length) {
         // hashing password
@@ -50,14 +50,14 @@ router.post("/", (req, res) => {
         const userId = uuidv4();
         bcrypt.hash(req.body.password, saltRounds, function (errHash, hash) {
           connection.query(
-            "INSERT INTO user(UserName, UserEmail, UserID, Password, MobileNumber) values (?, ?, ?, ?, ?)",
+            "INSERT INTO User(UserName, UserEmail, UserID, Password, MobileNumber) values (?, ?, ?, ?, ?)",
             [req.body.username, req.body.email, userId, hash, req.body.mobile],
             (errInsert, resultInsert) => {
-              if (errInsert) return res.status(500).send("Database failure");
+              if (errInsert) return res.status(500).send("Database failure2");
               connection.query(
                 "SELECT * FROM Location",
                 (errLoc, rowsLoc, fieldsLoc) => {
-                  if (errLoc) return res.status(500).send("Database failure");
+                  if (errLoc) return res.status(500).send("Database failure3");
                   let signInRes = {
                     locations: rowsLoc,
                     userData: [
