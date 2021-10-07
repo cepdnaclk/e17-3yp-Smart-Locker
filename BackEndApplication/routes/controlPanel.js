@@ -23,7 +23,7 @@ router.get("/:lockerId", auth, (req, res) => {
 
   // retrive from database
   connection.query(
-    "SELECT Availability,isEmpty,OneTimeToken,LockerNumber,ExpireDate FROM Locker WHERE LockerId = ? AND  LockerUserID = ?",
+    "SELECT Availability,IsEmpty,OneTimeToken,LockerNumber,ExpireDate FROM Locker WHERE LockerID = ? AND  LockerUserID = ?",
     [req.params.lockerId, req.fromUser.jwtUserId],
     (err, rows, fields) => {
       if (err) return res.status(500).send("Database failure");
