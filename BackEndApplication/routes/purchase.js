@@ -1,7 +1,7 @@
 // set database password before running the app
 const config = require('../config/databaseConfig');
 const express = require('express');
-const { bool } = require('joi');
+const Joi = require('joi');
 
 const router = express.Router();
 const connection = config.connection;
@@ -26,14 +26,13 @@ router.post('/:lockerID', (req, res) => {
         return res.status(400).send(result.error.details[0].message);
     }
     var lockerID = req.params.lockerID;
-    var availability = req.body.availability;
     var expireDate = req.body.expireDate;
     var lockerUserID = req.fromUser.jwtUserId;
     var oneTimeToken = generateToken(12);
     var sharedOneTimeToken = generateToken(10);
-    var sql = `UPDATE Locker SET Availability=${availability}, ExpireDate=${expireDate} LockerUserID="${lockerUserID}" OneTimeToken="${oneTimeToken}" SharedOneTimeToken="${sharedOneTimeToken} WHERE LockerID=${lockerID}"`;
+    var sql = "UPDATE Locker SET Availability=?, ExpireDate=?, LockerUserID=?, OneTimeToken=?, SharedOneTimeToken=? WHERE LockerID=?";
 
-    connection.query(sql, (err, rows) => {
+    connection.query(sql, [false, expireDate, lockerUserID, oneTimeToken, sharedOneTimeToken, lockerID],(err, rows) => {
         if (err) return res.status(500).send("Database failure");
         connection.query(
             'SELECT Availability,ExpireDate,LockerUserID,SharedOneTimeToken FROM Locker WHERE LockerID =?', lockerID, (err, rows) => {

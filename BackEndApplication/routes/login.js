@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
 
   // retrive from database
   connection.query(
-    "SELECT * FROM user WHERE UserEmail = ?",
+    "SELECT * FROM User WHERE UserEmail = ?",
     [req.body.email],
     (err, rows, fields) => {
       if (err) return res.status(500).send("Database failure");
