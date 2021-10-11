@@ -1,11 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smart_locker">
+
+    <!-- Required to fetch data from the internet. -->
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="smart_locker"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyCA43ErGMyNyZxwCyZfgpNC26DhPNTh0xM"/>
+      
+
 
         <activity
             android:name=".MainActivity"
