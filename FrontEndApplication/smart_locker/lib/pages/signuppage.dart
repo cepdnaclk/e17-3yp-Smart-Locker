@@ -21,16 +21,6 @@ class SignUpPage extends StatelessWidget {
           BackgroundImage(
             image: 'assets/Sign-upbg.png',
           ),
-          // Container(
-          //   padding: EdgeInsets.fromLTRB(30.0, 160.0, 0.0, 0.0),
-          //   child: Text(
-          //     'SIGN UP',
-          //     style: TextStyle(
-          //       fontSize: 40.0,
-          //       color: Colors.black,
-          //     ),
-          //   ),
-          // ),
           SingleChildScrollView(
             reverse: true,
             padding: EdgeInsets.only(
