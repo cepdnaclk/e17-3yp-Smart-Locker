@@ -36,7 +36,7 @@ router.get("/:locationId", auth, (req, res) => {
           },
           "smartLocker_jwtPrivateKey"
         );
-        res.header("x-auth-token", token).send(rows);
+        res.header("x-auth-token", token).send({availableLockers: rows});
       }
     }
   );

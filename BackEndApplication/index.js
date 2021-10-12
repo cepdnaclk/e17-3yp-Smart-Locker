@@ -16,8 +16,6 @@ app.use('/', home);
 app.use('/api/users', users);
 app.use('/api/login', login);
 app.use('/api/mapclick', mapclick);
-app.use('/api/controlPanel', controlPanel);
-app.use('/api/accountProfile', accountProfile);
 app.use('/api/purchase', purchase);
 
 // setup the server port
