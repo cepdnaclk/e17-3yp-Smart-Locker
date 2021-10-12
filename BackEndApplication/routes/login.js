@@ -47,8 +47,8 @@ router.post("/", (req, res) => {
                       return res.status(500).send("Database failure");
                     let logInRes = {
                       locations: rowsLoc,
-                      userData: rows,
-                      lockers: rowsLocker,
+                      userData: rows[0],
+                      purchasedLockers: rowsLocker,
                     };
                     const token = jwt.sign(
                       {
