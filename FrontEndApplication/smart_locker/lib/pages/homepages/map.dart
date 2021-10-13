@@ -16,11 +16,14 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     setCustomMarker();
   }
-  void setCustomMarker() async{
+
+  void setCustomMarker() async {
     // Custom marcker can use here
-    mapMarker = await BitmapDescriptor.fromAssetImage(ImageConfiguration(), 'assets/LockerIcon.png');
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/LockerIcon.png');
     //mapMarker = await BitmapDescriptor.defaultMarker;
   }
+
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       // Can fetch from a api and update the _markers
@@ -31,16 +34,22 @@ class _MapPageState extends State<MapPage> {
           infoWindow: InfoWindow(title: "UoP Efac"),
           icon: mapMarker,
           // An ontap function can implement here
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, '/lockerlist');
+          },
         ),
       );
-      _markers.add( Marker(
+      _markers.add(
+        Marker(
           markerId: MarkerId("id-2"),
           position: LatLng(7.2633009032347084, 80.59304870962823),
           infoWindow: InfoWindow(title: "Peradeniya"),
           icon: mapMarker,
-          onTap: () {},
-        ),);
+          onTap: () {
+            Navigator.pushNamed(context, '/lockerlist');
+          },
+        ),
+      );
     });
   }
 

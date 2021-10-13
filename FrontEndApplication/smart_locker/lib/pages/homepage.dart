@@ -5,7 +5,8 @@ import 'package:smart_locker/pages/homepages/map.dart';
 import 'package:smart_locker/pages/homepages/settings.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final int index;
+  const HomePage({Key? key, required this.index}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -15,10 +16,13 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   final homepages = [
     MapPage(),
-    BookingPage(),
     ControlPanel(),
     SettingsPage(),
   ];
+  void initState() {
+    currentIndex = widget.index;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +56,11 @@ class _HomePageState extends State<HomePage> {
                 label: 'Map',
                 // backgroundColor: Colors.black
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.vpn_key),
-                label: 'Booking',
-                // backgroundColor: Colors.black
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.vpn_key),
+              //   label: 'Booking',
+              //   // backgroundColor: Colors.black
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.touch_app),
                 label: 'Controll Panel',

@@ -1,35 +1,41 @@
-class User {
-  String userName;
-  String userEmail;
-  String userID;
-  String password;
-  String mobileNumber;
-  String userRoleID;
+import 'dart:convert';
 
-  User(
+User userFromJson(String str) => User.fromJson(json.decode(str));
+
+String userToJson(User data) => json.encode(data.toJson());
+
+class User {
+  User({
     this.userName,
     this.userEmail,
-    this.userID,
+    this.userId,
     this.password,
     this.mobileNumber,
-    this.userRoleID,
-  );
+    this.userRoleId,
+  });
+
+  String? userName;
+  String? userEmail;
+  String? userId;
+  String? password;
+  String? mobileNumber;
+  String? userRoleId;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        userName: json["userName"],
+        userEmail: json["userEmail"],
+        userId: json["userID"],
+        password: json["password"],
+        mobileNumber: json["mobileNumber"],
+        userRoleId: json["userRoleID"],
+      );
 
   Map<String, dynamic> toJson() => {
-        'userName': userName,
-        'userEmail': userEmail,
-        'userID': userID,
-        'password': password,
-        'mobileNumber': mobileNumber,
-        'userRoleID': userRoleID
+        "userName": userName,
+        "userEmail": userEmail,
+        "userID": userId,
+        "password": password,
+        "mobileNumber": mobileNumber,
+        "userRoleID": userRoleId,
       };
-
-  User.fromJson(Map<String, dynamic> json) {
-    userName=json['userName'],
-    userEmail=json['userEmail'],
-    userID=json['userID'],
-    password;
-    mobileNumber;
-    userRoleID;
-  }
 }
