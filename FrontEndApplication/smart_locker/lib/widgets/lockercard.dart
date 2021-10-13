@@ -25,8 +25,13 @@ class LockerCard extends StatelessWidget {
                 color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    children: [Text(cardName), Text(location)],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/purchase');
+                    },
+                    child: Column(
+                      children: [Text(cardName), Text(location)],
+                    ),
                   ),
                 ),
               ),
