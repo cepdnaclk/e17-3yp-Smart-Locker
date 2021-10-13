@@ -37,7 +37,9 @@ class _MapPageState extends State<MapPage> {
           infoWindow: InfoWindow(title: "UoP Efac"),
           icon: mapMarker,
           // An ontap function can implement here
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, '/lockerlist');
+          },
         ),
       );
       _markers.add(
@@ -46,7 +48,10 @@ class _MapPageState extends State<MapPage> {
           position: LatLng(7.2633009032347084, 80.59304870962823),
           infoWindow: InfoWindow(title: "Peradeniya"),
           icon: mapMarker,
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, '/lockerlist');
+          },
+
         ),
       );
     });
