@@ -9,6 +9,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  bool _mapLoading = true;
+
   Set<Marker> _markers = {};
   BitmapDescriptor mapMarker = BitmapDescriptor.defaultMarker;
   @override
@@ -26,6 +28,7 @@ class _MapPageState extends State<MapPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
+      _mapLoading = false;
       // Can fetch from a api and update the _markers
       _markers.add(
         Marker(
@@ -48,6 +51,7 @@ class _MapPageState extends State<MapPage> {
           onTap: () {
             Navigator.pushNamed(context, '/lockerlist');
           },
+
         ),
       );
     });
@@ -69,15 +73,25 @@ class _MapPageState extends State<MapPage> {
           style: TextStyle(fontSize: 22, color: Colors.black87),
         ),
       ),
-      body: Center(
-        child: GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: LatLng(7.252321246065113, 80.59256273092281),
-            zoom: 16,
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: LatLng(7.252321246065113, 80.59256273092281),
+              zoom: 16,
+            ),
+            onMapCreated: _onMapCreated,
+            markers: _markers,
           ),
-          onMapCreated: _onMapCreated,
-          markers: _markers,
-        ),
+          (_mapLoading)
+              ? Container(
+                  color: Colors.grey[100],
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Container(),
+        ],
       ),
     );
   }

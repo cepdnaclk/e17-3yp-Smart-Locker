@@ -15,7 +15,7 @@ router.get('/:lockerID', (req, res) => {
         return res.status(400).send(result.error.details[0].message);
     }
 
-    connection.query('SELECT * FROM Locker WHERE LockerID = ?', req.params.lockerID, (err, rows, fields) => {
+    connection.query('SELECT * FROM Locker WHERE LockerID = ?', [req.params.lockerID], (err, rows, fields) => {
         if (err) return res.status(500).send("Database failure");
         if (rows.length == 1) {
             res.send(rows[0]);

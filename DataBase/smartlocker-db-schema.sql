@@ -23,17 +23,18 @@ CREATE TABLE Location(
     Longitude char(60),
     Latitude char(60),
     LocationDescription char(60),
-    
+    LocationUrl char(250),
 	PRIMARY KEY(LocationID)
 );
 
 CREATE TABLE Locker(
 	LockerID char(60),
     LockerUserID char(60),
-    LockerLocationId char(60),
+    LockerLocationID char(60),
     ClusterID char(60),
     Availability boolean,
     IsEmpty boolean,
+    IsLocked boolean,
     OneTimeToken char(60),
     SharedOneTimeToken char(60),
     LockerNumber int,
