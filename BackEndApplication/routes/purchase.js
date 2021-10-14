@@ -2,6 +2,7 @@
 const config = require('../config/databaseConfig');
 const express = require('express');
 const Joi = require('joi');
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 const connection = config.connection;
@@ -16,7 +17,7 @@ function generateToken(length) {
     return result;
 }
 
-router.post('/:lockerID', (req, res) => {
+router.post('/:lockerID', auth, (req, res) => {
 
     const schema = Joi.object({});
 
@@ -35,22 +36,16 @@ router.post('/:lockerID', (req, res) => {
     connection.query(sql, [false, expireDate, lockerUserID, oneTimeToken, sharedOneTimeToken, lockerID],(err, rows) => {
         if (err) return res.status(500).send("Database failure");
         connection.query(
-            'SELECT Availability,ExpireDate,LockerUserID,SharedOneTimeToken FROM Locker WHERE LockerID =?', lockerID, (err, rows) => {
-                if (err) return res.status(500).send("Database failure");
-                if (rows.length == 1) {
-                    let purchedLocker = {
-                        Availability: rows[0].Availability,
-                        ExpireDate: rows[0].ExpireDate,
-                        LockerUserID: rows[0].LockerUserID,
-                        SharedOneTimeToken: rows[0].SharedOneTimeToken,
-                    }
+            'SELECT * FROM Locker WHERE LockerID =?', [lockerID], (errLocker, rowsLocker, fields) => {
+                if (errLocker) return res.status(500).send("Database failure");
+                if (rowsLocker.length == 1) {
                     const token = jwt.sign({
                             jwtEmail: req.fromUser.jwtEmail,
                             jwtUserId: req.fromUser.jwtUserId,
                         },
                         'smartLocker_jwtPrivateKey'
                     );
-                    res.header('x-auth-token', token).send(purchedLocker);
+                    res.header('x-auth-token', token).send({purchedLocker: rowsLocker[0]});
                 } else {
                     return res.status(400).send("There only can be a single row");
                 }

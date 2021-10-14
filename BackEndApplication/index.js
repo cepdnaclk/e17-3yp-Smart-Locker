@@ -6,8 +6,8 @@ const mapclick = require('./routes/mapclick');
 const controlPanel = require('./routes/controlPanel');
 const accountProfile = require('./routes/accountProfile');
 const purchase = require('./routes/purchase');
-
-// create express app
+const lockerdetails = require('./routes/lockerdetail')
+    // create express app
 const login = require('./routes/login');
 const app = express();
 
@@ -16,9 +16,8 @@ app.use('/', home);
 app.use('/api/users', users);
 app.use('/api/login', login);
 app.use('/api/mapclick', mapclick);
-app.use('/api/controlPanel', controlPanel);
-app.use('/api/accountProfile', accountProfile);
 app.use('/api/purchase', purchase);
+app.use('/api/lockerdetails', lockerdetails)
 
 // setup the server port
 const port = process.env.PORT || 3000;

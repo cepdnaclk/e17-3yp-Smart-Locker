@@ -39,7 +39,7 @@ router.get("/", auth, (req, res) => {
           },
           "smartLocker_jwtPrivateKey"
         );
-        res.header("x-auth-token", token).send(rows);
+        res.header("x-auth-token", token).send({userData: rows[0]});
       }
     }
   );

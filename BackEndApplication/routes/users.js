@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
     "SELECT * FROM User WHERE UserEmail = ?",
     [req.body.email],
     (err, rows, fields) => {
-      if (err) return res.status(500).send("Database failure1");
+      if (err) return res.status(500).send("Database failure");
       if (rows.length) return res.status(400).send("User already exist");
       if (!rows.length) {
         // hashing password
@@ -53,25 +53,24 @@ router.post("/", (req, res) => {
             "INSERT INTO User(UserName, UserEmail, UserID, Password, MobileNumber) values (?, ?, ?, ?, ?)",
             [req.body.username, req.body.email, userId, hash, req.body.mobile],
             (errInsert, resultInsert) => {
-              if (errInsert) return res.status(500).send("Database failure2");
+              if (errInsert) return res.status(500).send("Database failure");
               connection.query(
                 "SELECT * FROM Location",
                 (errLoc, rowsLoc, fieldsLoc) => {
-                  if (errLoc) return res.status(500).send("Database failure3");
-                  let signInRes = {
-                    locations: rowsLoc,
-                    userData: [
-                      {
-                        UserName: req.body.username,
-                        UserEmail: req.body.email,
-                      },
-                    ],
-                  };
-                  const token = jwt.sign(
-                    { jwtEmail: req.body.email, jwtUserId: userId },
-                    "smartLocker_jwtPrivateKey"
-                  );
-                  res.header("x-auth-token", token).send(signInRes);
+                  if (errLoc) return res.status(500).send("Database failure");
+                  connection.query("SELECT * FROM User WHERE UserEmail = ?",[req.body.email],(errUser, rowsUser, fieldsUser) => {
+                    if (errUser) return res.status(500).send("Database failure");
+                    let signInRes = {
+                      locations: rowsLoc,
+                      userData: rowsUser[0],
+                      purchasedLockers: []
+                    };
+                    const token = jwt.sign(
+                      { jwtEmail: req.body.email, jwtUserId: userId },
+                      "smartLocker_jwtPrivateKey"
+                    );
+                    res.header("x-auth-token", token).send(signInRes);
+                  });
                 }
               );
             }
