@@ -62,13 +62,16 @@ class _LockerListState extends State<LockerList> {
             child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery.of(context).size.height * 0.06,
                   child: Container(
                     color: Colors.blue[800],
                     child: Center(
                       child: Text(
                         "Select a locker",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),

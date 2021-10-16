@@ -51,7 +51,7 @@ class _ControlPanelState extends State<ControlPanel> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
+              height: MediaQuery.of(context).size.height * 0.01,
             ),
             Container(
               padding: EdgeInsets.only(right: 180, bottom: 10),
@@ -78,8 +78,32 @@ class _ControlPanelState extends State<ControlPanel> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(right: 200, bottom: 10, top: 30),
+              padding: EdgeInsets.only(right: 200, bottom: 10, top: 10),
               child: Text("Expire Date",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold)),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: MediaQuery.of(context).size.width * 0.85,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Color(0xFF003d80), width: 3),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              child: Center(
+                child: Column(
+                  children: [Container()],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(right: 200, bottom: 10, top: 10),
+              child: Text("Locker Token",
                   style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -109,11 +133,11 @@ class _ControlPanelState extends State<ControlPanel> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 10, top: 10),
-                        child: Text("Empty Or Not",
+                        child: Text("Empty",
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 16,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold)),
+                                fontWeight: FontWeight.w600)),
                       ),
                       Container(
                           height: MediaQuery.of(context).size.height * 0.08,
@@ -127,7 +151,9 @@ class _ControlPanelState extends State<ControlPanel> {
                             ),
                           ),
                           child: Container(
-                            child: Center(child: Text("Empty")),
+                            child: Center(
+                              child: Text("Yes"),
+                            ),
                           )),
                     ],
                   ),
@@ -137,11 +163,11 @@ class _ControlPanelState extends State<ControlPanel> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 10, top: 10),
-                        child: Text("To Map",
+                        child: Text("Location",
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 16,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold)),
+                                fontWeight: FontWeight.w600)),
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
@@ -166,11 +192,74 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                     ],
                   ),
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10, top: 10),
+                        child: Text("Share Token",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.18,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Color(0xFF003d80), width: 3),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(Icons.share),
+                            onPressed: () {
+                              // This function can find at bottom of the code
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10, top: 10),
+                        child: Text("Open",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.18,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Color(0xFF003d80), width: 3),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text("Yes"),
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.06,
+              height: MediaQuery.of(context).size.height * 0.01,
             ),
             AnimatedToggle(
               values: ['Lock', 'Unlock'],
@@ -241,13 +330,15 @@ class _ControlPanelState extends State<ControlPanel> {
     showModalBottomSheet(
       context: context,
       enableDrag: false,
+      isScrollControlled: true,
       builder: (BuildContext bc) {
         return Stack(children: [
           Container(
-            height: MediaQuery.of(context).size.height * .60,
+            height: MediaQuery.of(context).size.height * 0.80,
             child: MapPage(),
           ),
           Container(
+            height: MediaQuery.of(context).size.height * 0.80,
             alignment: Alignment.topRight,
             child: IconButton(
               onPressed: () {
