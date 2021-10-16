@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_locker/pages/homepages/map.dart';
 import 'package:smart_locker/widgets/animatedtoggle.dart';
 
 class ControlPanel extends StatefulWidget {
@@ -156,7 +157,10 @@ class _ControlPanelState extends State<ControlPanel> {
                         child: Center(
                           child: IconButton(
                             icon: Icon(Icons.map_outlined),
-                            onPressed: () {},
+                            onPressed: () {
+                              // This function can find at bottom of the code
+                              _getMap(context);
+                            },
                           ),
                         ),
                       ),
@@ -230,6 +234,34 @@ class _ControlPanelState extends State<ControlPanel> {
           },
         ),
       ),
+    );
+  }
+
+  void _getMap(context) {
+    showModalBottomSheet(
+      context: context,
+      enableDrag: false,
+      builder: (BuildContext bc) {
+        return Stack(children: [
+          Container(
+            height: MediaQuery.of(context).size.height * .60,
+            child: MapPage(),
+          ),
+          Container(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(
+                Icons.cancel,
+                color: Color(0xFF003d80),
+                size: 30,
+              ),
+            ),
+          )
+        ]);
+      },
     );
   }
 }
