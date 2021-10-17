@@ -39,14 +39,14 @@ class LockerCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
                 boxShadow: [
                   new BoxShadow(
-                    color: Colors.blue[800]!.withOpacity(0.8),
-                    blurRadius: 0.8,
+                    color: Color(0xFF003d80),
+                    blurRadius: 0.1,
                     offset: Offset.fromDirection(1, 1),
                   ),
                 ],
               )),
           SizedBox(
-            height: 10.0,
+            height: 20.0,
           )
         ],
       ),
