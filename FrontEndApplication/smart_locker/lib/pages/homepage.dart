@@ -67,8 +67,8 @@ class _HomePageState extends State<HomePage> {
                 // backgroundColor: Colors.black
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
+                icon: Icon(Icons.account_circle),
+                label: 'Profile',
                 // backgroundColor: Colors.black
               )
             ],

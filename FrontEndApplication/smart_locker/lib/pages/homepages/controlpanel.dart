@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smart_locker/pages/homepages/map.dart';
 import 'package:smart_locker/widgets/animatedtoggle.dart';
+import 'package:share/share.dart';
+import 'package:smart_locker/widgets/usermap.dart';
 
 class ControlPanel extends StatefulWidget {
   const ControlPanel({Key? key}) : super(key: key);
@@ -219,7 +220,7 @@ class _ControlPanelState extends State<ControlPanel> {
                           child: IconButton(
                             icon: Icon(Icons.share),
                             onPressed: () {
-                              // This function can find at bottom of the code
+                              Share.share("This is your password and locker details\nUOP");
                             },
                           ),
                         ),
@@ -334,11 +335,11 @@ class _ControlPanelState extends State<ControlPanel> {
       builder: (BuildContext bc) {
         return Stack(children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.80,
-            child: MapPage(),
+            height: MediaQuery.of(context).size.height * 0.70,
+            child: UserMap(),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.80,
+            height: MediaQuery.of(context).size.height * 0.70,
             alignment: Alignment.topRight,
             child: IconButton(
               onPressed: () {
@@ -347,7 +348,7 @@ class _ControlPanelState extends State<ControlPanel> {
               icon: Icon(
                 Icons.cancel,
                 color: Color(0xFF003d80),
-                size: 30,
+                size: 35,
               ),
             ),
           )
