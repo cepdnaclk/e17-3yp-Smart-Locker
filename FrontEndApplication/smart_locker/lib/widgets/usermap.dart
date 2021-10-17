@@ -3,14 +3,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+class UserMap extends StatefulWidget {
+  const UserMap({Key? key}) : super(key: key);
 
   @override
-  _MapPageState createState() => _MapPageState();
+  _UserMapState createState() => _UserMapState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _UserMapState extends State<UserMap> {
   // function for Acceessing Location
   LocationData? currentLocation;
   bool _userlocationready = false;
@@ -62,7 +62,6 @@ class _MapPageState extends State<MapPage> {
   }
   //---------------------------------------------
 
-  
   Set<Marker> _markers = {};
   BitmapDescriptor mapMarker = BitmapDescriptor.defaultMarker;
 
@@ -83,9 +82,6 @@ class _MapPageState extends State<MapPage> {
           infoWindow: InfoWindow(title: "UoP Efac"),
           icon: mapMarker,
           // An ontap function can implement here
-          onTap: () {
-            Navigator.pushNamed(context, '/lockerlist');
-          },
         ),
       );
       _markers.add(
@@ -94,12 +90,9 @@ class _MapPageState extends State<MapPage> {
           position: LatLng(7.2633009032347084, 80.59304870962823),
           infoWindow: InfoWindow(title: "Peradeniya"),
           icon: mapMarker,
-          onTap: () {
-            Navigator.pushNamed(context, '/lockerlist');
-          },
         ),
       );
-      _mapLoading = false;
+       _mapLoading = false;
     });
   }
   //-----------------------------------------
@@ -114,19 +107,6 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
-          ),
-        ),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(
-          'Map',
-          style: TextStyle(fontSize: 22, color: Colors.black87),
-        ),
-      ),
       body: Stack(
         children: [
           (_userlocationready && _allowService)
