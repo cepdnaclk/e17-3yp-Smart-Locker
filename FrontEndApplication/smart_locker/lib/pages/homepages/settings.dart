@@ -21,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Settings',
+          'Profile',
           style: TextStyle(fontSize: 22, color: Colors.black87),
         ),
       ),
