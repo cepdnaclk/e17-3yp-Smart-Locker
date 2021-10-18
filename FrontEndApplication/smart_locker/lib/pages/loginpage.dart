@@ -1,11 +1,35 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:smart_locker/models/UserModel.dart';
 import 'package:smart_locker/widgets/backgroundimage.dart';
 import 'package:smart_locker/widgets/submitbutton.dart';
 import 'package:smart_locker/widgets/textinput.dart';
 
-class LogInPage extends StatelessWidget {
+class LogInPage extends StatefulWidget {
+  @override
+  _LogInPageState createState() => _LogInPageState();
+}
+
+class _LogInPageState extends State<LogInPage> {
   final EmailController = TextEditingController();
+
   final PasswordController = TextEditingController();
+
+  Future<http.Response> login(String email, String password) async {
+    final String apiUrl = 'http://18.207.127.220:3000/api/login';
+
+    Map<String, String> data = {"email": email, "password": password};
+
+    final body = json.encode(data);
+
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {"Content-Type": "application/json"}, body: body);
+
+    return response;
+  }
+
+  UserModel user = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +40,6 @@ class LogInPage extends StatelessWidget {
           BackgroundImage(
             image: 'assets/Log-inbg.png',
           ),
-          // Container(
-          //   padding: EdgeInsets.fromLTRB(30.0, 160.0, 0.0, 0.0),
-          //   child: Text(
-          //     'LOG IN',
-          //     style: TextStyle(
-          //       fontSize: 40.0,
-          //       color: Colors.black,
-          //     ),
-          //   ),
-          // ),
           SingleChildScrollView(
             reverse: true,
             padding: EdgeInsets.only(
@@ -44,7 +58,28 @@ class LogInPage extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-                    SubmitButton(onSubmitHandler: () {}, text: "LOG IN")
+                    SubmitButton(
+                        onSubmitHandler: () async {
+                          final String email = EmailController.text;
+                          final String password = PasswordController.text;
+                          print(email);
+                          print(password);
+                          final http.Response response =
+                              await login(email, password);
+                          print(response);
+                          if (response.statusCode == 200) {
+                            var r = json.decode(response.body);
+                            setState(() {
+                              user = UserModel.fromJson(r);
+                            });
+                            print(user.userData!.UserEmail);
+                            Navigator.pushNamed(
+                              context,
+                              '/home0',
+                            );
+                          }
+                        },
+                        text: "LOG IN")
                   ],
                 ),
               ),
