@@ -33,7 +33,7 @@ router.post('/:lockerID', auth, (req, res) => {
     var sharedOneTimeToken = generateToken(10);
     var sql = "UPDATE Locker SET Availability=?, ExpireDate=?, LockerUserID=?, OneTimeToken=?, SharedOneTimeToken=? WHERE LockerID=?";
 
-    connection.query(sql, [false, expireDate, lockerUserID, oneTimeToken, sharedOneTimeToken, lockerID],(err, rows) => {
+    connection.query(sql, [false, expireDate, lockerUserID, oneTimeToken, sharedOneTimeToken, lockerID], (err, rows) => {
         if (err) return res.status(500).send("Database failure");
         connection.query(
             'SELECT * FROM Locker WHERE LockerID =?', [lockerID], (errLocker, rowsLocker, fields) => {
@@ -45,7 +45,7 @@ router.post('/:lockerID', auth, (req, res) => {
                         },
                         'smartLocker_jwtPrivateKey'
                     );
-                    res.header('x-auth-token', token).send({purchedLocker: rowsLocker[0]});
+                    res.header('x-auth-token', token).send({ purchedLocker: rowsLocker[0] });
                 } else {
                     return res.status(400).send("There only can be a single row");
                 }
