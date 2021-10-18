@@ -50,7 +50,7 @@ router.post("/", (req, res) => {
         const userId = uuidv4();
         bcrypt.hash(req.body.password, saltRounds, function (errHash, hash) {
           connection.query(
-            "INSERT INTO User(UserName, UserEmail, UserID, Password, MobileNumber) values (?, ?, ?, ?, ?)",
+            "INSERT INTO User(UserName, UserEmail, UserID, Password, MobileNumber, UserRoleID) values (?, ?, ?, ?, ?, '1')",
             [req.body.username, req.body.email, userId, hash, req.body.mobile],
             (errInsert, resultInsert) => {
               if (errInsert) return res.status(500).send("Database failure");
