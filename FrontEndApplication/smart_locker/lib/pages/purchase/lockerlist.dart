@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smart_locker/models/locker.dart';
+import 'package:smart_locker/models/PurchasedLockersModel.dart';
+
 import 'package:smart_locker/widgets/lockercard.dart';
 
 class LockerList extends StatefulWidget {
-  final List<Locker> lockerList;
+  final List<PurchasedLockersModel> lockerList;
   const LockerList({Key? key, required this.lockerList}) : super(key: key);
   @override
   _LockerListState createState() => _LockerListState();
@@ -41,8 +42,8 @@ class _LockerListState extends State<LockerList> {
                         if (!widget.lockerList.isEmpty) {
                           return LockerCard(
                               UniqueKey(),
-                              widget.lockerList[index].lockerID,
-                              widget.lockerList[index].lockerLocationID);
+                              widget.lockerList[index].LockerID!,
+                              widget.lockerList[index].LockerLocationID!);
                         } else {
                           return Text("No Locker");
                         }
