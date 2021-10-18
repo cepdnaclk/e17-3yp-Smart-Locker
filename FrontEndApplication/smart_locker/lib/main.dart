@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
               index: 1,
             ),
         '/lockerlist': (context) {
-          var list;
-          return LockerList(lockerList: list);
+          return LockerList(
+            lockerList: [],
+          );
         },
         '/purchase': (context) => Purchase(),
       },
