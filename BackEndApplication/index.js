@@ -6,7 +6,7 @@ const mapclick = require('./routes/mapclick');
 const controlPanel = require('./routes/controlPanel');
 const accountProfile = require('./routes/accountProfile');
 const purchase = require('./routes/purchase');
-const lockerdetails = require('./routes/lockerdetail')
+const lockerdetails = require('./routes/lockerdetails')
     // create express app
 const login = require('./routes/login');
 const app = express();
