@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:smart_locker/models/UserModel.dart';
+import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/backgroundimage.dart';
 import 'package:smart_locker/widgets/submitbutton.dart';
 import 'package:smart_locker/widgets/textinput.dart';
@@ -17,7 +18,7 @@ class _LogInPageState extends State<LogInPage> {
   final PasswordController = TextEditingController();
 
   Future<http.Response> login(String email, String password) async {
-    final String apiUrl = 'http://18.207.127.220:3000/api/login';
+    final String apiUrl = DataService.ip + "/api/login";
 
     Map<String, String> data = {"email": email, "password": password};
 
@@ -28,8 +29,6 @@ class _LogInPageState extends State<LogInPage> {
 
     return response;
   }
-
-  UserModel user = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +61,15 @@ class _LogInPageState extends State<LogInPage> {
                         onSubmitHandler: () async {
                           final String email = EmailController.text;
                           final String password = PasswordController.text;
-                          print(email);
-                          print(password);
                           final http.Response response =
                               await login(email, password);
                           print(response);
                           if (response.statusCode == 200) {
                             var r = json.decode(response.body);
                             setState(() {
-                              user = UserModel.fromJson(r);
+                              DataService.user = UserModel.fromJson(r);
                             });
-                            print(user.userData!.UserEmail);
+                            print(DataService.user.userData!.UserEmail);
                             Navigator.pushNamed(
                               context,
                               '/home0',

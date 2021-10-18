@@ -36,21 +36,23 @@ class _LockerListState extends State<LockerList> {
               child: Card(
                 child: Column(
                   children: [
-                    ListView.builder(
-                      itemCount: widget.lockerList.length,
-                      itemBuilder: (context, index) {
-                        if (!widget.lockerList.isEmpty) {
-                          return LockerCard(
-                              UniqueKey(),
-                              widget.lockerList[index].LockerID!,
-                              widget.lockerList[index].LockerLocationID!);
-                        } else {
-                          return Text("No Locker");
-                        }
-                      },
-                      physics: ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                    ),
+                    (widget.lockerList.isNotEmpty)
+                        ? ListView.builder(
+                            itemCount: widget.lockerList.length,
+                            itemBuilder: (context, index) {
+                              if (!widget.lockerList.isEmpty) {
+                                return LockerCard(
+                                    UniqueKey(),
+                                    widget.lockerList[index].LockerID!,
+                                    widget.lockerList[index].LockerLocationID!);
+                              } else {
+                                return Container();
+                              }
+                            },
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                          )
+                        : LockerCard(UniqueKey(), "No Lockers", "Have to add"),
                     SizedBox(
                       height: 20.0,
                     )
