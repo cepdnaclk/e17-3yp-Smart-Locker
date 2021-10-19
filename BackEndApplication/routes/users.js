@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
     "SELECT * FROM User WHERE UserEmail = ?",
     [req.body.email],
     (err, rows, fields) => {
-      if (err) return res.status(500).send("Database failure");
+      if (err) return res.status(500).send("Database failure1");
       if (rows.length) return res.status(400).send("User already exist");
       if (!rows.length) {
         // hashing password
@@ -53,13 +53,13 @@ router.post("/", (req, res) => {
             "INSERT INTO User(UserName, UserEmail, UserID, Password, MobileNumber, UserRoleID) values (?, ?, ?, ?, ?, '1')",
             [req.body.username, req.body.email, userId, hash, req.body.mobile],
             (errInsert, resultInsert) => {
-              if (errInsert) return res.status(500).send("Database failure");
+              if (errInsert) return res.status(500).send("Database failure2");
               connection.query(
-                "SELECT * FROM Location",
+                "SELECT DISTINCT Location.* FROM Location INNER JOIN Locker ON LocationID = LockerLocationID WHERE Availability = true AND IsEmpty = true",
                 (errLoc, rowsLoc, fieldsLoc) => {
-                  if (errLoc) return res.status(500).send("Database failure");
+                  if (errLoc) return res.status(500).send("Database failure3");
                   connection.query("SELECT * FROM User WHERE UserEmail = ?",[req.body.email],(errUser, rowsUser, fieldsUser) => {
-                    if (errUser) return res.status(500).send("Database failure");
+                    if (errUser) return res.status(500).send("Database failure4");
                     let signInRes = {
                       locations: rowsLoc,
                       userData: rowsUser[0],
