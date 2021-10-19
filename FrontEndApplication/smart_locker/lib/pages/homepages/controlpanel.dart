@@ -64,17 +64,26 @@ class _ControlPanelState extends State<ControlPanel> {
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
-              width: MediaQuery.of(context).size.width * 0.85,
+              width: MediaQuery.of(context).size.width * 0.90,
+              padding: EdgeInsets.only(left: 12.0),
               decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Color(0xFF003d80), width: 3),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color(0xFF003d80),
               ),
-              child: Center(
-                child: Column(
-                  children: [Container()],
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF003d80), width: 2),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0)),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Text(
+                    '',
+                    textScaleFactor: 2,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ),
@@ -88,17 +97,26 @@ class _ControlPanelState extends State<ControlPanel> {
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
-              width: MediaQuery.of(context).size.width * 0.85,
+              width: MediaQuery.of(context).size.width * 0.90,
+              padding: EdgeInsets.only(left: 12.0),
               decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Color(0xFF003d80), width: 3),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color(0xFF003d80),
               ),
-              child: Center(
-                child: Column(
-                  children: [Container()],
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF003d80), width: 2),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0)),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Text(
+                    '',
+                    textScaleFactor: 2,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ),
@@ -112,17 +130,26 @@ class _ControlPanelState extends State<ControlPanel> {
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
-              width: MediaQuery.of(context).size.width * 0.85,
+              width: MediaQuery.of(context).size.width * 0.90,
+              padding: EdgeInsets.only(left: 12.0),
               decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Color(0xFF003d80), width: 3),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color(0xFF003d80),
               ),
-              child: Center(
-                child: Column(
-                  children: [Container()],
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF003d80), width: 2),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0)),
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Text(
+                    '',
+                    textScaleFactor: 2,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ),
@@ -220,7 +247,8 @@ class _ControlPanelState extends State<ControlPanel> {
                           child: IconButton(
                             icon: Icon(Icons.share),
                             onPressed: () {
-                              Share.share("This is your password and locker details\nUOP");
+                              Share.share(
+                                  "This is your password and locker details\nUOP");
                             },
                           ),
                         ),

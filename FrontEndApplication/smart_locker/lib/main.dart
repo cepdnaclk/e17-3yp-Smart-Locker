@@ -27,10 +27,13 @@ class MyApp extends StatelessWidget {
               index: 1,
             ),
         '/lockerlist': (context) {
-          var list;
-          return LockerList(lockerList: list);
+          return LockerList(
+            lockerList: [],
+            location: "",
+          );
         },
-        '/purchase': (context) => Purchase(),
+        '/purchase': (context) =>
+            Purchase(cardName: "", location: "", lockerID: ""),
       },
     );
   }

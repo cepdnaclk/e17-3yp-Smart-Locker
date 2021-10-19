@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:smart_locker/pages/purchase/purchase.dart';
 
 class LockerCard extends StatelessWidget {
   final String cardName;
   final String location;
+  final String lockerID;
   const LockerCard(
     Key key,
     this.cardName,
     this.location,
+    this.lockerID,
   ) : super(key: key);
 
   @override
@@ -27,7 +30,18 @@ class LockerCard extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/purchase');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (
+                          context,
+                        ) =>
+                                Purchase(
+                                  cardName: cardName,
+                                  location: location,
+                                  lockerID: lockerID,
+                                )),
+                      );
                     },
                     child: Column(
                       children: [Text(cardName), Text(location)],

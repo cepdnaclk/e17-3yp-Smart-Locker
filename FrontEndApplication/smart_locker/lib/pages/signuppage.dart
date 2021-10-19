@@ -1,19 +1,50 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:smart_locker/models/UserModel.dart';
+import 'package:smart_locker/service/dataservice.dart';
 import '../widgets/backgroundimage.dart';
 import '../widgets/textinput.dart';
 import '../widgets/passwordinput.dart';
 import '../widgets/submitbutton.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  // OnTap handler functions in line 76 and 86 have to implement
+  // Following controllers have to implement correctly to functioning of TextInputs and PasswordInputs
+  final UserNameController = TextEditingController();
+  final EmailController = TextEditingController();
+  final NumberController = TextEditingController();
+  final PasswordController = TextEditingController();
+  final ConfirmPasswordController = TextEditingController();
+
+  Future<http.Response> signup(
+      String username, String email, String password, String number) async {
+    final String apiUrl = DataService.ip + "/api/users";
+
+    Map<String, String> data = {
+      "username": username,
+      "email": email,
+      "password": password,
+      "mobile": number
+    };
+
+    final body = json.encode(data);
+
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {"Content-Type": "application/json"}, body: body);
+
+    return response;
+  }
+
+  UserModel user = UserModel();
+
   @override
   Widget build(BuildContext context) {
-    // OnTap handler functions in line 76 and 86 have to implement
-    // Following controllers have to implement correctly to functioning of TextInputs and PasswordInputs
-    final myController = TextEditingController();
-    final myController1 = TextEditingController();
-    final myController2 = TextEditingController();
-    final myController3 = TextEditingController();
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -27,39 +58,72 @@ class SignUpPage extends StatelessWidget {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Center(
               child: Container(
-                padding: EdgeInsets.only(top: 280),
+                padding: EdgeInsets.only(top: 220),
                 child: Column(
                   children: [
                     TextInput(
-                      emailController: myController,
+                      emailController: UserNameController,
                       hint: "User Name",
                     ),
                     SizedBox(
                       height: 30.0,
                     ),
                     TextInput(
-                      emailController: myController1,
+                      emailController: EmailController,
                       hint: "Email",
                     ),
                     SizedBox(
                       height: 30.0,
                     ),
+                    TextInput(
+                      emailController: NumberController,
+                      hint: "Number",
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
                     PasswordInput(
-                      passwordController: myController2,
+                      passwordController: PasswordController,
                       hint: "Password",
                     ),
                     SizedBox(
                       height: 30.0,
                     ),
                     PasswordInput(
-                      passwordController: myController3,
+                      passwordController: ConfirmPasswordController,
                       hint: "Confirm Password",
                     ),
                     Center(
                       child: Container(
                         padding: EdgeInsets.fromLTRB(0.0, 23.0, 0.0, 0.0),
                         child: SubmitButton(
-                          onSubmitHandler: () {},
+                          onSubmitHandler: () async {
+                            final String username = UserNameController.text;
+                            final String email = EmailController.text;
+                            final String password = PasswordController.text;
+                            final String confirmpassword =
+                                ConfirmPasswordController.text;
+                            final String number = NumberController.text;
+                            if (password == confirmpassword) {
+                              final http.Response response = await signup(
+                                  username, email, password, number);
+                              print(response.statusCode);
+                              if (response.statusCode == 200) {
+                                DataService.jwt =
+                                    response.headers["x-auth-token"]!;
+                                print(DataService.jwt);
+                                var r = json.decode(response.body);
+                                setState(() {
+                                  DataService.user = UserModel.fromJson(r);
+                                });
+
+                                Navigator.pushNamed(
+                                  context,
+                                  '/home0',
+                                );
+                              }
+                            }
+                          },
                           text: "SIGN UP",
                         ),
                       ),
@@ -71,7 +135,7 @@ class SignUpPage extends StatelessWidget {
           ),
           Center(
             child: Container(
-              padding: EdgeInsets.fromLTRB(90.0, 560.0, 0.0, 0.0),
+              padding: EdgeInsets.fromLTRB(90.0, 600.0, 0.0, 0.0),
               child: Row(
                 children: [
                   Text(

@@ -37,17 +37,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
                   width: MediaQuery.of(context).size.width * 0.96,
+                  padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    color: Colors.blue[200],
-                    border: Border(
-                      bottom: BorderSide(width: 4.0, color: Color(0xFF003d80)),
-                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFF003d80),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("User Name:", style: TextStyle(fontSize: 20))
-                    ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0)),
+                      color: Colors.blue[100],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'User Name',
+                        textScaleFactor: 2,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -56,17 +64,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
                   width: MediaQuery.of(context).size.width * 0.96,
+                  padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    color: Colors.blue[200],
-                    border: Border(
-                      bottom: BorderSide(width: 4.0, color: Color(0xFF003d80)),
-                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFF003d80),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("User Email:", style: TextStyle(fontSize: 20))
-                    ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0)),
+                      color: Colors.blue[100],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'User Email',
+                        textScaleFactor: 2,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -75,17 +91,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
                   width: MediaQuery.of(context).size.width * 0.96,
+                  padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    color: Colors.blue[200],
-                    border: Border(
-                      bottom: BorderSide(width: 4.0, color: Color(0xFF003d80)),
-                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFF003d80),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("Phone Number:", style: TextStyle(fontSize: 20))
-                    ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0)),
+                      color: Colors.blue[100],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Phone Number',
+                        textScaleFactor: 2,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -94,25 +118,35 @@ class _SettingsPageState extends State<SettingsPage> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
                   width: MediaQuery.of(context).size.width * 0.96,
+                  padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    color: Colors.blue[200],
-                    // border: Border(
-                    //   bottom: BorderSide(width: 4.0, color: Color(0xFF003d80)),
-                    // ),
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Color(0xFF003d80),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text("User Lockers:", style: TextStyle(fontSize: 20))
-                    ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0)),
+                      color: Colors.blue[100],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'User Lockers',
+                        textScaleFactor: 2,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 20),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width * 0.96,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Color(0xFF003d80), width: 4),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: Column(
