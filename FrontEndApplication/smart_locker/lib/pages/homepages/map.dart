@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_locker/models/LocationsModel.dart';
+import 'package:smart_locker/models/PurchasedLockersModel.dart';
+import 'package:smart_locker/pages/purchase/lockerlist.dart';
 import 'package:smart_locker/service/dataservice.dart';
 
 class MapPage extends StatefulWidget {
@@ -74,6 +78,15 @@ class _MapPageState extends State<MapPage> {
     //mapMarker = await BitmapDescriptor.defaultMarker;
   }
 
+  Future<http.Response> locationClick(String locationID) async {
+    final String apiUrl = DataService.ip + "/api/mapclick/" + locationID;
+
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      "x-auth-token": DataService.jwt,
+    });
+    return response;
+  }
+
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       // Can fetch from a api and update the _markers
@@ -88,8 +101,29 @@ class _MapPageState extends State<MapPage> {
             ),
             infoWindow: InfoWindow(title: location.LocationDescription),
             icon: mapMarker,
-            onTap: () {
-              Navigator.pushNamed(context, '/lockerlist');
+            onTap: () async {
+              String? locationID = location.LocationID;
+              final http.Response response = await locationClick(locationID!);
+              if (response.statusCode == 200) {
+                var r = json.decode(response.body);
+                setState(() {
+                  DataService.avilableLockers =
+                      List<PurchasedLockersModel>.from(r["availableLockers"]
+                          .map((model) =>
+                              PurchasedLockersModel.fromJson(model)));
+                });
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (
+                  context,
+                ) =>
+                        LockerList(
+                          lockerList: DataService.avilableLockers,
+                          location: location.LocationDescription!,
+                        )),
+              );
             },
           ),
         );

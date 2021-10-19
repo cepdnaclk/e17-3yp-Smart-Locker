@@ -109,6 +109,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                   username, email, password, number);
                               print(response.statusCode);
                               if (response.statusCode == 200) {
+                                DataService.jwt =
+                                    response.headers["x-auth-token"]!;
+                                print(DataService.jwt);
                                 var r = json.decode(response.body);
                                 setState(() {
                                   DataService.user = UserModel.fromJson(r);

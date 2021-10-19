@@ -1,18 +1,59 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:smart_locker/pages/homepages/controlpanel.dart';
-import 'package:smart_locker/widgets/datainput.dart';
+import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/submitbutton.dart';
 import 'package:smart_locker/widgets/durationpicker.dart';
 
 class Purchase extends StatefulWidget {
-  const Purchase({Key? key}) : super(key: key);
+  final String cardName;
+  final String location;
+  final String lockerID;
+  const Purchase(
+      {Key? key,
+      required this.cardName,
+      required this.location,
+      required this.lockerID})
+      : super(key: key);
 
   @override
   _PurchaseState createState() => _PurchaseState();
 }
 
 class _PurchaseState extends State<Purchase> {
-  final durationPicker = DurationPicker();
+  final durationPicker = DurationPicker(
+    hours: 1,
+    days: 0,
+  );
+
+  Future<http.Response> purchase(
+    String lockerID,
+    DateTime expiredate,
+  ) async {
+    final String apiUrl = DataService.ip + "/api/purchase/" + lockerID;
+
+    Map<String, String> data = {
+      "expireDate": expiredate.toString(),
+    };
+
+    final body = json.encode(data);
+
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": DataService.jwt,
+        },
+        body: body);
+
+    return response;
+  }
+
+  DateTime getExpireDate(int hours, int days) {
+    DateTime expiredate = DateTime.now();
+    expiredate.add(Duration(hours: hours, days: days));
+    return expiredate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,12 +101,30 @@ class _PurchaseState extends State<Purchase> {
                     child: Column(
                       children: [
                         Container(
-                          child: Text(
-                            "Locker Details",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF003d80)),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Locker Details",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF003d80)),
+                              ),
+                              Text(
+                                "Locker Number- " + widget.cardName,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF003d80)),
+                              ),
+                              Text(
+                                "Location- " + widget.location,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF003d80)),
+                              ),
+                            ],
                           ),
                         )
                       ],
@@ -90,8 +149,16 @@ class _PurchaseState extends State<Purchase> {
                   height: 30,
                 ),
                 SubmitButton(
-                    onSubmitHandler: () {
-                      Navigator.pushNamed(context, '/home1');
+                    onSubmitHandler: () async {
+                      DateTime expiredate = getExpireDate(
+                          durationPicker.hours, durationPicker.days);
+                      print(expiredate.toString());
+                      final http.Response response =
+                          await purchase(widget.lockerID, expiredate);
+                      print(response.body);
+                      if (response.statusCode == 200) {
+                        Navigator.pushNamed(context, '/home1');
+                      }
                     },
                     text: "Purchase"),
               ],
