@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_locker/models/LocationsModel.dart';
+import 'package:smart_locker/service/dataservice.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -62,7 +64,6 @@ class _MapPageState extends State<MapPage> {
   }
   //---------------------------------------------
 
-  
   Set<Marker> _markers = {};
   BitmapDescriptor mapMarker = BitmapDescriptor.defaultMarker;
 
@@ -76,29 +77,46 @@ class _MapPageState extends State<MapPage> {
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       // Can fetch from a api and update the _markers
-      _markers.add(
-        Marker(
-          markerId: MarkerId("id-1"),
-          position: LatLng(7.252321246065113, 80.59256273092281),
-          infoWindow: InfoWindow(title: "UoP Efac"),
-          icon: mapMarker,
-          // An ontap function can implement here
-          onTap: () {
-            Navigator.pushNamed(context, '/lockerlist');
-          },
-        ),
-      );
-      _markers.add(
-        Marker(
-          markerId: MarkerId("id-2"),
-          position: LatLng(7.2633009032347084, 80.59304870962823),
-          infoWindow: InfoWindow(title: "Peradeniya"),
-          icon: mapMarker,
-          onTap: () {
-            Navigator.pushNamed(context, '/lockerlist');
-          },
-        ),
-      );
+      List<LocationsModel> locations = DataService.user.locations!;
+      locations.forEach((location) {
+        _markers.add(
+          Marker(
+            markerId: MarkerId(location.LocationID!),
+            position: LatLng(
+              double.parse(location.Latitude!),
+              double.parse(location.Longitude!),
+            ),
+            infoWindow: InfoWindow(title: location.LocationDescription),
+            icon: mapMarker,
+            onTap: () {
+              Navigator.pushNamed(context, '/lockerlist');
+            },
+          ),
+        );
+      });
+      // _markers.add(
+      //   Marker(
+      //     markerId: MarkerId("id-1"),
+      //     position: LatLng(7.252321246065113, 80.59256273092281),
+      //     infoWindow: InfoWindow(title: "UoP Efac"),
+      //     icon: mapMarker,
+      //     // An ontap function can implement here
+      //     onTap: () {
+      //       Navigator.pushNamed(context, '/lockerlist');
+      //     },
+      //   ),
+      // );
+      // _markers.add(
+      //   Marker(
+      //     markerId: MarkerId("id-2"),
+      //     position: LatLng(7.2633009032347084, 80.59304870962823),
+      //     infoWindow: InfoWindow(title: "Peradeniya"),
+      //     icon: mapMarker,
+      //     onTap: () {
+      //       Navigator.pushNamed(context, '/lockerlist');
+      //     },
+      //   ),
+      // );
       _mapLoading = false;
     });
   }
