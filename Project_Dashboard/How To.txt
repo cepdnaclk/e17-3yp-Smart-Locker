@@ -1,0 +1,21 @@
+Total Tutorial 
+	https://www.youtube.com/watch?v=re3OIOr9dJI&t=1298s
+
+Client - FrontEnd 
+	npx create-react-app name
+
+	to make requests to the APIs 
+		Axios
+		   yarn install axios	
+
+Server - BackEnd
+	npm init
+	npm i //install all the exsisting libraries
+	npm install mysql express
+
+MySQL
+	Importing a database
+		https://www.youtube.com/watch?v=uyP46E0UA9I
+
+Run the Project 
+	nodemon name.js
