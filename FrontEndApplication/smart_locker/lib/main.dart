@@ -29,9 +29,11 @@ class MyApp extends StatelessWidget {
         '/lockerlist': (context) {
           return LockerList(
             lockerList: [],
+            location: "",
           );
         },
-        '/purchase': (context) => Purchase(),
+        '/purchase': (context) =>
+            Purchase(cardName: "", location: "", lockerID: ""),
       },
     );
   }

@@ -65,6 +65,7 @@ class _LogInPageState extends State<LogInPage> {
                               await login(email, password);
                           print(response);
                           if (response.statusCode == 200) {
+                            DataService.jwt = response.headers["x-auth-token"]!;
                             var r = json.decode(response.body);
                             setState(() {
                               DataService.user = UserModel.fromJson(r);
