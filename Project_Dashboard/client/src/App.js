@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import LockerForm from './Forms/lockerForm';
 import UserTable from './Tables/userTable';
 import LocationForm from './Forms/locationForm';
+import LockerTable from './Tables/lockerTable';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       </div>
       <div>
         <UserTable />
+        <LockerTable />
       </div>
     </div>
   );
