@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form input {
+  background-color: #5c7aea;
+}
+
+.form button {
+  width: 150px;
+  margin-top: 15px;
+  background-color: #3d56b2;
+}
