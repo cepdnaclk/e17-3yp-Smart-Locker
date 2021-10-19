@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
           (errHash, resultHash) => {
             if (!resultHash) return res.status(400).send("Incorrect Password");
             connection.query(
-              "SELECT * FROM Location",
+              "SELECT DISTINCT Location.* FROM Location INNER JOIN Locker ON LocationID = LockerLocationID WHERE Availability = true AND IsEmpty = true",
               (errLoc, rowsLoc, fieldsLoc) => {
                 if (errLoc) return res.status(500).send("Database failure");
                 connection.query(
