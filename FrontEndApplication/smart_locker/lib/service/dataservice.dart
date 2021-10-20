@@ -9,5 +9,7 @@ class DataService extends ChangeNotifier {
   static UserModel user = UserModel();
   static List<LocationsModel> location = [];
   static List<PurchasedLockersModel> purchedLockers = [];
-  static String ip = "http://18.234.52.63:3000";
+  static List<PurchasedLockersModel> avilableLockers = [];
+  static String ip = "http://34.229.18.142:3000";
+  static String jwt = "";
 }
