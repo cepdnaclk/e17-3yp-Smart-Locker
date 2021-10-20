@@ -1,4 +1,4 @@
-// set database password before running the app
+// Secure
 const config = require("../config/databaseConfig");
 const express = require("express");
 const Joi = require("joi");
