@@ -5,6 +5,7 @@ import LockerForm from './Forms/lockerForm';
 import UserTable from './Tables/userTable';
 import LocationForm from './Forms/locationForm';
 import LockerTable from './Tables/lockerTable';
+import LocationTable from './Tables/locationTable';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <div>
         <UserTable />
         <LockerTable />
+        <LocationTable />
       </div>
     </div>
   );
