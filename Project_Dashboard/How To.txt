@@ -19,3 +19,7 @@ MySQL
 
 Run the Project 
 	nodemon name.js
+
+Add Dynamic Tables 
+	https://www.youtube.com/watch?v=nV7Mf77GiOc
+	Check React project-dashboard as well
