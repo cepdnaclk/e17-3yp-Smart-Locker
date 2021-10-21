@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_locker/models/LocationsModel.dart';
 import 'package:smart_locker/models/PurchasedLockersModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
-import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/animatedtoggle.dart';
 import 'package:share/share.dart';
 import 'package:smart_locker/widgets/usermap.dart';
