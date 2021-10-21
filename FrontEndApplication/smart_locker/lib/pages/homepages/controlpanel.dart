@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:smart_locker/models/LocationsModel.dart';
+import 'package:smart_locker/models/PurchasedLockersModel.dart';
+import 'package:smart_locker/service/dataservice.dart';
+import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/animatedtoggle.dart';
 import 'package:share/share.dart';
 import 'package:smart_locker/widgets/usermap.dart';
@@ -12,13 +18,46 @@ class ControlPanel extends StatefulWidget {
 
 class _ControlPanelState extends State<ControlPanel> {
   String? _chosenValue;
+  int? index;
   int _toggleValue = 0;
-  List<String> lockerNames = [
-    "Locker1",
-    "Locker2",
-    "Locker3",
-    "Locker4",
-  ];
+  List<String?> lockerNames = [];
+
+  Future<http.Response> getLockerList() async {
+    final String apiUrl = DataService.ip + "/api/lockerdetails";
+
+    final response = await http.get(
+      Uri.parse(apiUrl),
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": DataService.jwt,
+      },
+    );
+    return response;
+  }
+
+  void _getData() async {
+    final http.Response response = await getLockerList();
+    if (response.statusCode == 200) {
+      var r = json.decode(response.body);
+      setState(() {
+        DataService.purchedLockers = List<PurchasedLockersModel>.from(
+            r["lockerdetails"]
+                .map((model) => PurchasedLockersModel.fromJson(model)));
+        DataService.mylocations = List<LocationsModel>.from(
+            r["location"].map((model) => LocationsModel.fromJson(model)));
+        DataService.purchedLockers.forEach((element) {
+          lockerNames.add(element.LockerID);
+        });
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +119,10 @@ class _ControlPanelState extends State<ControlPanel> {
                 ),
                 child: Center(
                   child: Text(
-                    '',
+                    index != null
+                        ? DataService.purchedLockers[index!].LockerLocationID
+                            .toString()
+                        : "Hello User",
                     textScaleFactor: 2,
                     style: TextStyle(color: Colors.black),
                   ),
@@ -113,7 +155,10 @@ class _ControlPanelState extends State<ControlPanel> {
                 ),
                 child: Center(
                   child: Text(
-                    '',
+                    index != null
+                        ? DataService.purchedLockers[index!].ExpireDate
+                            .toString()
+                        : "If You have select lockers",
                     textScaleFactor: 2,
                     style: TextStyle(color: Colors.black),
                   ),
@@ -146,7 +191,10 @@ class _ControlPanelState extends State<ControlPanel> {
                 ),
                 child: Center(
                   child: Text(
-                    '',
+                    index != null
+                        ? DataService.purchedLockers[index!].OneTimeToken
+                            .toString()
+                        : "If not buy lockers",
                     textScaleFactor: 2,
                     style: TextStyle(color: Colors.black),
                   ),
@@ -307,7 +355,7 @@ class _ControlPanelState extends State<ControlPanel> {
     );
   }
 
-  Container SelectLocker(BuildContext context, List<String> lockerNames) {
+  Container SelectLocker(BuildContext context, List<String?> lockerNames) {
     return Container(
       color: Colors.blue[100],
       height: MediaQuery.of(context).size.height * 0.08,
@@ -329,11 +377,11 @@ class _ControlPanelState extends State<ControlPanel> {
             height: 4,
             color: Color(0xFF003d80),
           ),
-          items: lockerNames.map<DropdownMenuItem<String>>((String value) {
+          items: lockerNames.map<DropdownMenuItem<String>>((String? value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(
-                value,
+                value!,
                 style: TextStyle(color: Colors.blue[900]),
               ),
             );
@@ -348,6 +396,7 @@ class _ControlPanelState extends State<ControlPanel> {
           onChanged: (String? value) {
             setState(() {
               _chosenValue = value;
+              index = lockerNames.indexOf(value);
             });
           },
         ),

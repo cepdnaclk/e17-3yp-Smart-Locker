@@ -3,6 +3,7 @@ import 'package:smart_locker/pages/homepages/booking.dart';
 import 'package:smart_locker/pages/homepages/controlpanel.dart';
 import 'package:smart_locker/pages/homepages/map.dart';
 import 'package:smart_locker/pages/homepages/settings.dart';
+import 'package:smart_locker/service/dataservice.dart';
 
 class HomePage extends StatefulWidget {
   final int index;
@@ -19,7 +20,8 @@ class _HomePageState extends State<HomePage> {
     ControlPanel(),
     SettingsPage(),
   ];
-  void initState() {
+
+  initState() {
     currentIndex = widget.index;
     super.initState();
   }
