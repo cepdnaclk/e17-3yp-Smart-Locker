@@ -11,6 +11,6 @@ class DataService extends ChangeNotifier {
   static List<LocationsModel> mylocations = [];
   static List<PurchasedLockersModel> purchedLockers = [];
   static List<PurchasedLockersModel> avilableLockers = [];
-  static String ip = "http://3.93.178.237:3000";
+  static String ip = "http://34.227.193.145:3000";
   static String jwt = "";
 }

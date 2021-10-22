@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_locker/models/UserModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/backgroundimage.dart';
+import 'package:smart_locker/widgets/passwordinput.dart';
 import 'package:smart_locker/widgets/submitbutton.dart';
 import 'package:smart_locker/widgets/textinput.dart';
 
@@ -16,6 +17,8 @@ class _LogInPageState extends State<LogInPage> {
   final EmailController = TextEditingController();
 
   final PasswordController = TextEditingController();
+
+  bool validate = false;
 
   Future<http.Response> login(String email, String password) async {
     final String apiUrl = DataService.ip + "/api/login";
@@ -48,12 +51,16 @@ class _LogInPageState extends State<LogInPage> {
                 padding: EdgeInsets.only(top: 300),
                 child: Column(
                   children: [
-                    TextInput(emailController: EmailController, hint: "Email"),
+                    TextInput(
+                        emailController: EmailController,
+                        hint: "Email",
+                        validate: validate),
                     SizedBox(
                       height: 30,
                     ),
-                    TextInput(
-                        emailController: PasswordController, hint: "Password"),
+                    PasswordInput(
+                        passwordController: PasswordController,
+                        hint: "Password"),
                     SizedBox(
                       height: 30,
                     ),
