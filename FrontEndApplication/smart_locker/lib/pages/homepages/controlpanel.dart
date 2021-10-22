@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:smart_locker/models/LocationsModel.dart';
+import 'package:smart_locker/models/LockerLocationDetailsModel.dart';
 import 'package:smart_locker/models/PurchasedLockersModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/animatedtoggle.dart';
@@ -39,13 +39,14 @@ class _ControlPanelState extends State<ControlPanel> {
     if (response.statusCode == 200) {
       var r = json.decode(response.body);
       setState(() {
-        DataService.purchedLockers = List<PurchasedLockersModel>.from(
+        DataService.userLockers = List<LockerLocationDetailsModel>.from(
             r["lockerdetails"]
-                .map((model) => PurchasedLockersModel.fromJson(model)));
-        DataService.mylocations = List<LocationsModel>.from(
-            r["location"].map((model) => LocationsModel.fromJson(model)));
-        DataService.purchedLockers.forEach((element) {
-          lockerNames.add(element.LockerID);
+                .map((model) => LockerLocationDetailsModel.fromJson(model)));
+        DataService.userLockers.forEach((element) {
+          lockerNames.add(element.LocationDescription.toString() +
+              "(No:" +
+              element.LockerNumber.toString() +
+              ")");
         });
       });
     }
@@ -119,7 +120,7 @@ class _ControlPanelState extends State<ControlPanel> {
                 child: Center(
                   child: Text(
                     index != null
-                        ? DataService.purchedLockers[index!].LockerLocationID
+                        ? DataService.userLockers[index!].LocationDescription
                             .toString()
                         : "Hello User",
                     textScaleFactor: 2,
@@ -155,8 +156,7 @@ class _ControlPanelState extends State<ControlPanel> {
                 child: Center(
                   child: Text(
                     index != null
-                        ? DataService.purchedLockers[index!].ExpireDate
-                            .toString()
+                        ? DataService.userLockers[index!].ExpireDate.toString()
                         : "If You have select lockers",
                     textScaleFactor: 2,
                     style: TextStyle(color: Colors.black),
@@ -191,7 +191,7 @@ class _ControlPanelState extends State<ControlPanel> {
                 child: Center(
                   child: Text(
                     index != null
-                        ? DataService.purchedLockers[index!].OneTimeToken
+                        ? DataService.userLockers[index!].OneTimeToken
                             .toString()
                         : "If not buy lockers",
                     textScaleFactor: 2,
@@ -294,8 +294,12 @@ class _ControlPanelState extends State<ControlPanel> {
                           child: IconButton(
                             icon: Icon(Icons.share),
                             onPressed: () {
-                              Share.share(
-                                  "This is your password and locker details\nUOP");
+                              Share.share(DataService
+                                      .userLockers[index!].SharedOneTimeToken
+                                      .toString() +
+                                  "\n" +
+                                  DataService.userLockers[index!].LocationUrl
+                                      .toString());
                             },
                           ),
                         ),

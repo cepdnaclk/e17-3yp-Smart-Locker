@@ -22,6 +22,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final PasswordController = TextEditingController();
   final ConfirmPasswordController = TextEditingController();
 
+  bool validateName = false;
+  bool validateEmail = false;
+  bool validateNumber = false;
+
   Future<http.Response> signup(
       String username, String email, String password, String number) async {
     final String apiUrl = DataService.ip + "/api/users";
@@ -64,6 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextInput(
                       emailController: UserNameController,
                       hint: "User Name",
+                      validate: validateName,
                     ),
                     SizedBox(
                       height: 30.0,
@@ -71,6 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextInput(
                       emailController: EmailController,
                       hint: "Email",
+                      validate: validateEmail,
                     ),
                     SizedBox(
                       height: 30.0,
@@ -78,6 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextInput(
                       emailController: NumberController,
                       hint: "Number",
+                      validate: validateNumber,
                     ),
                     SizedBox(
                       height: 30.0,
@@ -104,6 +111,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             final String confirmpassword =
                                 ConfirmPasswordController.text;
                             final String number = NumberController.text;
+                            setState(() {
+                              username.isEmpty
+                                  ? validateName = true
+                                  : validateName = false;
+                              email.isEmpty
+                                  ? validateName = true
+                                  : validateName = false;
+                            });
                             if (password == confirmpassword) {
                               final http.Response response = await signup(
                                   username, email, password, number);
