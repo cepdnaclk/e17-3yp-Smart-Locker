@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_locker/models/LocationsModel.dart';
 import 'package:smart_locker/models/PurchasedLockersModel.dart';
+import 'package:smart_locker/models/UserModel.dart';
 import 'package:smart_locker/pages/purchase/lockerlist.dart';
 import 'package:smart_locker/service/dataservice.dart';
 
@@ -23,6 +24,9 @@ class _MapPageState extends State<MapPage> {
   bool _allowService = true;
   // Function for Build Map
   bool _mapLoading = true;
+
+  // final http.Response response = await home();
+  // DataService.user = response.body;
 
   void _getCurrentPosition() async {
     setState(() {
@@ -78,6 +82,19 @@ class _MapPageState extends State<MapPage> {
     //mapMarker = await BitmapDescriptor.defaultMarker;
   }
 
+  Future<http.Response> home() async {
+    final String apiUrl = DataService.ip + "/api/users/me";
+
+    final response = await http.get(
+      Uri.parse(apiUrl),
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": DataService.jwt,
+      },
+    );
+    return response;
+  }
+
   Future<http.Response> locationClick(String locationID) async {
     final String apiUrl = DataService.ip + "/api/mapclick/" + locationID;
 
@@ -88,8 +105,15 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
+    setState(() async {
       // Can fetch from a api and update the _markers
+      final http.Response responseHome = await home();
+      if (responseHome.statusCode == 200) {
+        var r = json.decode(responseHome.body);
+        setState(() {
+          DataService.user = UserModel.fromJson(r);
+        });
+      }
       List<LocationsModel> locations = DataService.user.locations!;
       locations.forEach((location) {
         _markers.add(
@@ -128,29 +152,6 @@ class _MapPageState extends State<MapPage> {
           ),
         );
       });
-      // _markers.add(
-      //   Marker(
-      //     markerId: MarkerId("id-1"),
-      //     position: LatLng(7.252321246065113, 80.59256273092281),
-      //     infoWindow: InfoWindow(title: "UoP Efac"),
-      //     icon: mapMarker,
-      //     // An ontap function can implement here
-      //     onTap: () {
-      //       Navigator.pushNamed(context, '/lockerlist');
-      //     },
-      //   ),
-      // );
-      // _markers.add(
-      //   Marker(
-      //     markerId: MarkerId("id-2"),
-      //     position: LatLng(7.2633009032347084, 80.59304870962823),
-      //     infoWindow: InfoWindow(title: "Peradeniya"),
-      //     icon: mapMarker,
-      //     onTap: () {
-      //       Navigator.pushNamed(context, '/lockerlist');
-      //     },
-      //   ),
-      // );
       _mapLoading = false;
     });
   }

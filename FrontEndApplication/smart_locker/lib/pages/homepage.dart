@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_locker/pages/homepages/booking.dart';
 import 'package:smart_locker/pages/homepages/controlpanel.dart';
 import 'package:smart_locker/pages/homepages/map.dart';
 import 'package:smart_locker/pages/homepages/settings.dart';
@@ -19,7 +18,8 @@ class _HomePageState extends State<HomePage> {
     ControlPanel(),
     SettingsPage(),
   ];
-  void initState() {
+
+  initState() {
     currentIndex = widget.index;
     super.initState();
   }
@@ -54,22 +54,14 @@ class _HomePageState extends State<HomePage> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.map),
                 label: 'Map',
-                // backgroundColor: Colors.black
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.vpn_key),
-              //   label: 'Booking',
-              //   // backgroundColor: Colors.black
-              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.touch_app),
                 label: 'Controll Panel',
-                // backgroundColor: Colors.black
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle),
                 label: 'Profile',
-                // backgroundColor: Colors.black
               )
             ],
           ),

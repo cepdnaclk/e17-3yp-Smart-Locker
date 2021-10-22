@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.1"
+  animated_splash_screen:
+    dependency: "direct main"
+    description:
+      name: animated_splash_screen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   args:
     dependency: transitive
     description:
@@ -202,6 +209,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -373,6 +387,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  page_transition:
+    dependency: transitive
+    description:
+      name: page_transition
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1-nullsafety.0"
   path:
     dependency: transitive
     description:

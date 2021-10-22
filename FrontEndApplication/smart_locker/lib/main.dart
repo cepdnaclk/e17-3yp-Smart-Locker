@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_locker/pages/homepage.dart';
+import 'package:smart_locker/pages/loadingpage.dart';
 import 'package:smart_locker/pages/loginpage.dart';
 import 'package:smart_locker/pages/purchase/lockerlist.dart';
 import 'package:smart_locker/pages/purchase/purchase.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Smart Locker",
-      home: LogInPage(),
+      home: LoadingPage(),
       routes: {
         '/login': (context) => LogInPage(),
         '/signup': (context) => SignUpPage(),

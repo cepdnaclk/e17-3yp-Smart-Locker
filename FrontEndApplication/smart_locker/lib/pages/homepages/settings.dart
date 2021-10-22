@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_locker/service/dataservice.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        'User Name',
+                        DataService.user.userData!.UserName.toString(),
                         textScaleFactor: 2,
                         style: TextStyle(color: Colors.black),
                       ),
@@ -78,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        'User Email',
+                        DataService.user.userData!.UserEmail.toString(),
                         textScaleFactor: 2,
                         style: TextStyle(color: Colors.black),
                       ),
@@ -105,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        'Phone Number',
+                        DataService.user.userData!.MobileNumber.toString(),
                         textScaleFactor: 2,
                         style: TextStyle(color: Colors.black),
                       ),
