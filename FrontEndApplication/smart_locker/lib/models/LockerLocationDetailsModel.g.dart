@@ -19,13 +19,14 @@ LockerLocationDetailsModel _$LockerLocationDetailsModelFromJson(
     LockerLocationID: json['LockerLocationID'] as String?,
     Availability: json['Availability'] as int?,
     IsEmpty: json['IsEmpty'] as int?,
+    IsLocked: json['IsLocked'] as int?,
     OneTimeToken: json['OneTimeToken'] as String?,
     SharedOneTimeToken: json['SharedOneTimeToken'] as String?,
     LockerNumber: json['LockerNumber'] as int?,
     ExpireDate: json['ExpireDate'] == null
         ? null
         : DateTime.parse(json['ExpireDate'] as String),
-  )..IsLocked = json['IsLocked'] as int?;
+  );
 }
 
 Map<String, dynamic> _$LockerLocationDetailsModelToJson(

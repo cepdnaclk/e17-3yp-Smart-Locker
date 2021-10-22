@@ -11,7 +11,7 @@ class LockerLocationDetailsModel {
   String? Latitude;
   String? LocationDescription;
   String? LocationUrl;
-  String? LockerID;
+   String? LockerID;
   String? LockerUserID;
   String? LockerLocationID;
   int? Availability;
@@ -23,7 +23,7 @@ class LockerLocationDetailsModel {
   DateTime? ExpireDate;
 
   LockerLocationDetailsModel({this.LocationID, this.Longitude, this.Latitude, this.LocationDescription, this.LocationUrl,
-  this.LockerID, this.LockerUserID, this.LockerLocationID, this.Availability, this.IsEmpty,this.OneTimeToken, 
+  this.LockerID, this.LockerUserID, this.LockerLocationID, this.Availability, this.IsEmpty,this.IsLocked,this.OneTimeToken, 
   this.SharedOneTimeToken, this.LockerNumber, this.ExpireDate});
   factory LockerLocationDetailsModel.fromJson(Map<String, dynamic> json) =>
       _$LockerLocationDetailsModelFromJson(json);
