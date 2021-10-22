@@ -17,22 +17,14 @@ router.get("/", auth, (req, res) => {
   }
 
   connection.query(
-    "SELECT * FROM Locker WHERE LockerUserID = ? AND Availability = false",
+    "SELECT DISTINCT * FROM Location INNER JOIN Locker ON LocationID = LockerLocationID WHERE  LockerUserID = ? AND Availability = false",
     [req.fromUser.jwtUserId],
-    (err, rows, fields) => {
-      if (err) return res.status(500).send("Database failure");
-      connection.query(
-        "SELECT DISTINCT Location.* FROM Location INNER JOIN Locker ON LocationID = LockerLocationID WHERE  LockerUserID = ? AND Availability = false",
-        [req.fromUser.jwtUserId],
-        (errloc, rowsloc, fieldsloc) => {
-          if (errloc) return res.status(500).send("Database failure");
-          var lockerdetailsRes = {
-            lockerdetails: rows,
-            location: rowsloc,
-          };
-          res.send(lockerdetailsRes);
-        }
-      );
+    (errloc, rowsloc, fieldsloc) => {
+      if (errloc) return res.status(500).send("Database failure");
+      var lockerdetailsRes = {
+        lockerdetails: rowsloc
+      };
+      res.send(lockerdetailsRes);
     }
   );
 });
