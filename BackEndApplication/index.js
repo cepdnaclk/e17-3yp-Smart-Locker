@@ -7,8 +7,20 @@ const purchase = require('./routes/purchase');
 const lockerdetails = require('./routes/lockerdetails');
 const login = require('./routes/login');
 const app = express();
+// Application Security
+const helmet = require('helmet');
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+    windowMs: 1000 * 60 * 1, // in ms
+    max: 10 
+});
+
+app.use(helmet());
+app.use(limiter);
 
 app.use(express.json()); // convert to json
+
 app.use('/api/users', users);
 app.use('/api/login', login);
 app.use('/api/mapclick', mapclick);

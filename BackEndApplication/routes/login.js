@@ -4,6 +4,7 @@ const express = require("express");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const requestIp = require("request-ip");
 
 const router = express.Router();
 
@@ -45,19 +46,40 @@ router.post("/", (req, res) => {
                   (errLocker, rowsLocker, fieldsLocker) => {
                     if (errLocker)
                       return res.status(500).send("Database failure");
-                    let logInRes = {
-                      locations: rowsLoc,
-                      userData: rows[0],
-                      purchasedLockers: rowsLocker,
-                    };
-                    const token = jwt.sign(
-                      {
-                        jwtEmail: rows[0].UserEmail,
-                        jwtUserId: rows[0].UserID,
-                      },
-                      "smartLocker_jwtPrivateKey"
+                    var today = new Date();
+                    var date =
+                      today.getFullYear() +
+                      "-" +
+                      (today.getMonth() + 1) +
+                      "-" +
+                      today.getDate();
+                    var time =
+                      today.getHours() +
+                      ":" +
+                      today.getMinutes() +
+                      ":" +
+                      today.getSeconds();
+                    var dateTime = date + " " + time;
+                    connection.query(
+                      "INSERT INTO Login(LoginUserID, RequestIP, RequestTime) values (?, ?, ?)",
+                      [rows[0].UserID, requestIp.getClientIp(req), dateTime],
+                      (errLog, resultLog) => {
+                        if (errLog) return res.status(500).send("Database failure");
+                        let logInRes = {
+                          locations: rowsLoc,
+                          userData: rows[0],
+                          purchasedLockers: rowsLocker,
+                        };
+                        const token = jwt.sign(
+                          {
+                            jwtEmail: rows[0].UserEmail,
+                            jwtUserId: rows[0].UserID,
+                          },
+                          "smartLocker_jwtPrivateKey"
+                        );
+                        res.header("x-auth-token", token).send(logInRes);
+                      }
                     );
-                    res.header("x-auth-token", token).send(logInRes);
                   }
                 );
               }
