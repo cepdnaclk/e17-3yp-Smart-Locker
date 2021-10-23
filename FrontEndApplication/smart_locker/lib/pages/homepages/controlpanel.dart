@@ -416,7 +416,17 @@ class _ControlPanelState extends State<ControlPanel> {
         return Stack(children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.70,
-            child: UserMap(),
+            child: index != null
+                ? UserMap(
+                    index: index!,
+                  )
+                : Container(
+                    child: Center(
+                        child: Text(
+                      "You have not chosen a locker",
+                      style: TextStyle(fontSize: 24),
+                    )),
+                  ),
           ),
           Container(
             height: MediaQuery.of(context).size.height * 0.70,

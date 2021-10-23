@@ -30,10 +30,21 @@ class _PasswordInputState extends State<PasswordInput> {
           ),
         ],
       ),
-      child: TextField(
+      child: TextFormField(
           controller: widget.passwordController,
           keyboardType: TextInputType.text,
           obscureText: _isHidden,
+          validator: (String? newValue) {
+            if (newValue!.length > 25) {
+              return "error1";
+            }
+            if (!RegExp(
+                    r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")
+                .hasMatch(newValue)) {
+              return "Minimum 8 characters, at least one letter, one number and one special character";
+            }
+            return null;
+          },
           style: TextStyle(fontSize: 20.0, color: Colors.black),
           decoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -46,7 +57,7 @@ class _PasswordInputState extends State<PasswordInput> {
                 ),
               ),
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 32.0),
+                borderSide: BorderSide(color: Colors.white, width: 40.0),
                 borderRadius: BorderRadius.circular(20.0),
               ),
               enabledBorder: OutlineInputBorder(
