@@ -47,7 +47,7 @@ class _PasswordInputState extends State<PasswordInput> {
           },
           style: TextStyle(fontSize: 20.0, color: Colors.black),
           decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              contentPadding: EdgeInsets.fromLTRB(20.0, -10.0, 20.0, 15.0),
               hintText: widget.hint,
               suffix: InkWell(
                 onTap: _togglePasswordView,
@@ -57,7 +57,7 @@ class _PasswordInputState extends State<PasswordInput> {
                 ),
               ),
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 40.0),
+                borderSide: BorderSide(color: Colors.white, width: 32.0),
                 borderRadius: BorderRadius.circular(20.0),
               ),
               enabledBorder: OutlineInputBorder(

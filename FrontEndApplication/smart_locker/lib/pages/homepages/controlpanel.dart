@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:smart_locker/models/LockerLocationDetailsModel.dart';
-import 'package:smart_locker/models/PurchasedLockersModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
 import 'package:smart_locker/widgets/animatedtoggle.dart';
 import 'package:share/share.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_locker/widgets/usermap.dart';
 
 class ControlPanel extends StatefulWidget {
@@ -122,8 +122,8 @@ class _ControlPanelState extends State<ControlPanel> {
                     index != null
                         ? DataService.userLockers[index!].LocationDescription
                             .toString()
-                        : "Hello User",
-                    textScaleFactor: 2,
+                        : "",
+                    textScaleFactor: 1.8,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -156,9 +156,11 @@ class _ControlPanelState extends State<ControlPanel> {
                 child: Center(
                   child: Text(
                     index != null
-                        ? DataService.userLockers[index!].ExpireDate.toString()
-                        : "If You have select lockers",
-                    textScaleFactor: 2,
+                        ? DateFormat('yyyy/MM/dd  hh:mm a')
+                            .format(DataService.userLockers[index!].ExpireDate!)
+                            .toString()
+                        : "",
+                    textScaleFactor: 1.8,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -193,8 +195,8 @@ class _ControlPanelState extends State<ControlPanel> {
                     index != null
                         ? DataService.userLockers[index!].OneTimeToken
                             .toString()
-                        : "If not buy lockers",
-                    textScaleFactor: 2,
+                        : "",
+                    textScaleFactor: 1.8,
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
