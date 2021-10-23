@@ -4,13 +4,15 @@ import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from 'react';
 
+import '../Global/globalvariables';
+
 function LockerForm() {
   const [lockerID, setLockerID] = useState('');
   const [lockerNumber, setLockerNumber] = useState('');
   const [lockerLocationID, setLockerLocationID] = useState('');
 
   const addLocker = () => {
-    Axios.post('http://localhost:3001/addlocker', {
+    Axios.post(`${global.url}/addlocker`, {
       lockerid: lockerID,
       lockerlocationid: lockerLocationID,
       lockernumber: lockerNumber,
