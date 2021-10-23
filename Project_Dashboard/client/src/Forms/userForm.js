@@ -2,6 +2,8 @@ import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Axios from 'axios';
 
+import '../Global/globalvariables';
+
 function UserForm() {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -9,7 +11,7 @@ function UserForm() {
   const [userPassword, setUserPassword] = useState('');
 
   const addUser = () => {
-    Axios.post('http://localhost:3001/adduser', {
+    Axios.post(`${global.url}/adduser`, {
       username: userName,
       useremail: userEmail,
       usermobilenumber: userMobileNumber,

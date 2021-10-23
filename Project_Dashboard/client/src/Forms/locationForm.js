@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import Axios from 'axios';
 
+import '../Global/globalvariables';
+
 function LocationForm() {
   const [locationID, setLocationID] = useState('');
   const [locationLongitude, setLocationLongitude] = useState('');
@@ -10,7 +12,7 @@ function LocationForm() {
   //const [locationURL, setLocationURL] = useState('');
 
   const addLocation = () => {
-    Axios.post('http://localhost:3001/addlocation', {
+    Axios.post(`${global.url}/addlocation`, {
       locationid: locationID,
       locationlongitude: locationLongitude,
       locationlatitude: locationLatitude,

@@ -1,14 +1,29 @@
 import Axios from 'axios';
 import { useState } from 'react';
 
+import '../Global/globalvariables';
+import { AiOutlineDelete } from 'react-icons/ai';
+
 function LocationTable() {
   const [locationList, setLocationList] = useState([]);
 
   const getLocation = () => {
-    Axios.get('http://localhost:3001/sendlocation').then((response) => {
+    Axios.get(`${global.url}/sendlocation`).then((response) => {
       //console.log(response);
       setLocationList(response.data);
     });
+  };
+
+  const deletelocation = (locationid) => {
+    Axios.delete(`${global.url}/deletelocation/${locationid}`).then(
+      (response) => {
+        // console.log('Successfully Deleted the Location');
+        // console.log(response);
+        if (response.status === 500) {
+          console.log(response.status);
+        }
+      }
+    );
   };
   getLocation();
 
@@ -20,13 +35,22 @@ function LocationTable() {
         <td>{val.Longitude}</td>
         <td>{val.Latitude}</td>
         <td>{val.LocationDescription}</td>
+        <td>
+          <button
+            onClick={() => {
+              deletelocation(val.LocationID);
+            }}
+          >
+            <AiOutlineDelete />
+          </button>
+        </td>
       </tr>
     );
   };
   return (
     <div>
       <div>
-        <table className="table table-bordered mx-2 my-3">
+        <table className="table table-striped m-4">
           <thead>
             <tr>
               <th scope="col">#</th>
