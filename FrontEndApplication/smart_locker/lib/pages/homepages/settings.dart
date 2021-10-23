@@ -173,7 +173,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Align(
-                  alignment: Alignment.bottomLeft,
+                  alignment: Alignment.bottomRight,
                   child: Container(
                     padding: EdgeInsets.all(30),
                     child: FloatingActionButton(
@@ -185,7 +185,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           DataService.purchedLockers = [];
                           DataService.jwt = "";
                         });
-                        Navigator.pushNamed(context, 'home0');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/login', (r) => false);
                       },
                     ),
                   ),
