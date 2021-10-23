@@ -1,27 +1,51 @@
 import Axios from 'axios';
 import { useState } from 'react';
 
+import '../Global/globalvariables';
+
+import { AiOutlineDelete } from 'react-icons/ai';
+
 function LockerTable() {
   const [lockerList, setLockerList] = useState([]);
 
   const getLocker = () => {
-    Axios.get('http://localhost:3001/sendlocker').then((response) => {
+    Axios.get(`${global.url}/sendlocker`).then((response) => {
       //console.log(response);
       setLockerList(response.data);
     });
   };
+
+  const deletelocker = (lockerid) => {
+    Axios.delete(`${global.url}/deletelocker/${lockerid}`).then((response) => {
+      console.log(lockerid);
+      //console.log('Successfully Deleted a Locker ');
+      console.log(response);
+    });
+  };
+
   getLocker();
+
   const renderlockerlist = (val, key) => {
     return (
       <tr key={key}>
         <td>{key}</td>
         <td>{val.LockerID}</td>
         <td>{val.LockerUserID}</td>
-        <td>{val.LockerLocationID}</td>
+        <td>{val.LockerLocationId}</td>
         <td>{val.Availability}</td>
         <td>{val.ExpireDate}</td>
         <td>{val.IsEmpty}</td>
         <td>{val.LockerNumber}</td>
+        <td>
+          <button
+            onClick={() => {
+              deletelocker(val.LockerID);
+              //console.log(val.LockerID);
+            }}
+          >
+            <AiOutlineDelete />
+          </button>
+        </td>
       </tr>
     );
   };

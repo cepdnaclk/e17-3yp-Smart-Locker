@@ -1,5 +1,6 @@
 Total Tutorial 
 	https://www.youtube.com/watch?v=re3OIOr9dJI&t=1298s
+	https://www.youtube.com/watch?v=AohARsUlwQk
 
 Client - FrontEnd 
 	npx create-react-app name
@@ -23,3 +24,9 @@ Run the Project
 Add Dynamic Tables 
 	https://www.youtube.com/watch?v=nV7Mf77GiOc
 	Check React project-dashboard as well
+
+Setting Port in React 
+//"start": "PORT=3006 react-scripts start",
+
+Notes
+//Delete Cant Pass a body
