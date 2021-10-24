@@ -7,6 +7,7 @@ const passwordComplexity = require("joi-password-complexity");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
+const requestIp = require("request-ip");
 
 const router = express.Router();
 const connection = config.connection;
@@ -16,11 +17,9 @@ router.post("/", (req, res) => {
   const complexityOptions = {
     min: 8,
     max: 25,
-    lowerCase: 1,
-    upperCase: 1,
     numeric: 1,
     symbol: 1,
-    requirementCount: 4,
+    requirementCount: 2,
   };
 
   //validating request body
@@ -65,16 +64,37 @@ router.post("/", (req, res) => {
                     (errUser, rowsUser, fieldsUser) => {
                       if (errUser)
                         return res.status(500).send("Database failure");
-                      let signInRes = {
-                        locations: rowsLoc,
-                        userData: rowsUser[0],
-                        purchasedLockers: [],
-                      };
-                      const token = jwt.sign(
-                        { jwtEmail: req.body.email, jwtUserId: userId },
-                        "smartLocker_jwtPrivateKey"
+                      var today = new Date();
+                      var date =
+                        today.getFullYear() +
+                        "-" +
+                        (today.getMonth() + 1) +
+                        "-" +
+                        today.getDate();
+                      var time =
+                        today.getHours() +
+                        ":" +
+                        today.getMinutes() +
+                        ":" +
+                        today.getSeconds();
+                      var dateTime = date + " " + time;
+                      connection.query(
+                        "INSERT INTO Login(LoginUserID, RequestIP, RequestTime) values (?, ?, ?)",
+                        [userId, requestIp.getClientIp(req), dateTime],
+                        (errLog, resultLog) => {
+                          if (errLog) return res.status(500).send(errLog.message);
+                          let signInRes = {
+                            locations: rowsLoc,
+                            userData: rowsUser[0],
+                            purchasedLockers: [],
+                          };
+                          const token = jwt.sign(
+                            { jwtEmail: req.body.email, jwtUserId: userId },
+                            "smartLocker_jwtPrivateKey"
+                          );
+                          res.header("x-auth-token", token).send(signInRes);
+                        }
                       );
-                      res.header("x-auth-token", token).send(signInRes);
                     }
                   );
                 }
