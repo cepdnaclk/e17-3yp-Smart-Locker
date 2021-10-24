@@ -1,8 +1,11 @@
 import Axios from 'axios';
 import { useState } from 'react';
 
+import '../Styles/styles.css';
 import '../Global/globalvariables';
+
 import { AiOutlineDelete } from 'react-icons/ai';
+import { MdLocationOn } from 'react-icons/md';
 
 function LocationTable() {
   const [locationList, setLocationList] = useState([]);
@@ -37,6 +40,7 @@ function LocationTable() {
         <td>{val.LocationDescription}</td>
         <td>
           <button
+            className="btn btn-danger"
             onClick={() => {
               deletelocation(val.LocationID);
             }}
@@ -49,8 +53,12 @@ function LocationTable() {
   };
   return (
     <div>
-      <div>
-        <table className="table table-striped m-4">
+      <h1 class="top_margin">
+        <MdLocationOn size={36} className="right_mar" />
+        Locations
+      </h1>
+      <div class="x_margin">
+        <table className="table table-bordered ">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -58,6 +66,7 @@ function LocationTable() {
               <th scope="col">Longitude</th>
               <th scope="col">Latitude</th>
               <th scope="col">Description</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>{locationList.map(renderlocationlist)}</tbody>
