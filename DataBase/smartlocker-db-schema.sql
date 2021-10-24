@@ -35,12 +35,22 @@ CREATE TABLE Locker(
     Availability boolean,
     IsEmpty boolean,
     IsLocked boolean,
-    OneTimeToken char(60),
-    SharedOneTimeToken char(60),
+    OneTimeToken char(255),
+    SharedOneTimeToken char(255),
     LockerNumber int,
     ExpireDate DATETIME,
     
     PRIMARY KEY(LockerID),
     FOREIGN KEY(LockerUserID) REFERENCES User(UserID),
     FOREIGN KEY(LockerLocationID) REFERENCES Location(LocationID)
+);
+
+CREATE TABLE Login(
+    RecordID int NOT NULL AUTO_INCREMENT,
+    LoginUserID char(60),
+    RequestIP char(100),
+    RequestTime DATETIME,
+
+    PRIMARY KEY(RecordID),
+    FOREIGN KEY(LoginUserID) REFERENCES User(UserID)
 );
