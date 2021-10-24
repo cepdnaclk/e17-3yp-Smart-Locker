@@ -34,8 +34,11 @@ class MyApp extends StatelessWidget {
             location: "",
           );
         },
-        '/purchase': (context) =>
-            Purchase(cardName: "", location: "", lockerID: ""),
+        '/purchase': (context) => Purchase(
+              cardName: "",
+              location: "",
+              lockerID: "",
+            ),
         'directbooking': (context) => DirectBooking(),
       },
     );

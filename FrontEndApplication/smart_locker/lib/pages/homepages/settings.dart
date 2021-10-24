@@ -180,11 +180,11 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Icon(Icons.logout_outlined),
                       backgroundColor: Colors.blue[800],
                       onPressed: () {
-                        setState(() {
-                          DataService.avilableLockers = [];
-                          DataService.purchedLockers = [];
-                          DataService.jwt = "";
-                        });
+                        // setState(() {
+                        //   DataService.avilableLockers = [];
+                        //   DataService.purchedLockers = [];
+                        //   DataService.jwt = "";
+                        // });
                         Navigator.pushNamedAndRemoveUntil(
                             context, '/login', (r) => false);
                       },

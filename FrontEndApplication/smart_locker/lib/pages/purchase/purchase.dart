@@ -49,8 +49,8 @@ class _PurchaseState extends State<Purchase> {
   }
 
   DateTime getExpireDate(int hours, int days) {
-    DateTime expiredate = DateTime.now();
-    expiredate.add(Duration(hours: hours, days: days));
+    DateTime expiredate =
+        DateTime.now().add(Duration(hours: hours, days: days));
     return expiredate;
   }
 
@@ -154,6 +154,7 @@ class _PurchaseState extends State<Purchase> {
                   onSubmitHandler: () async {
                     DateTime expiredate = getExpireDate(
                         durationPicker.hours, durationPicker.days);
+                    print(durationPicker.hours);
                     print(expiredate.toString());
                     final http.Response response =
                         await purchase(widget.lockerID, expiredate);

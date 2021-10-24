@@ -7,23 +7,24 @@ alertDialog(
     String? message,
     required AlertType alertType}) {
   Alert(
-      context: context,
-      type: alertType,
-      title: title,
-      desc: message,
-      buttons: [
-        DialogButton(
-          color: Colors.blue[800],
-          splashColor: Colors.blue[200],
-          child: Text(
-            "Cancle",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+    context: context,
+    type: alertType,
+    title: title,
+    desc: message,
+    buttons: [
+      DialogButton(
+        color: Colors.blue[800],
+        splashColor: Colors.blue[200],
+        child: Text(
+          "Cancle",
+          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
-      ]).show();
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    ],
+  ).show();
 }
 
 purchasecof(BuildContext context) {

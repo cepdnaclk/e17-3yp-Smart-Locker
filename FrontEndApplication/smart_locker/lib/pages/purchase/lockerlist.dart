@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_locker/models/PurchasedLockersModel.dart';
-
 import 'package:smart_locker/widgets/lockercard.dart';
 
 class LockerList extends StatefulWidget {
