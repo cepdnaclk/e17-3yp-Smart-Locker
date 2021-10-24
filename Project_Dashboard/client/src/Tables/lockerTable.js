@@ -10,18 +10,20 @@ function LockerTable() {
   const [lockerList, setLockerList] = useState([]);
 
   const getLocker = () => {
-    Axios.get(`${global.url}/sendlocker`).then((response) => {
+    Axios.get(`${global.url}/api/locker`).then((response) => {
       //console.log(response);
       setLockerList(response.data);
     });
   };
 
   const deletelocker = (lockerid) => {
-    Axios.delete(`${global.url}/deletelocker/${lockerid}`).then((response) => {
-      console.log(lockerid);
-      //console.log('Successfully Deleted a Locker ');
-      console.log(response);
-    });
+    Axios.delete(`${global.url}/api/locker/delete/${lockerid}`).then(
+      (response) => {
+        console.log(lockerid);
+        //console.log('Successfully Deleted a Locker ');
+        console.log(response);
+      }
+    );
   };
 
   getLocker();
@@ -58,7 +60,7 @@ function LockerTable() {
         Lockers
       </h1>
       <div class="x_margin">
-        <table className="table table-bordered mx-2 my-3">
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th scope="col">#</th>

@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const connection = config.connection;
 
-router.post('/', (req, res) => {
+router.post('/add', (req, res) => {
   const locationid = req.body.locationid;
   const locationlongitude = req.body.locationlongitude;
   const locationlatitude = req.body.locationlatitude;
@@ -36,6 +36,26 @@ router.post('/', (req, res) => {
       }
     }
   );
+});
+
+router.delete('/delete/:locationid', (req, res) => {
+  const locationid = req.params.locationid;
+
+  connection.query(
+    'DELETE FROM Location WHERE LocationID = ?',
+    [locationid],
+    (err, result) => {
+      if (err) return res.status(500).send('Database Failure');
+      return res.send(result);
+    }
+  );
+});
+
+router.get('/', (req, res) => {
+  connection.query('SELECT * FROM Location', (err, result) => {
+    if (err) return res.status(500).send('Database Failure');
+    res.send(result);
+  });
 });
 
 module.exports = router;

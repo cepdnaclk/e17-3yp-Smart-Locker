@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const router = express.Router();
 const connection = config.connection;
 
-router.post('/', (req, res) => {
+router.post('/add', (req, res) => {
   const username = req.body.username;
   const useremail = req.body.useremail;
   const usermobilenumber = req.body.usermobilenumber;
@@ -36,6 +36,26 @@ router.post('/', (req, res) => {
       }
     }
   );
+});
+
+router.delete('/delete/:useremail', (req, res) => {
+  const useremail = req.params.useremail;
+
+  connection.query(
+    'DELETE FROM User WHERE UserEmail = ?',
+    [useremail],
+    (err, result) => {
+      if (err) return res.status(500).send('Database Failure');
+      return res.send(result);
+    }
+  );
+});
+
+router.get('/', (req, res) => {
+  connection.query('SELECT * FROM User', (err, result) => {
+    if (err) return res.status(500).send('Database Failure');
+    res.send(result);
+  });
 });
 
 module.exports = router;

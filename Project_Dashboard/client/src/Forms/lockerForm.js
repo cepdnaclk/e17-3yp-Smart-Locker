@@ -14,7 +14,7 @@ function LockerForm() {
   const [lockerLocationID, setLockerLocationID] = useState('');
 
   const addLocker = () => {
-    Axios.post(`${global.url}/addlocker`, {
+    Axios.post(`${global.url}/api/locker/add`, {
       lockerid: lockerID,
       lockerlocationid: lockerLocationID,
       lockernumber: lockerNumber,

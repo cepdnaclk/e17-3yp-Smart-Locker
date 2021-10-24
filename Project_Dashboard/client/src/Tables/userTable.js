@@ -11,14 +11,16 @@ function UserTable() {
   const [userList, setUserList] = useState([]);
 
   const deleteUser = (useremail) => {
-    Axios.delete(`${global.url}/deleteuser/${useremail}`).then((response) => {
-      console.log('Successfully Deleted the User');
-      console.log(response);
-    });
+    Axios.delete(`${global.url}/api/admin/delete/${useremail}`).then(
+      (response) => {
+        console.log('Successfully Deleted the User');
+        //console.log(response);
+      }
+    );
   };
 
   const getUser = () => {
-    Axios.get(`${global.url}/senduser`).then((response) => {
+    Axios.get(`${global.url}/api/admin`).then((response) => {
       //console.log(response);
       setUserList(response.data);
     });
