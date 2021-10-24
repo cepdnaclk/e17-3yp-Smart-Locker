@@ -11,7 +11,7 @@ function LockerTable() {
 
   const getLocker = () => {
     Axios.get(`${global.url}/api/locker`).then((response) => {
-      //console.log(response);
+      console.log(response);
       setLockerList(response.data);
     });
   };
@@ -34,7 +34,7 @@ function LockerTable() {
         <td>{key}</td>
         <td>{val.LockerID}</td>
         <td>{val.LockerUserID}</td>
-        <td>{val.LockerLocationId}</td>
+        <td>{val.LockerLocationID}</td>
         <td>{val.Availability}</td>
         <td>{val.ExpireDate}</td>
         <td>{val.IsEmpty}</td>
