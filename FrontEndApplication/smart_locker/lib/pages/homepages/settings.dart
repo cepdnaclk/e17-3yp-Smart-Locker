@@ -16,14 +16,19 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
+            bottom: Radius.circular(10),
           ),
         ),
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           'Profile',
-          style: TextStyle(fontSize: 22, color: Colors.black87),
+          style: TextStyle(
+            fontSize: 22,
+            color: Colors.black87,
+            fontFamily: "Aller",
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -53,7 +58,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF003d80), width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(1, 4),
+                          blurRadius: 20.0,
+                          color: Colors.black.withOpacity(0.6),
+                        ),
+                      ],
+                      // border: Border.all(color: Color(0xFF003d80), width: 2),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10.0),
                           bottomRight: Radius.circular(10.0)),
@@ -61,7 +73,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        DataService.user.userData!.UserName.toString(),
+                        DataService.user.userData != null
+                            ? DataService.user.userData!.UserName.toString()
+                            : "No User",
                         textScaleFactor: 1.8,
                         style: TextStyle(color: Color(0xFF003d80)),
                       ),
@@ -84,7 +98,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: MediaQuery.of(context).size.width * 0.96,
                   padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF003d80), width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(1, 4),
+                        blurRadius: 20.0,
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ],
+                    // border: Border.all(color: Color(0xFF003d80), width: 2),
                     borderRadius: BorderRadius.circular(10.0),
                     color: Color(0xFF003d80),
                   ),
@@ -97,7 +118,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        DataService.user.userData!.UserEmail.toString(),
+                        DataService.user.userData != null
+                            ? DataService.user.userData!.UserEmail.toString()
+                            : "No Email",
                         textScaleFactor: 1.8,
                         style: TextStyle(color: Color(0xFF003d80)),
                       ),
@@ -120,7 +143,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: MediaQuery.of(context).size.width * 0.96,
                   padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF003d80), width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(1, 4),
+                        blurRadius: 20.0,
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ],
+                    // border: Border.all(color: Color(0xFF003d80), width: 2),
                     borderRadius: BorderRadius.circular(10.0),
                     color: Color(0xFF003d80),
                   ),
@@ -133,7 +163,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        DataService.user.userData!.MobileNumber.toString(),
+                        DataService.user.userData != null
+                            ? DataService.user.userData!.MobileNumber.toString()
+                            : "No User",
                         textScaleFactor: 1.8,
                         style: TextStyle(color: Color(0xFF003d80)),
                       ),
@@ -148,7 +180,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: MediaQuery.of(context).size.width * 0.96,
                   padding: EdgeInsets.only(left: 12.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF003d80), width: 2),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(1, 4),
+                        blurRadius: 20.0,
+                        color: Colors.black.withOpacity(0.6),
+                      ),
+                    ],
+                    // border: Border.all(color: Color(0xFF003d80), width: 2),
                     borderRadius: BorderRadius.circular(10.0),
                     color: Color(0xFF003d80),
                   ),
@@ -180,11 +219,11 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Icon(Icons.logout_outlined),
                       backgroundColor: Colors.blue[800],
                       onPressed: () {
-                        // setState(() {
-                        //   DataService.avilableLockers = [];
-                        //   DataService.purchedLockers = [];
-                        //   DataService.jwt = "";
-                        // });
+                        setState(() {
+                          DataService.avilableLockers = [];
+                          DataService.purchedLockers = [];
+                          DataService.jwt = "";
+                        });
                         Navigator.pushNamedAndRemoveUntil(
                             context, '/login', (r) => false);
                       },

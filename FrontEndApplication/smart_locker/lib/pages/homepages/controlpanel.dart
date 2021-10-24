@@ -72,7 +72,12 @@ class _ControlPanelState extends State<ControlPanel> {
         centerTitle: true,
         title: Text(
           'Control Panel',
-          style: TextStyle(fontSize: 22, color: Colors.black87),
+          style: TextStyle(
+            fontSize: 22,
+            color: Colors.black87,
+            fontFamily: 'Aller',
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Center(
@@ -111,7 +116,14 @@ class _ControlPanelState extends State<ControlPanel> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF003d80), width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(1, 4),
+                      blurRadius: 10.0,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                  ],
+                  // border: Border.all(color: Color(0xFF003d80), width: 0),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0)),
@@ -147,7 +159,14 @@ class _ControlPanelState extends State<ControlPanel> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF003d80), width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(1, 4),
+                      blurRadius: 20.0,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                  ],
+                  // border: Border.all(color: Color(0xFF003d80), width: 2),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0)),
@@ -184,7 +203,14 @@ class _ControlPanelState extends State<ControlPanel> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF003d80), width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(1, 6),
+                      blurRadius: 10.0,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                  ],
+                  // border: Border.all(color: Color(0xFF003d80), width: 2),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0)),
@@ -366,44 +392,48 @@ class _ControlPanelState extends State<ControlPanel> {
       height: MediaQuery.of(context).size.height * 0.08,
       width: MediaQuery.of(context).size.width * 1,
       child: Center(
-        child: DropdownButton<String>(
-          icon: const Icon(Icons.keyboard_arrow_down),
-          iconSize: 24,
-          focusColor: Colors.white,
-          value: _chosenValue,
-          elevation: 16,
-          style: TextStyle(
-              color: Colors.blue[800],
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-          iconEnabledColor: Colors.black,
-          dropdownColor: Colors.white,
-          underline: Container(
-            height: 4,
-            color: Color(0xFF003d80),
-          ),
-          items: lockerNames.map<DropdownMenuItem<String>>((String? value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(
-                value!,
-                style: TextStyle(color: Colors.blue[900]),
-              ),
-            );
-          }).toList(),
-          hint: Text(
-            "Please Select Your Locker",
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            icon: const Icon(Icons.keyboard_arrow_down),
+            iconSize: 24,
+            focusColor: Colors.white,
+            value: _chosenValue,
+            elevation: 16,
             style: TextStyle(
                 color: Colors.blue[800],
                 fontSize: 20,
-                fontWeight: FontWeight.w800),
+                fontWeight: FontWeight.bold),
+            iconEnabledColor: Colors.black,
+            dropdownColor: Colors.white,
+            underline: Container(
+              height: 4,
+              color: Color(0xFF003d80),
+            ),
+            items: lockerNames.map<DropdownMenuItem<String>>((String? value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value!,
+                  style: TextStyle(
+                    color: Color(0xFF003d80),
+                  ),
+                ),
+              );
+            }).toList(),
+            hint: Text(
+              "Please Select Your Locker",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800),
+            ),
+            onChanged: (String? value) {
+              setState(() {
+                _chosenValue = value;
+                index = lockerNames.indexOf(value);
+              });
+            },
           ),
-          onChanged: (String? value) {
-            setState(() {
-              _chosenValue = value;
-              index = lockerNames.indexOf(value);
-            });
-          },
         ),
       ),
     );

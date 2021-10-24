@@ -107,7 +107,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               if (!formKey.currentState!.validate()) {
                                 return;
                               }
-
                               final String username = UserNameController.text;
                               final String email = EmailController.text;
                               final String password = PasswordController.text;

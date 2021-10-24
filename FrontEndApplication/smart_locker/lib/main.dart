@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_locker/pages/homepage.dart';
 import 'package:smart_locker/pages/homepages/directbooking.dart';
+import 'package:smart_locker/pages/homepages/settings.dart';
 import 'package:smart_locker/pages/loadingpage.dart';
 import 'package:smart_locker/pages/loginpage.dart';
 import 'package:smart_locker/pages/purchase/lockerlist.dart';
