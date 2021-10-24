@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_locker/models/PurchasedLockersModel.dart';
-
 import 'package:smart_locker/widgets/lockercard.dart';
 
 class LockerList extends StatefulWidget {
@@ -16,7 +15,7 @@ class _LockerListState extends State<LockerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -36,44 +35,41 @@ class _LockerListState extends State<LockerList> {
         children: [
           SingleChildScrollView(
             child: Container(
+              color: Colors.blue[100],
               width: MediaQuery.of(context).size.height * 0.9,
-              child: Card(
-                color: Colors.blue[100],
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    (widget.lockerList.isNotEmpty)
-                        ? ListView.builder(
-                            itemCount: widget.lockerList.length,
-                            itemBuilder: (context, index) {
-                              if (!widget.lockerList.isEmpty) {
-                                return LockerCard(
-                                    UniqueKey(),
-                                    widget.lockerList[index].LockerNumber
-                                        .toString(),
-                                    widget.location,
-                                    widget.lockerList[index].LockerID!);
-                              } else {
-                                return Container();
-                              }
-                            },
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                          )
-                        : LockerCard(
-                            UniqueKey(), "No Lockers", "Have to add", ""),
-                    SizedBox(
-                      height: 80.0,
-                    )
-                  ],
-                ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  (widget.lockerList.isNotEmpty)
+                      ? ListView.builder(
+                          itemCount: widget.lockerList.length,
+                          itemBuilder: (context, index) {
+                            if (!widget.lockerList.isEmpty) {
+                              return LockerCard(
+                                  UniqueKey(),
+                                  widget.lockerList[index].LockerNumber
+                                      .toString(),
+                                  widget.location,
+                                  widget.lockerList[index].LockerID!);
+                            } else {
+                              return Container();
+                            }
+                          },
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                        )
+                      : LockerCard(
+                          UniqueKey(), "No Lockers", "Have to add", ""),
+                  SizedBox(
+                    height: 80.0,
+                  )
+                ],
               ),
             ),
           ),
-          Positioned.fill(
-            bottom: 0,
+          Positioned(
             child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(

@@ -211,6 +211,21 @@ class _MapPageState extends State<MapPage> {
                   ),
                 )
               : Container(),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: EdgeInsets.all(30),
+              child: FloatingActionButton(
+                child: Icon(
+                  Icons.add_moderator_outlined,
+                ),
+                backgroundColor: Colors.blue[800],
+                onPressed: () {
+                  Navigator.pushNamed(context, 'directbooking');
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

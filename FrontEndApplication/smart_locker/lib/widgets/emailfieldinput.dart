@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PasswordInput extends StatefulWidget {
-  const PasswordInput({
+class EmailFieldInput extends StatelessWidget {
+  const EmailFieldInput({
     Key? key,
-    required this.passwordController,
+    required this.emailController,
     required this.hint,
   }) : super(key: key);
-  final TextEditingController passwordController;
-  final String hint;
-  @override
-  _PasswordInputState createState() => _PasswordInputState();
-}
 
-class _PasswordInputState extends State<PasswordInput> {
-  bool _isHidden = true;
+  final TextEditingController emailController;
+  final String hint;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,39 +27,30 @@ class _PasswordInputState extends State<PasswordInput> {
         ],
       ),
       child: TextFormField(
-        controller: widget.passwordController,
-        keyboardType: TextInputType.text,
-        obscureText: _isHidden,
+        controller: emailController,
+        keyboardType: TextInputType.emailAddress,
         validator: (String? newValue) {
-          if (newValue!.length > 25) {
+          if (newValue!.length > 30) {
             return "error1";
           }
           if (!RegExp(
-                  r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")
+                  r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
               .hasMatch(newValue)) {
-            return "Minimum 8 characters, at least one letter, one number and one special character";
+            return "error2";
           }
           return null;
         },
         style: TextStyle(fontSize: 20.0, color: Colors.black),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, -10.0, 20.0, 15.0),
-          hintText: widget.hint,
-          suffix: InkWell(
-            onTap: _togglePasswordView,
-            child: Icon(
-              _isHidden ? Icons.visibility : Icons.visibility_off,
-              color: Colors.grey,
-            ),
-          ),
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: hint,
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: 32.0),
             borderRadius: BorderRadius.circular(20.0),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white, width: 32.0),
-            borderRadius: BorderRadius.circular(20.0),
-          ),
+              borderSide: BorderSide(color: Colors.white, width: 32.0),
+              borderRadius: BorderRadius.circular(20.0)),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: 32.0),
             borderRadius: BorderRadius.circular(20.0),
@@ -71,11 +58,5 @@ class _PasswordInputState extends State<PasswordInput> {
         ),
       ),
     );
-  }
-
-  void _togglePasswordView() {
-    setState(() {
-      _isHidden = !_isHidden;
-    });
   }
 }
