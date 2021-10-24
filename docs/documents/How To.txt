@@ -5,6 +5,10 @@ Total Tutorial
 	Multiple Web Pages
 		https://www.youtube.com/watch?v=xMNhDf5-hvk
 
+Hosting a Reactapp in Linux
+	https://www.youtube.com/watch?v=rE8mJ1OYjmM&t=893s 
+		Enable HTTP access in AWS Security Features
+	
 Client - FrontEnd 
 	npx create-react-app name
 

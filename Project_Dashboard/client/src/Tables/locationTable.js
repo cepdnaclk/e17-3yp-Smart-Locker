@@ -52,9 +52,11 @@ function LocationTable() {
               getinfo(val.LocationID);
             }}
             className="btn btn-primary"
+            id="button_space"
           >
             <AiOutlineInfoCircle size={24} />
           </button>
+
           <button
             className="btn btn-danger"
             onClick={() => {

@@ -36,3 +36,7 @@
 .from_border {
   width: 600px;
 }
+
+#button_space {
+  margin-right: 5px;
+}
