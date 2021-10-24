@@ -14,7 +14,7 @@ function UserForm() {
   const [userPassword, setUserPassword] = useState('');
 
   const addUser = () => {
-    Axios.post(`${global.url}/adduser`, {
+    Axios.post(`${global.url}/api/admin/add`, {
       username: userName,
       useremail: userEmail,
       usermobilenumber: userMobileNumber,

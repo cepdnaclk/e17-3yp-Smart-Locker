@@ -14,7 +14,7 @@ function LocationForm() {
   //const [locationURL, setLocationURL] = useState('');
 
   const addLocation = () => {
-    Axios.post(`${global.url}/addlocation`, {
+    Axios.post(`${global.url}/api/location/add`, {
       locationid: locationID,
       locationlongitude: locationLongitude,
       locationlatitude: locationLatitude,
