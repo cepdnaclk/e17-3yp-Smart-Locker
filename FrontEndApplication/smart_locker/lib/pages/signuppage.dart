@@ -3,8 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:smart_locker/models/UserModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
+import 'package:smart_locker/widgets/emailfieldinput.dart';
+import 'package:smart_locker/widgets/nofieldinput.dart';
+import 'package:smart_locker/widgets/textfieldinput.dart';
 import '../widgets/backgroundimage.dart';
-import '../widgets/textinput.dart';
 import '../widgets/passwordinput.dart';
 import '../widgets/submitbutton.dart';
 
@@ -22,9 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final PasswordController = TextEditingController();
   final ConfirmPasswordController = TextEditingController();
 
-  bool validateName = false;
-  bool validateEmail = false;
-  bool validateNumber = false;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<http.Response> signup(
       String username, String email, String password, String number) async {
@@ -61,89 +61,86 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Center(
-              child: Container(
-                padding: EdgeInsets.only(top: 220),
-                child: Column(
-                  children: [
-                    TextInput(
-                      emailController: UserNameController,
-                      hint: "User Name",
-                      validate: validateName,
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    TextInput(
-                      emailController: EmailController,
-                      hint: "Email",
-                      validate: validateEmail,
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    TextInput(
-                      emailController: NumberController,
-                      hint: "Number",
-                      validate: validateNumber,
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    PasswordInput(
-                      passwordController: PasswordController,
-                      hint: "Password",
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    PasswordInput(
-                      passwordController: ConfirmPasswordController,
-                      hint: "Confirm Password",
-                    ),
-                    Center(
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(0.0, 23.0, 0.0, 0.0),
-                        child: SubmitButton(
-                          onSubmitHandler: () async {
-                            final String username = UserNameController.text;
-                            final String email = EmailController.text;
-                            final String password = PasswordController.text;
-                            final String confirmpassword =
-                                ConfirmPasswordController.text;
-                            final String number = NumberController.text;
-                            setState(() {
-                              username.isEmpty
-                                  ? validateName = true
-                                  : validateName = false;
-                              email.isEmpty
-                                  ? validateName = true
-                                  : validateName = false;
-                            });
-                            if (password == confirmpassword) {
-                              final http.Response response = await signup(
-                                  username, email, password, number);
-                              print(response.statusCode);
-                              if (response.statusCode == 200) {
-                                DataService.jwt =
-                                    response.headers["x-auth-token"]!;
-                                print(DataService.jwt);
-                                var r = json.decode(response.body);
-                                setState(() {
-                                  DataService.user = UserModel.fromJson(r);
-                                });
-
-                                Navigator.pushNamed(
-                                  context,
-                                  '/home0',
-                                );
+              child: Form(
+                key: formKey,
+                child: Container(
+                  padding: EdgeInsets.only(top: 220),
+                  child: Column(
+                    children: [
+                      TextFieldInput(
+                        emailController: UserNameController,
+                        hint: "User Name",
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      EmailFieldInput(
+                        emailController: EmailController,
+                        hint: "Email",
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      NoFieldInput(
+                        emailController: NumberController,
+                        hint: "Number",
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      PasswordInput(
+                        passwordController: PasswordController,
+                        hint: "Password",
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      PasswordInput(
+                        passwordController: ConfirmPasswordController,
+                        hint: "Confirm Password",
+                      ),
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(0.0, 23.0, 0.0, 0.0),
+                          child: SubmitButton(
+                            onSubmitHandler: () async {
+                              if (!formKey.currentState!.validate()) {
+                                return;
                               }
-                            }
-                          },
-                          text: "SIGN UP",
+                              final String username = UserNameController.text;
+                              final String email = EmailController.text;
+                              final String password = PasswordController.text;
+                              final String confirmpassword =
+                                  ConfirmPasswordController.text;
+                              final String number = NumberController.text;
+
+                              if (password == confirmpassword) {
+                                final http.Response response = await signup(
+                                    username, email, password, number);
+
+                                print(response.statusCode);
+                                if (response.statusCode == 200) {
+                                  DataService.jwt =
+                                      response.headers["x-auth-token"]!;
+                                  print(DataService.jwt);
+                                  var r = json.decode(response.body);
+                                  setState(() {
+                                    DataService.user = UserModel.fromJson(r);
+                                  });
+
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/home0',
+                                  );
+                                }
+                              }
+                            },
+                            text: "SIGN UP",
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
