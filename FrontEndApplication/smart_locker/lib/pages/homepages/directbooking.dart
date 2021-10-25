@@ -16,7 +16,7 @@ class DirectBooking extends StatefulWidget {
 class _DirectBookingState extends State<DirectBooking> {
   final lockerNumber = TextEditingController();
   final clusterNumber = TextEditingController();
-  final durationPicker = DurationPicker(
+  final durationPickerDirect = DurationPicker(
     hours: 1,
     days: 0,
   );
@@ -47,8 +47,8 @@ class _DirectBookingState extends State<DirectBooking> {
   }
 
   DateTime getExpireDate(int hours, int days) {
-    DateTime expiredate = DateTime.now();
-    expiredate.add(Duration(hours: hours, days: days));
+    DateTime expiredate =
+        DateTime.now().add(Duration(hours: hours, days: days));
     return expiredate;
   }
 
@@ -59,7 +59,7 @@ class _DirectBookingState extends State<DirectBooking> {
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20),
+            bottom: Radius.circular(10),
           ),
         ),
         elevation: 8,
@@ -72,93 +72,91 @@ class _DirectBookingState extends State<DirectBooking> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Form(
-            child: Column(
-              children: [
-                Text(
-                  "Enter Locker Number",
-                  style: TextStyle(
-                    color: Color(0xFF003d80),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+          child: Column(
+            children: [
+              Text(
+                "Enter Locker Number",
+                style: TextStyle(
+                  color: Color(0xFF003d80),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              DataInput(
+                dataController: lockerNumber,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Enter Locker Group Number",
+                style: TextStyle(
+                  color: Color(0xFF003d80),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              DataInput(
+                dataController: clusterNumber,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Select The Time Duration",
+                style: TextStyle(
+                  color: Color(0xFF003d80),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              durationPickerDirect,
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                DataInput(
-                  dataController: lockerNumber,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Enter Locker Group Number",
-                  style: TextStyle(
-                    color: Color(0xFF003d80),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                DataInput(
-                  dataController: clusterNumber,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Select The Time Duration",
-                  style: TextStyle(
-                    color: Color(0xFF003d80),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                durationPicker,
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    SubmitButton(
-                        onSubmitHandler: () {
-                          Navigator.pop(context, '/home0');
-                        },
-                        text: "Cancel"),
-                    SubmitButton(
-                        onSubmitHandler: () async {
-                          DateTime expiredate = getExpireDate(
-                              durationPicker.hours, durationPicker.days);
+                  SubmitButton(
+                      onSubmitHandler: () {
+                        Navigator.pop(context, '/home0');
+                      },
+                      text: "Cancel"),
+                  SubmitButton(
+                      onSubmitHandler: () async {
+                        DateTime expiredate = getExpireDate(
+                            durationPickerDirect.hours,
+                            durationPickerDirect.days);
 
-                          final http.Response response = await purchase(
-                              lockerNumber.text.toString(),
-                              clusterNumber.text.toString(),
-                              expiredate);
-                          print(response.body);
-                          if (response.statusCode == 200) {
-                            Navigator.pushNamed(context, '/home1');
-                          } else {
-                            print("A");
-                          }
-                        },
-                        text: "Purchase"),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                        final http.Response response = await purchase(
+                            lockerNumber.text.toString(),
+                            clusterNumber.text.toString(),
+                            expiredate);
+
+                        if (response.statusCode == 200) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/home1', (Route<dynamic> route) => false);
+                        }
+                      },
+                      text: "Purchase"),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
