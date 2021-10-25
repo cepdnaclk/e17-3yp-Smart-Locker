@@ -1,11 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smart_locker/models/UserModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
+import 'package:smart_locker/widgets/alertdialog.dart';
 import 'package:smart_locker/widgets/backgroundimage.dart';
+import 'package:smart_locker/widgets/emailfieldinput.dart';
 import 'package:smart_locker/widgets/passwordinput.dart';
 import 'package:smart_locker/widgets/submitbutton.dart';
+import 'package:smart_locker/widgets/textfieldinput.dart';
 import 'package:smart_locker/widgets/textinput.dart';
 
 class LogInPage extends StatefulWidget {
@@ -17,6 +23,8 @@ class _LogInPageState extends State<LogInPage> {
   final EmailController = TextEditingController();
 
   final PasswordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool validate = false;
 
@@ -47,45 +55,85 @@ class _LogInPageState extends State<LogInPage> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Center(
-              child: Container(
-                padding: EdgeInsets.only(top: 300),
-                child: Column(
-                  children: [
-                    TextInput(
+              child: Form(
+                key: formKey,
+                child: Container(
+                  padding: EdgeInsets.only(top: 300),
+                  child: Column(
+                    children: [
+                      EmailFieldInput(
                         emailController: EmailController,
                         hint: "Email",
-                        validate: validate),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    PasswordInput(
-                        passwordController: PasswordController,
-                        hint: "Password"),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SubmitButton(
-                        onSubmitHandler: () async {
-                          final String email = EmailController.text;
-                          final String password = PasswordController.text;
-                          final http.Response response =
-                              await login(email, password);
-                          print(response);
-                          if (response.statusCode == 200) {
-                            DataService.jwt = response.headers["x-auth-token"]!;
-                            var r = json.decode(response.body);
-                            setState(() {
-                              DataService.user = UserModel.fromJson(r);
-                            });
-                            print(DataService.user.userData!.UserEmail);
-                            Navigator.pushNamed(
-                              context,
-                              '/home0',
-                            );
-                          }
-                        },
-                        text: "LOG IN")
-                  ],
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      PasswordInput(
+                          passwordController: PasswordController,
+                          hint: "Password"),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      SubmitButton(
+                          onSubmitHandler: () async {
+                            if (!formKey.currentState!.validate()) {
+                              return;
+                            }
+                            final String email = EmailController.text;
+                            final String password = PasswordController.text;
+
+                            try {
+                              final http.Response response =
+                                  await login(email, password)
+                                      .timeout(Duration(seconds: 3));
+                              if (response.statusCode == 200) {
+                                DataService.jwt =
+                                    response.headers["x-auth-token"]!;
+                                var r = json.decode(response.body);
+                                setState(() {
+                                  DataService.user = UserModel.fromJson(r);
+                                });
+                                print(DataService.user.userData!.UserEmail);
+                                Navigator.pushNamed(
+                                  context,
+                                  '/home0',
+                                );
+                              } else if (response.statusCode == 400) {
+                                alertDialog(
+                                  context: context,
+                                  title: "Invalid Email Or Password",
+                                  alertType: AlertType.info,
+                                );
+                              } else if (response.statusCode == 500) {
+                                alertDialog(
+                                  context: context,
+                                  title: "Internal Server Error",
+                                  alertType: AlertType.error,
+                                );
+                              } else {
+                                alertDialog(
+                                  context: context,
+                                  title: "Connection Error",
+                                  alertType: AlertType.error,
+                                );
+                              }
+                            } on TimeoutException catch (_) {
+                              alertDialog(
+                                context: context,
+                                title: "Check Your Connection",
+                                alertType: AlertType.error,
+                              );
+                            } on SocketException catch (_) {
+                              alertDialog(
+                                context: context,
+                                title: "Connection Error",
+                                alertType: AlertType.warning,
+                              );
+                            }
+                          },
+                          text: "LOG IN")
+                    ],
+                  ),
                 ),
               ),
             ),

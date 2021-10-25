@@ -49,8 +49,8 @@ class _PurchaseState extends State<Purchase> {
   }
 
   DateTime getExpireDate(int hours, int days) {
-    DateTime expiredate = DateTime.now();
-    expiredate.add(Duration(hours: hours, days: days));
+    DateTime expiredate =
+        DateTime.now().add(Duration(hours: hours, days: days));
     return expiredate;
   }
 
@@ -74,95 +74,97 @@ class _PurchaseState extends State<Purchase> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Form(
-            child: Column(
-              children: [
-                Text(
-                  "You choosed",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF003d80)),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Color(0xFF003d80), width: 3),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Locker Details",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF003d80)),
-                              ),
-                              Text(
-                                "Locker Number- " + widget.cardName,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF003d80)),
-                              ),
-                              Text(
-                                "Location- " + widget.location,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF003d80)),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
-                Text(
-                  "Select The Time Duration",
-                  style: TextStyle(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "You have chosen",
+                style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF003d80)),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width * 0.6,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Color(0xFF003d80), width: 3),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
                   ),
                 ),
-                SizedBox(
-                  height: 30,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "Locker Details",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF003d80)),
+                            ),
+                            Text(
+                              "Locker Number- " + widget.cardName,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF003d80)),
+                            ),
+                            Text(
+                              "Location- " + widget.location,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF003d80)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                durationPicker,
-                SizedBox(
-                  height: 30,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Text(
+                "Select The Time Duration",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-                SubmitButton(
-                    onSubmitHandler: () async {
-                      DateTime expiredate = getExpireDate(
-                          durationPicker.hours, durationPicker.days);
-                      print(expiredate.toString());
-                      final http.Response response =
-                          await purchase(widget.lockerID, expiredate);
-                      print(response.body);
-                      if (response.statusCode == 200) {
-                        Navigator.pushNamed(context, '/home1');
-                      }
-                    },
-                    text: "Purchase"),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              durationPicker,
+              SizedBox(
+                height: 30,
+              ),
+              SubmitButton(
+                  onSubmitHandler: () async {
+                    DateTime expiredate = getExpireDate(
+                        durationPicker.hours, durationPicker.days);
+                    print(durationPicker.hours);
+                    print(expiredate.toString());
+                    final http.Response response =
+                        await purchase(widget.lockerID, expiredate);
+                    print(response.body);
+                    if (response.statusCode == 200) {
+                      Navigator.pushNamed(context, '/home1');
+                    }
+                  },
+                  text: "Purchase"),
+            ],
           ),
         ),
       ),

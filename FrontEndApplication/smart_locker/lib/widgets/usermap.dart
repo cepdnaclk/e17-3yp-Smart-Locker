@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:smart_locker/service/dataservice.dart';
 
 class UserMap extends StatefulWidget {
-  const UserMap({Key? key}) : super(key: key);
+  final int index;
+  const UserMap({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
   @override
   _UserMapState createState() => _UserMapState();
@@ -77,22 +82,22 @@ class _UserMapState extends State<UserMap> {
       // Can fetch from a api and update the _markers
       _markers.add(
         Marker(
-          markerId: MarkerId("id-1"),
-          position: LatLng(7.252321246065113, 80.59256273092281),
-          infoWindow: InfoWindow(title: "UoP Efac"),
+          markerId: MarkerId(
+              DataService.userLockers[widget.index].LocationID.toString()),
+          position: LatLng(
+            double.parse(
+                DataService.userLockers[widget.index].Latitude.toString()),
+            double.parse(
+                DataService.userLockers[widget.index].Longitude.toString()),
+          ),
+          infoWindow: InfoWindow(
+              title: DataService.userLockers[widget.index].LocationDescription),
           icon: mapMarker,
           // An ontap function can implement here
         ),
       );
-      _markers.add(
-        Marker(
-          markerId: MarkerId("id-2"),
-          position: LatLng(7.2633009032347084, 80.59304870962823),
-          infoWindow: InfoWindow(title: "Peradeniya"),
-          icon: mapMarker,
-        ),
-      );
-       _mapLoading = false;
+
+      _mapLoading = false;
     });
   }
   //-----------------------------------------
