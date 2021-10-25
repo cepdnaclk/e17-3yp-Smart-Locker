@@ -139,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   } else if (response.statusCode == 400) {
                                     alertDialog(
                                       context: context,
-                                      title: "Invalid Email Or Password",
+                                      title: "User Already Exist",
                                       alertType: AlertType.info,
                                     );
                                   } else if (response.statusCode == 500) {
