@@ -41,8 +41,8 @@ CREATE TABLE Locker(
     ExpireDate DATETIME,
     
     PRIMARY KEY(LockerID),
-    FOREIGN KEY(LockerUserID) REFERENCES User(UserID),
-    FOREIGN KEY(LockerLocationID) REFERENCES Location(LocationID)
+    FOREIGN KEY(LockerUserID) REFERENCES User(UserID) ON DELETE CASCADE,
+    FOREIGN KEY(LockerLocationID) REFERENCES Location(LocationID) ON DELETE CASCADE
 );
 
 CREATE TABLE Login(
@@ -52,5 +52,5 @@ CREATE TABLE Login(
     RequestTime DATETIME,
 
     PRIMARY KEY(RecordID),
-    FOREIGN KEY(LoginUserID) REFERENCES User(UserID)
+    FOREIGN KEY(LoginUserID) REFERENCES User(UserID) ON DELETE CASCADE
 );
