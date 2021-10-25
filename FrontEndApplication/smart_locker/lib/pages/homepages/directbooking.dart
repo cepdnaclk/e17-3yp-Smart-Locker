@@ -131,7 +131,8 @@ class _DirectBookingState extends State<DirectBooking> {
                   ),
                   SubmitButton(
                       onSubmitHandler: () {
-                        Navigator.pop(context, '/home0');
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/home0', (Route<dynamic> route) => false);
                       },
                       text: "Cancel"),
                   SubmitButton(
