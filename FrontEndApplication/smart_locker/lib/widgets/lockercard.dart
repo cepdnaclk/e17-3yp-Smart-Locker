@@ -30,17 +30,19 @@ class LockerCard extends StatelessWidget {
                 padding: const EdgeInsets.all(5.0),
                 child: InkWell(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (
-                          context,
-                        ) =>
-                                Purchase(
-                                  cardName: cardName,
-                                  location: location,
-                                  lockerID: lockerID,
-                                )),
+                          builder: (
+                            context,
+                          ) =>
+                              Purchase(
+                            cardName: cardName,
+                            location: location,
+                            lockerID: lockerID,
+                          ),
+                        ),
+                        ModalRoute.withName("/home0"),
                       );
                     },
                     child: Row(
@@ -95,7 +97,7 @@ class LockerCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     )),
               ),

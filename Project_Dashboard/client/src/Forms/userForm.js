@@ -6,6 +6,7 @@ import { ImUserPlus } from 'react-icons/im';
 
 import '../Global/globalvariables';
 import '../Styles/styles.css';
+import Topbar from '../Components/Topbar';
 
 function UserForm() {
   const [userName, setUserName] = useState('');
@@ -25,6 +26,7 @@ function UserForm() {
   };
   return (
     <div>
+      <Topbar />
       <div>
         <h3 class="top_margin">
           <ImUserPlus size={36} className="right_mar" />

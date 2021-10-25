@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { MdAddLocationAlt } from 'react-icons/md';
 
 import '../Global/globalvariables';
+import Topbar from '../Components/Topbar';
 
 function LocationForm() {
   const [locationID, setLocationID] = useState('');
@@ -26,6 +27,7 @@ function LocationForm() {
 
   return (
     <div>
+      <Topbar />
       <div>
         <h3 class="top_margin">
           <MdAddLocationAlt size={36} className="right_mar" />

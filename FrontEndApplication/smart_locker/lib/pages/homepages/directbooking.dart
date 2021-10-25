@@ -124,23 +124,39 @@ class _DirectBookingState extends State<DirectBooking> {
                 SizedBox(
                   height: 30,
                 ),
-                SubmitButton(
-                    onSubmitHandler: () async {
-                      DateTime expiredate = getExpireDate(
-                          durationPicker.hours, durationPicker.days);
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    SubmitButton(
+                        onSubmitHandler: () {
+                          Navigator.pop(context, '/home0');
+                        },
+                        text: "Cancel"),
+                    SubmitButton(
+                        onSubmitHandler: () async {
+                          DateTime expiredate = getExpireDate(
+                              durationPicker.hours, durationPicker.days);
 
-                      final http.Response response = await purchase(
-                          lockerNumber.text.toString(),
-                          clusterNumber.text.toString(),
-                          expiredate);
-                      print(response.body);
-                      if (response.statusCode == 200) {
-                        Navigator.pushNamed(context, '/home1');
-                      } else {
-                        print("A");
-                      }
-                    },
-                    text: "Purchase"),
+                          final http.Response response = await purchase(
+                              lockerNumber.text.toString(),
+                              clusterNumber.text.toString(),
+                              expiredate);
+                          print(response.body);
+                          if (response.statusCode == 200) {
+                            Navigator.pushNamed(context, '/home1');
+                          } else {
+                            print("A");
+                          }
+                        },
+                        text: "Purchase"),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
