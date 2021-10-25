@@ -217,10 +217,11 @@ class _MapPageState extends State<MapPage> {
             child: Container(
               padding: EdgeInsets.all(30),
               child: FloatingActionButton(
+                heroTag: "btn1",
                 child: Icon(
                   Icons.add_moderator_outlined,
                 ),
-                backgroundColor: Colors.blue[800],
+                backgroundColor: Color(0xFF003d80),
                 onPressed: () {
                   Navigator.pushNamed(context, 'directbooking');
                 },
@@ -234,11 +235,12 @@ class _MapPageState extends State<MapPage> {
               child: Container(
                 padding: EdgeInsets.all(30),
                 child: FloatingActionButton(
+                  heroTag: "btn2",
                   child: Icon(
                     Icons.refresh_outlined,
                   ),
                   tooltip: "refresh",
-                  backgroundColor: Colors.blue[800],
+                  backgroundColor: Color(0xFF003d80),
                   onPressed: () {
                     Navigator.pushReplacement(
                         context,
