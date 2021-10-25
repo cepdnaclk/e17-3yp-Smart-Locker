@@ -1,8 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smart_locker/models/UserModel.dart';
 import 'package:smart_locker/service/dataservice.dart';
+import 'package:smart_locker/widgets/alertdialog.dart';
 import 'package:smart_locker/widgets/emailfieldinput.dart';
 import 'package:smart_locker/widgets/nofieldinput.dart';
 import 'package:smart_locker/widgets/textfieldinput.dart';
@@ -113,26 +117,57 @@ class _SignUpPageState extends State<SignUpPage> {
                               final String confirmpassword =
                                   ConfirmPasswordController.text;
                               final String number = NumberController.text;
+                              try {
+                                if (password == confirmpassword) {
+                                  final http.Response response = await signup(
+                                      username, email, password, number);
 
-                              if (password == confirmpassword) {
-                                final http.Response response = await signup(
-                                    username, email, password, number);
+                                  print(response.body);
+                                  if (response.statusCode == 200) {
+                                    DataService.jwt =
+                                        response.headers["x-auth-token"]!;
+                                    print(DataService.jwt);
+                                    var r = json.decode(response.body);
+                                    setState(() {
+                                      DataService.user = UserModel.fromJson(r);
+                                    });
 
-                                print(response.body);
-                                if (response.statusCode == 200) {
-                                  DataService.jwt =
-                                      response.headers["x-auth-token"]!;
-                                  print(DataService.jwt);
-                                  var r = json.decode(response.body);
-                                  setState(() {
-                                    DataService.user = UserModel.fromJson(r);
-                                  });
-
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/home0',
-                                  );
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/home0',
+                                    );
+                                  } else if (response.statusCode == 400) {
+                                    alertDialog(
+                                      context: context,
+                                      title: "Invalid Email Or Password",
+                                      alertType: AlertType.info,
+                                    );
+                                  } else if (response.statusCode == 500) {
+                                    alertDialog(
+                                      context: context,
+                                      title: "Internal Server Error",
+                                      alertType: AlertType.error,
+                                    );
+                                  } else {
+                                    alertDialog(
+                                      context: context,
+                                      title: "Connection Error",
+                                      alertType: AlertType.error,
+                                    );
+                                  }
                                 }
+                              } on TimeoutException catch (_) {
+                                alertDialog(
+                                  context: context,
+                                  title: "Check Your Connection",
+                                  alertType: AlertType.error,
+                                );
+                              } on SocketException catch (_) {
+                                alertDialog(
+                                  context: context,
+                                  title: "Connection Error",
+                                  alertType: AlertType.warning,
+                                );
                               }
                             },
                             text: "SIGN UP",
