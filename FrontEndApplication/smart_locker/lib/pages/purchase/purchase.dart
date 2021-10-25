@@ -224,11 +224,10 @@ class _PurchaseState extends State<Purchase> {
                       onSubmitHandler: () async {
                         DateTime expiredate = getExpireDate(
                             durationPicker.hours, durationPicker.days);
-                        print(durationPicker.hours);
-                        print(expiredate.toString());
+
                         final http.Response response =
                             await purchase(widget.lockerID, expiredate);
-                        print(response.body);
+
                         if (response.statusCode == 200) {
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               '/home1', (Route<dynamic> route) => false);

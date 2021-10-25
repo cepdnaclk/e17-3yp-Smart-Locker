@@ -229,7 +229,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     padding: EdgeInsets.all(30),
                     child: FloatingActionButton(
                       child: Icon(Icons.logout_outlined),
-                      backgroundColor: Colors.blue[800],
+                      backgroundColor: Color(0xFF003d80),
                       onPressed: () {
                         setState(() {
                           DataService.avilableLockers = [];
