@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 config = {
   host: 'localhost',
   user: 'root',
-  password: 'U761F9JS', // password 'U761F9JS','root'
+  password: 'root',
   database: 'SMARTLOCKERSYSTEM', // databasename
 };
 
