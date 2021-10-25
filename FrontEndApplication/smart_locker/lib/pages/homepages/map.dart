@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:smart_locker/models/LocationsModel.dart';
 import 'package:smart_locker/models/PurchasedLockersModel.dart';
 import 'package:smart_locker/models/UserModel.dart';
+import 'package:smart_locker/pages/homepage.dart';
 import 'package:smart_locker/pages/purchase/lockerlist.dart';
 import 'package:smart_locker/service/dataservice.dart';
 
@@ -223,6 +224,29 @@ class _MapPageState extends State<MapPage> {
                 onPressed: () {
                   Navigator.pushNamed(context, 'directbooking');
                 },
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 100),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                padding: EdgeInsets.all(30),
+                child: FloatingActionButton(
+                  child: Icon(
+                    Icons.refresh_outlined,
+                  ),
+                  tooltip: "refresh",
+                  backgroundColor: Colors.blue[800],
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                HomePage(index: 0)));
+                  },
+                ),
               ),
             ),
           ),

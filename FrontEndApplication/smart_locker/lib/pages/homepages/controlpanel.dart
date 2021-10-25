@@ -136,7 +136,7 @@ class _ControlPanelState extends State<ControlPanel> {
                             .toString()
                         : "",
                     textScaleFactor: 1.8,
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.black, fontFamily: "Aller"),
                   ),
                 ),
               ),
@@ -416,6 +416,7 @@ class _ControlPanelState extends State<ControlPanel> {
                   value!,
                   style: TextStyle(
                     color: Color(0xFF003d80),
+                    fontFamily: "Aller",
                   ),
                 ),
               );

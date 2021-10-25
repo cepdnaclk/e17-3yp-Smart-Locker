@@ -77,7 +77,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             ? DataService.user.userData!.UserName.toString()
                             : "No User",
                         textScaleFactor: 1.8,
-                        style: TextStyle(color: Color(0xFF003d80)),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Aller",
+                        ),
                       ),
                     ),
                   ),
@@ -122,7 +125,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             ? DataService.user.userData!.UserEmail.toString()
                             : "No Email",
                         textScaleFactor: 1.8,
-                        style: TextStyle(color: Color(0xFF003d80)),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Aller",
+                        ),
                       ),
                     ),
                   ),
@@ -167,7 +173,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             ? DataService.user.userData!.MobileNumber.toString()
                             : "No User",
                         textScaleFactor: 1.8,
-                        style: TextStyle(color: Color(0xFF003d80)),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Aller",
+                        ),
                       ),
                     ),
                   ),
@@ -202,7 +211,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: Text(
                         'Help',
                         textScaleFactor: 1.8,
-                        style: TextStyle(color: Color(0xFF003d80)),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Aller",
+                        ),
                       ),
                     ),
                   ),
