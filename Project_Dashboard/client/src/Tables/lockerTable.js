@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { useState } from 'react';
 
 import '../Global/globalvariables';
+import Topbar from '../Components/Topbar';
 
 import { AiOutlineDelete } from 'react-icons/ai';
 import { GiLockers } from 'react-icons/gi';
@@ -55,6 +56,7 @@ function LockerTable() {
   };
   return (
     <div>
+      <Topbar />
       <h1 class="top_margin ">
         <GiLockers size={36} className="right_mar" />
         Lockers

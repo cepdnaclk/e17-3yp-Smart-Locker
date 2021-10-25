@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { MdAddModerator } from 'react-icons/md';
 
 import '../Global/globalvariables';
+import Topbar from '../Components/Topbar';
 
 function LockerForm() {
   const [lockerID, setLockerID] = useState('');
@@ -24,6 +25,7 @@ function LockerForm() {
   };
   return (
     <div>
+      <Topbar />
       <h3 class="top_margin">
         <MdAddModerator size={36} className="right_mar" />
         ADD A NEW LOCKER

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Axios from 'axios';
 
 import '../Global/globalvariables';
+import Topbar from '../Components/Topbar';
 
 import * as ReactBootStrap from 'react-bootstrap';
 import { AiOutlineDelete } from 'react-icons/ai';
@@ -42,6 +43,7 @@ function UserTable() {
   getUser();
   return (
     <div>
+      <Topbar />
       <h1 class="top_margin ">
         <FaUserAlt size={28} className="right_mar" />
         Users
