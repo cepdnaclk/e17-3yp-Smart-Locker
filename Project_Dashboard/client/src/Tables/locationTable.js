@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import '../Styles/styles.css';
 import '../Global/globalvariables';
+import Topbar from '../Components/Topbar';
 
 import { AiOutlineDelete } from 'react-icons/ai';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
@@ -71,6 +72,7 @@ function LocationTable() {
   };
   return (
     <div>
+      <Topbar />
       <h1 class="top_margin">
         <MdLocationOn size={36} className="right_mar" />
         Locations

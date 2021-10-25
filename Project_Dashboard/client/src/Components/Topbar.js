@@ -17,7 +17,7 @@ function Topbar() {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav>
-          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/users">Users</Nav.Link>
           <Nav.Link href="/lockers">Lockers</Nav.Link>
           <Nav.Link href="/locations">Location</Nav.Link>

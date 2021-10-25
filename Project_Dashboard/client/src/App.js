@@ -10,16 +10,18 @@ import LockerTable from './Tables/lockerTable';
 import LocationTable from './Tables/locationTable';
 import Topbar from './Components/Topbar';
 import Home from './Pages/home';
+import LogIn from './Pages/login';
 
 function App() {
   return (
     <div className="App">
       <div>
-        <div>
+        {/* <div>
           <Topbar />
-        </div>
+        </div> */}
         <div>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={LogIn} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/users" component={UserTable} />
           <Route exact path="/locations" component={LocationTable} />
           <Route exact path="/lockers" component={LockerTable} />
