@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
               lockerID: "",
             ),
         'directbooking': (context) => DirectBooking(),
+        'settings': (context) => SettingsPage(),
       },
     );
   }
