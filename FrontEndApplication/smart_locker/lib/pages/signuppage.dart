@@ -118,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 final http.Response response = await signup(
                                     username, email, password, number);
 
-                                print(response.statusCode);
+                                print(response.body);
                                 if (response.statusCode == 200) {
                                   DataService.jwt =
                                       response.headers["x-auth-token"]!;
