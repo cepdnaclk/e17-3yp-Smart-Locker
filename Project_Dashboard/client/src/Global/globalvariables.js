@@ -1,1 +1,1 @@
-global.url = 'http://localhost:3000';
+global.url = 'http://34.227.52.130:3000';
