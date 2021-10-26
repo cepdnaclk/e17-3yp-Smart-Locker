@@ -30,8 +30,14 @@ class TextFieldInput extends StatelessWidget {
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
         validator: (String? newValue) {
-          if (newValue!.length > 30) {
-            return "error1";
+          if (newValue!.length == 0) {
+            return "Required";
+          }
+          if (newValue.length < 8) {
+            return "Minimum 8 characters";
+          }
+          if (newValue.length > 30) {
+            return "Mamimum amount exceeded";
           }
 
           return null;

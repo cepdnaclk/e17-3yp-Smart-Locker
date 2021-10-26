@@ -30,10 +30,15 @@ class NoFieldInput extends StatelessWidget {
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
         validator: (String? newValue) {
-          if (newValue!.length > 30) {
-            return "error1";
+          if (newValue!.length == 0) {
+            return "Number required";
           }
-
+          if (newValue.length < 10) {
+            return "Minimimum value is 10";
+          }
+          if (newValue.length > 20) {
+            return "Maximum value is 20";
+          }
           return null;
         },
         style: TextStyle(fontSize: 20.0, color: Colors.black),
