@@ -107,7 +107,13 @@ class _LogInPageState extends State<LogInPage> {
                               } else if (response.statusCode == 500) {
                                 alertDialog(
                                   context: context,
-                                  title: "Internal Server Error",
+                                  title: "Service Failure",
+                                  alertType: AlertType.error,
+                                );
+                              } else if (response.statusCode == 429) {
+                                alertDialog(
+                                  context: context,
+                                  title: "Too Many Attempts, Try Again Later",
                                   alertType: AlertType.error,
                                 );
                               } else {
