@@ -12,7 +12,7 @@ function LockerTable() {
 
   const getLocker = () => {
     Axios.get(`${global.url}/api/locker`).then((response) => {
-      console.log(response);
+      //console.log(response);
       setLockerList(response.data);
     });
   };
@@ -22,7 +22,7 @@ function LockerTable() {
       (response) => {
         console.log(lockerid);
         //console.log('Successfully Deleted a Locker ');
-        console.log(response);
+        //console.log(response);
       }
     );
   };
@@ -57,7 +57,7 @@ function LockerTable() {
   return (
     <div>
       <Topbar />
-      <h1 class="top_margin ">
+      <h1 className="top_margin ">
         <GiLockers size={36} className="right_mar" />
         Lockers
       </h1>

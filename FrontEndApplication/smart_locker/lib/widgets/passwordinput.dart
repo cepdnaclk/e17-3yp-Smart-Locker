@@ -36,12 +36,12 @@ class _PasswordInputState extends State<PasswordInput> {
         obscureText: _isHidden,
         validator: (String? newValue) {
           if (newValue!.length > 25) {
-            return "error1";
+            return "Maximum lenth is 25";
           }
           if (!RegExp(
                   r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")
               .hasMatch(newValue)) {
-            return "Minimum 8 characters, at least one letter, one number and one special character";
+            return "Min 8, at least 1 letter, number & special character";
           }
           return null;
         },
