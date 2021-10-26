@@ -55,6 +55,7 @@ class _DirectBookingState extends State<DirectBooking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
         shape: RoundedRectangleBorder(
@@ -72,7 +73,7 @@ class _DirectBookingState extends State<DirectBooking> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               "Enter Locker Number",
@@ -134,7 +135,7 @@ class _DirectBookingState extends State<DirectBooking> {
                     },
                     text: "Purchase"),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: MediaQuery.of(context).size.width * 0.01,
                 ),
               ],
             ),
