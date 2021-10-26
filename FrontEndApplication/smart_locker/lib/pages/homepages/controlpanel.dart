@@ -487,9 +487,11 @@ class _ControlPanelState extends State<ControlPanel> {
             hint: Text(
               "Please Select Your Locker",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800),
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                fontFamily: "Aller",
+              ),
             ),
             onChanged: (String? value) {
               setState(() {
