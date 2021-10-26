@@ -100,11 +100,15 @@ class _ControlPanelState extends State<ControlPanel> {
             ),
             Container(
               padding: EdgeInsets.only(right: 180, bottom: 10),
-              child: Text("Location Details",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                "Location Details",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Aller",
+                ),
+              ),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
@@ -136,18 +140,25 @@ class _ControlPanelState extends State<ControlPanel> {
                             .toString()
                         : "",
                     textScaleFactor: 1.8,
-                    style: TextStyle(color: Colors.black, fontFamily: "Aller"),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Aller",
+                    ),
                   ),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(right: 200, bottom: 10, top: 10),
-              child: Text("Expire Date",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
+              padding: EdgeInsets.only(right: 220, bottom: 10, top: 10),
+              child: Text(
+                "Expire Date",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Aller",
+                ),
+              ),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
@@ -187,11 +198,15 @@ class _ControlPanelState extends State<ControlPanel> {
             ),
             Container(
               padding: EdgeInsets.only(right: 200, bottom: 10, top: 10),
-              child: Text("Locker Token",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                "Locker Token",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Aller",
+                ),
+              ),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.08,
@@ -244,18 +259,31 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                           height: MediaQuery.of(context).size.height * 0.08,
-                          width: MediaQuery.of(context).size.width * 0.18,
+                          width: MediaQuery.of(context).size.width * 0.16,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border:
-                                Border.all(color: Color(0xFF003d80), width: 3),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(1, 6),
+                                blurRadius: 10.0,
+                                color: Colors.black.withOpacity(0.6),
+                              ),
+                            ],
+                            // border: Border.all(color: Color(0xFF003d80), width: 3),
                             borderRadius: BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
                           child: Container(
                             child: Center(
-                              child: Text("Yes"),
+                              child: Text(
+                                "Yes",
+                                style: TextStyle(
+                                    color: Color(0xFF003d80),
+                                    fontFamily: "Aller",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
                             ),
                           )),
                     ],
@@ -266,26 +294,38 @@ class _ControlPanelState extends State<ControlPanel> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 10, top: 10),
-                        child: Text("Location",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600)),
+                        child: Text(
+                          "Location",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border:
-                              Border.all(color: Color(0xFF003d80), width: 3),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(1, 6),
+                              blurRadius: 10.0,
+                              color: Colors.black.withOpacity(0.6),
+                            ),
+                          ],
+                          // border: Border.all(color: Color(0xFF003d80), width: 3),
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
                         child: Center(
                           child: IconButton(
-                            icon: Icon(Icons.map_outlined),
+                            icon: Icon(
+                              Icons.map_outlined,
+                              color: Color(0xFF003d80),
+                              size: 30,
+                            ),
                             onPressed: () {
                               // This function can find at bottom of the code
                               _getMap(context);
@@ -309,18 +349,28 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border:
-                              Border.all(color: Color(0xFF003d80), width: 3),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(1, 6),
+                              blurRadius: 10.0,
+                              color: Colors.black.withOpacity(0.6),
+                            ),
+                          ],
+                          // border: Border.all(color: Color(0xFF003d80), width: 3),
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
                         child: Center(
                           child: IconButton(
-                            icon: Icon(Icons.share),
+                            icon: Icon(
+                              Icons.share,
+                              color: Color(0xFF003d80),
+                              size: 30,
+                            ),
                             onPressed: () {
                               Share.share(DataService
                                       .userLockers[index!].SharedOneTimeToken
@@ -348,17 +398,30 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border:
-                              Border.all(color: Color(0xFF003d80), width: 3),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(1, 6),
+                              blurRadius: 10.0,
+                              color: Colors.black.withOpacity(0.6),
+                            ),
+                          ],
+                          // border: Border.all(color: Color(0xFF003d80), width: 3),
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
                         child: Center(
-                          child: Text("Yes"),
+                          child: Text(
+                            "Yes",
+                            style: TextStyle(
+                                color: Color(0xFF003d80),
+                                fontFamily: "Aller",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
                         ),
                       ),
                     ],
@@ -424,9 +487,11 @@ class _ControlPanelState extends State<ControlPanel> {
             hint: Text(
               "Please Select Your Locker",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800),
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                fontFamily: "Aller",
+              ),
             ),
             onChanged: (String? value) {
               setState(() {
