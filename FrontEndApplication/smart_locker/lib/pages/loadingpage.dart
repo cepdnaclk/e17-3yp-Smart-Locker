@@ -29,10 +29,39 @@ class _LoadingPageState extends State<LoadingPage> {
         children: [
           BackgroundImage(image: "assets/LoadingBackground.png"),
           Center(
+            child: Container(
+              height: 120.0,
+              width: 120.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/icon.png'),
+                  fit: BoxFit.fill,
+                ),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+          Center(
               child: SpinKitRipple(
             color: Colors.white,
             size: 50.0,
           )),
+          Padding(
+            padding: EdgeInsets.only(top: 400),
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                child: Text(
+                  "POWERED BY DGM",
+                  style: TextStyle(
+                      fontFamily: 'Aller',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

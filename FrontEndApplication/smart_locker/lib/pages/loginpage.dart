@@ -93,8 +93,8 @@ class _LogInPageState extends State<LogInPage> {
                                 setState(() {
                                   DataService.user = UserModel.fromJson(r);
                                 });
-                                print(DataService.user.userData!.UserEmail);
-                                Navigator.pushNamed(
+                                //print(DataService.user.userData!.UserEmail);
+                                Navigator.pushReplacementNamed(
                                   context,
                                   '/home0',
                                 );
@@ -149,7 +149,7 @@ class _LogInPageState extends State<LogInPage> {
                 SizedBox(width: 6.0),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(
+                    Navigator.pushReplacementNamed(
                       context,
                       '/signup',
                     );

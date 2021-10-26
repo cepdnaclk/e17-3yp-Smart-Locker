@@ -119,6 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               final String number = NumberController.text;
                               try {
                                 if (password == confirmpassword) {
+                                  print("A");
                                   final http.Response response = await signup(
                                       username, email, password, number);
 
@@ -132,14 +133,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                       DataService.user = UserModel.fromJson(r);
                                     });
 
-                                    Navigator.pushNamed(
+                                    Navigator.pushReplacementNamed(
                                       context,
                                       '/home0',
                                     );
                                   } else if (response.statusCode == 400) {
                                     alertDialog(
                                       context: context,
-                                      title: "Invalid Email Or Password",
+                                      title: "User Already Exist",
                                       alertType: AlertType.info,
                                     );
                                   } else if (response.statusCode == 500) {
@@ -193,7 +194,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(width: 6.0),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
+                      Navigator.pushReplacementNamed(
                         context,
                         '/login',
                       );

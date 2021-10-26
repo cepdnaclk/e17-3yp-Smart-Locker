@@ -80,7 +80,7 @@ class _PurchaseState extends State<Purchase> {
               Text(
                 "You have chosen",
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF003d80)),
               ),
@@ -89,10 +89,17 @@ class _PurchaseState extends State<Purchase> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Color(0xFF003d80), width: 3),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(1, 5),
+                      blurRadius: 20.0,
+                      color: Colors.black.withOpacity(0.3),
+                    ),
+                  ],
+                  //border: Border.all(color: Color(0xFF003d80), width: 3),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20),
                   ),
@@ -105,30 +112,82 @@ class _PurchaseState extends State<Purchase> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              "Locker Details",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF003d80)),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
                             ),
-                            Text(
-                              "Locker Number- " + widget.cardName,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF003d80)),
+                            Center(
+                              child: Text(
+                                "Locker Details",
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF003d80)),
+                              ),
                             ),
-                            Text(
-                              "Location- " + widget.location,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF003d80)),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          "Number",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        Text(
+                                          widget.cardName,
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF003d80),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: 4,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF003d80),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                ),
+                                Expanded(
+                                  flex: 6,
+                                  child: Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Location",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        Text(
+                                          widget.location,
+                                          style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF003d80)),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -144,26 +203,43 @@ class _PurchaseState extends State<Purchase> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               durationPicker,
               SizedBox(
-                height: 30,
+                height: MediaQuery.of(context).size.height * 0.1,
               ),
-              SubmitButton(
-                  onSubmitHandler: () async {
-                    DateTime expiredate = getExpireDate(
-                        durationPicker.hours, durationPicker.days);
-                    print(durationPicker.hours);
-                    print(expiredate.toString());
-                    final http.Response response =
-                        await purchase(widget.lockerID, expiredate);
-                    print(response.body);
-                    if (response.statusCode == 200) {
-                      Navigator.pushNamed(context, '/home1');
-                    }
-                  },
-                  text: "Purchase"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  SubmitButton(
+                      onSubmitHandler: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/home0', (Route<dynamic> route) => false);
+                      },
+                      text: "Cancel"),
+                  SubmitButton(
+                      onSubmitHandler: () async {
+                        DateTime expiredate = getExpireDate(
+                            durationPicker.hours, durationPicker.days);
+
+                        final http.Response response =
+                            await purchase(widget.lockerID, expiredate);
+
+                        if (response.statusCode == 200) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/home1', (Route<dynamic> route) => false);
+                        }
+                      },
+                      text: "Purchase"),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
