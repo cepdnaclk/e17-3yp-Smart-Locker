@@ -17,10 +17,10 @@ const app = express();
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-// const limiter = rateLimit({
-//   windowMs: 1000 * 60 * 1, // in ms
-//   max: 10,
-// });
+const limiter = rateLimit({
+  windowMs: 1000 * 60 * 1, // in ms
+  max: 10,
+});
 
 app.use(helmet());
 //app.use(limiter);
@@ -28,11 +28,11 @@ app.use(helmet());
 app.use(express.json()); // convert to json
 app.use(cors());
 
-app.use('/api/users', users);
-app.use('/api/login', login);
-app.use('/api/mapclick', mapclick);
-app.use('/api/purchase', purchase);
-app.use('/api/lockerdetails', lockerdetails);
+app.use('/api/users', limiter, users);
+app.use('/api/login', limiter, login);
+app.use('/api/mapclick', limiter, mapclick);
+app.use('/api/purchase', limiter, purchase);
+app.use('/api/lockerdetails', limiter, lockerdetails);
 app.use('/api/admin', admin);
 app.use('/api/locker', locker);
 app.use('/api/location', location);
