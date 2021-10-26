@@ -244,7 +244,7 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                           height: MediaQuery.of(context).size.height * 0.08,
-                          width: MediaQuery.of(context).size.width * 0.18,
+                          width: MediaQuery.of(context).size.width * 0.16,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border:
@@ -274,7 +274,7 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
@@ -309,7 +309,7 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
@@ -348,7 +348,7 @@ class _ControlPanelState extends State<ControlPanel> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.18,
+                        width: MediaQuery.of(context).size.width * 0.16,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border:
