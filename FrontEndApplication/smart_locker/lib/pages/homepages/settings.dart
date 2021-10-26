@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_locker/service/dataservice.dart';
+import 'package:smart_locker/widgets/submitbutton.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -42,11 +43,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 Container(
                   padding: EdgeInsets.only(right: 240, bottom: 10),
-                  child: Text("User Name",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "User Name",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Aller",
+                    ),
+                  ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
@@ -90,11 +95,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 Container(
                   padding: EdgeInsets.only(right: 240, bottom: 10),
-                  child: Text("User Email",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "User Email",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Aller",
+                    ),
+                  ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
@@ -138,11 +147,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 Container(
                   padding: EdgeInsets.only(right: 240, bottom: 10),
-                  child: Text("User Mobile",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "User Mobile",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Aller",
+                    ),
+                  ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.08,
@@ -175,7 +188,6 @@ class _SettingsPageState extends State<SettingsPage> {
                         textScaleFactor: 1.8,
                         style: TextStyle(
                           color: Colors.black,
-                          fontFamily: "Aller",
                         ),
                       ),
                     ),
@@ -184,42 +196,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.08,
-                  width: MediaQuery.of(context).size.width * 0.96,
-                  padding: EdgeInsets.only(left: 12.0),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(1, 4),
-                        blurRadius: 20.0,
-                        color: Colors.black.withOpacity(0.6),
-                      ),
-                    ],
-                    // border: Border.all(color: Color(0xFF003d80), width: 2),
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Color(0xFF003d80),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10.0),
-                          bottomRight: Radius.circular(10.0)),
-                      color: Colors.white,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Help',
-                        textScaleFactor: 1.8,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Aller",
-                        ),
-                      ),
-                    ),
-                  ),
+                SubmitButton(onSubmitHandler: () {}, text: "Help"),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
                 ),
-                SizedBox(height: 20),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
