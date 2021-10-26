@@ -178,7 +178,11 @@ class _MapPageState extends State<MapPage> {
         centerTitle: true,
         title: Text(
           'Map',
-          style: TextStyle(fontSize: 22, color: Colors.black87),
+          style: TextStyle(
+              fontSize: 22,
+              color: Colors.black87,
+              fontFamily: "Aller",
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: Stack(
