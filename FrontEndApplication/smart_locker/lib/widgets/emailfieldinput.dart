@@ -30,14 +30,18 @@ class EmailFieldInput extends StatelessWidget {
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
         validator: (String? newValue) {
-          if (newValue!.length > 30) {
-            return "error1";
+          if (newValue!.length == 0) {
+            return "Valid Email is required";
+          }
+          if (newValue.length > 100) {
+            return "Maximum input length is 100";
           }
           if (!RegExp(
                   r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
               .hasMatch(newValue)) {
-            return "error2";
+            return "Invalid Email";
           }
+
           return null;
         },
         style: TextStyle(fontSize: 20.0, color: Colors.black),
