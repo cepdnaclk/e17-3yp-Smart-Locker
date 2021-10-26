@@ -14,7 +14,7 @@ class DataInput extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.6,
       height: MediaQuery.of(context).size.width * 0.14,
       decoration: BoxDecoration(
-        color: Colors.blue[900],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: [
           BoxShadow(
@@ -25,25 +25,28 @@ class DataInput extends StatelessWidget {
         ],
       ),
       child: TextField(
-          cursorColor: Colors.blue[900],
-          controller: dataController,
-          keyboardType: TextInputType.text,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.black,
+        cursorColor: Colors.blue[900],
+        controller: dataController,
+        keyboardType: TextInputType.text,
+        style: TextStyle(
+          fontSize: 20.0,
+          color: Colors.black,
+        ),
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: 32.0),
+            borderRadius: BorderRadius.circular(20.0),
           ),
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue, width: 32.0),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 32.0),
-                  borderRadius: BorderRadius.circular(20.0)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white70, width: 32.0),
-                  borderRadius: BorderRadius.circular(20.0)))),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 32.0),
+              borderRadius: BorderRadius.circular(20.0)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white, width: 32.0),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+      ),
     );
   }
 }

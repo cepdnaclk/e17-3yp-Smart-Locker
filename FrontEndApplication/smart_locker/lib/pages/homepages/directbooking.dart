@@ -55,6 +55,7 @@ class _DirectBookingState extends State<DirectBooking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
         shape: RoundedRectangleBorder(
@@ -71,94 +72,74 @@ class _DirectBookingState extends State<DirectBooking> {
         ),
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                "Enter Locker Number",
-                style: TextStyle(
-                  color: Color(0xFF003d80),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "Enter Locker Number",
+              style: TextStyle(
+                color: Color(0xFF003d80),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            DataInput(
+              dataController: lockerNumber,
+            ),
+            Text(
+              "Enter Locker Group Number",
+              style: TextStyle(
+                color: Color(0xFF003d80),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            DataInput(
+              dataController: clusterNumber,
+            ),
+            Text(
+              "Select The Time Duration",
+              style: TextStyle(
+                color: Color(0xFF003d80),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            durationPickerDirect,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.01,
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              DataInput(
-                dataController: lockerNumber,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Enter Locker Group Number",
-                style: TextStyle(
-                  color: Color(0xFF003d80),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              DataInput(
-                dataController: clusterNumber,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Select The Time Duration",
-                style: TextStyle(
-                  color: Color(0xFF003d80),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              durationPickerDirect,
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  SubmitButton(
-                      onSubmitHandler: () {
+                SubmitButton(
+                    onSubmitHandler: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/home0', (Route<dynamic> route) => false);
+                    },
+                    text: "Cancel"),
+                SubmitButton(
+                    onSubmitHandler: () async {
+                      DateTime expiredate = getExpireDate(
+                          durationPickerDirect.hours,
+                          durationPickerDirect.days);
+                      final http.Response response = await purchase(
+                          lockerNumber.text.toString(),
+                          clusterNumber.text.toString(),
+                          expiredate);
+
+                      if (response.statusCode == 200) {
                         Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/home0', (Route<dynamic> route) => false);
-                      },
-                      text: "Cancel"),
-                  SubmitButton(
-                      onSubmitHandler: () async {
-                        DateTime expiredate = getExpireDate(
-                            durationPickerDirect.hours,
-                            durationPickerDirect.days);
-
-                        final http.Response response = await purchase(
-                            lockerNumber.text.toString(),
-                            clusterNumber.text.toString(),
-                            expiredate);
-
-                        if (response.statusCode == 200) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/home1', (Route<dynamic> route) => false);
-                        }
-                      },
-                      text: "Purchase"),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                            '/home1', (Route<dynamic> route) => false);
+                      }
+                    },
+                    text: "Purchase"),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.01,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
