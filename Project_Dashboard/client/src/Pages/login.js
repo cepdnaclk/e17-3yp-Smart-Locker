@@ -11,7 +11,7 @@ import '../Styles/styles.css';
 import LogInTopbar from '../Components/LogInTopbar';
 
 function Login() {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
     <div>
@@ -28,12 +28,12 @@ function Login() {
           <div className="col-7">
             <form className="border border-primary rounded p-2">
               <div className="form-group">
-                <label>Name</label>
+                <label>Email</label>
                 <input
                   className="form-control"
                   type="text"
                   onChange={(event) => {
-                    setName(event.target.value);
+                    setEmail(event.target.value);
                   }}
                 />
               </div>
