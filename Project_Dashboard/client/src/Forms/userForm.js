@@ -28,7 +28,7 @@ function UserForm() {
     <div>
       <Topbar />
       <div>
-        <h3 class="top_margin">
+        <h3 className="top_margin">
           <ImUserPlus size={36} className="right_mar" />
           ADD A ADMIN USER
         </h3>

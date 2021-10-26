@@ -73,11 +73,11 @@ function LocationTable() {
   return (
     <div>
       <Topbar />
-      <h1 class="top_margin">
+      <h1 className="top_margin">
         <MdLocationOn size={36} className="right_mar" />
         Locations
       </h1>
-      <div class="x_margin">
+      <div className="x_margin">
         <table className="table table-bordered ">
           <thead>
             <tr>
