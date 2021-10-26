@@ -48,7 +48,7 @@ function LocationTable() {
         <td>{val.Latitude}</td>
         <td>{val.LocationDescription}</td>
         <td>
-          <button
+          {/* <button
             onClick={() => {
               getinfo(val.LocationID);
             }}
@@ -56,7 +56,7 @@ function LocationTable() {
             id="button_space"
           >
             <AiOutlineInfoCircle size={24} />
-          </button>
+          </button> */}
 
           <button
             className="btn btn-danger"
