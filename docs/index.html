@@ -20,8 +20,8 @@
           <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
           <!--<a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a> -->
           <a href="#Overview" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Overview</a>
-          <a href="#motivation" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Motivation</a>
           <a href="#solution" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Solution</a>
+          <a href="#mobileapp" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Mobile App</a>
           <a href="#Architecture" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Architecture</a>
           <a href="#tech" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Technologies</a>
           <a href="#security" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Security & Failure Handling</a>
@@ -49,14 +49,9 @@
         Normal traditional lockers were used privately but as a team we think if lockers can be provided in a public way where citizens will 
         book lockers for their access in public places it would be a market opportunity.
         We are as a team will develop a locker with digital improvements where users can unlock the locker by purchasing it online for a certain time period.
-        The Lock itself will be developed by a arduino based electronic system where set of lockers will be monitered by a centeralized system.</p>
-    </div>
-    <hr>
-    <br>
-    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px;" id="motivation">
-      <h1 class="w3-wide">Motivation</h1>
-      <br>
-      <img src="images/Student.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:50%">
+        The Lock itself will be developed by a arduino based electronic system where set of lockers will be monitered by a centeralized system.
+      </p>
+      <br><h4 class="w3-wide">Motivation</h4> <br><br>
       <p class="w3-justify"  style="font-size:20px">
         People from remote areas travel a long distance to the town in their day-to-day life. Employees come for their jobs. 
         Students come for educational purposes such as schools and tuition classes. All these times they carry a lot of things here and there 
@@ -64,7 +59,7 @@
         Then we came up with the idea of public lockers for making their day-to-day life easy. 
         As a result we also understand that there are many people who can benefit from our solution rather than people who live in remote areas. This led to finalizing our idea as well.
       </p>
-    </div>
+      </div>
     <hr>
     <br>
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="solution">
@@ -82,6 +77,14 @@
           <br>
           ⚫&emsp;Token can share with another trusted person for accessing the locker by himself. 
       </p>
+    </div>
+    <hr>
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="mobileapp">
+      <h1 class="w3-wide">Mobile Application</h1>
+      <br>
+      <video width="600" height="350" controls>
+        <source src="vedios/locker.mp4" type="video/mp4">
+      </video>
     </div>
     <hr>
     <br>
@@ -103,7 +106,8 @@
         can ask about lockers and it gives details such as availability etc. If the user books a locker, then the 
         backend generates a new token and sends it to the locker and user. The main functionalities of the locker 
         are handled by the microcontroller and it makes a connection to the server through a Wi-Fi network. In 
-        advance, as a security feature buzzer is used.   
+        advance, as a security feature buzzer is used. Finally, to enhance user experiance two LEDs are used for 
+        correctly identify whether the lock is in locked mode or not.
       </p>
 
       <br><h4 class="w3-wide">Circuit Diagram</h4><br>
@@ -130,7 +134,7 @@
       <p class="w3-justify  w3-end" style="font-size:20px">
           ⚫&emsp;Prevent unauthorized access from the mobile application
           <br>
-          ⚫&emsp;Use two factor authentication for user accounts
+          ⚫&emsp;Block user IPs using a rate limiter
           <br>
           ⚫&emsp;Validate user inputs
           <br>
