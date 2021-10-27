@@ -12,7 +12,9 @@ import 'package:smart_locker/pages/purchase/lockerlist.dart';
 import 'package:smart_locker/service/dataservice.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  // const MapPage({Key? key}) : super(key: key);
+
+  http.Response? responseHome;
 
   @override
   _MapPageState createState() => _MapPageState();
@@ -106,11 +108,11 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() async {
+    setState(() {
       // Can fetch from a api and update the _markers
-      final http.Response responseHome = await home();
-      if (responseHome.statusCode == 200) {
-        var r = json.decode(responseHome.body);
+
+      if (widget.responseHome?.statusCode == 200) {
+        var r = json.decode(widget.responseHome!.body);
         setState(() {
           DataService.user = UserModel.fromJson(r);
         });
@@ -158,9 +160,14 @@ class _MapPageState extends State<MapPage> {
   }
   //-----------------------------------------
 
+  Future<void> setResponce() async {
+    widget.responseHome = await home();
+  }
+
   @override
   void initState() {
     super.initState();
+    setResponce();
     setCustomMarker();
     _getCurrentPosition();
   }
@@ -227,7 +234,7 @@ class _MapPageState extends State<MapPage> {
                 ),
                 backgroundColor: Color(0xFF003d80),
                 onPressed: () {
-                  Navigator.pushNamed(context, 'directbooking');
+                  Navigator.pushNamed(context, '/directbooking');
                 },
               ),
             ),
