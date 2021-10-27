@@ -16,7 +16,7 @@ alertDialog(
         color: Colors.blue[800],
         splashColor: Colors.blue[200],
         child: Text(
-          "Cancle",
+          "Cancel",
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
         onPressed: () {

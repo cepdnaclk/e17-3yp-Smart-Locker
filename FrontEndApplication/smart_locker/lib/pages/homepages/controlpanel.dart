@@ -279,7 +279,7 @@ class _ControlPanelState extends State<ControlPanel> {
                               child: Text(
                                 "Yes",
                                 style: TextStyle(
-                                    color: Color(0xFF003d80),
+                                    color: Colors.green[800],
                                     fontFamily: "Aller",
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),
@@ -415,9 +415,9 @@ class _ControlPanelState extends State<ControlPanel> {
                         ),
                         child: Center(
                           child: Text(
-                            "Yes",
+                            "No",
                             style: TextStyle(
-                                color: Color(0xFF003d80),
+                                color: Colors.green[800],
                                 fontFamily: "Aller",
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
