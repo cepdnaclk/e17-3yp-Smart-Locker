@@ -2,6 +2,11 @@
   height: 50px;
   width: 50px;
 }
+.logo_login {
+  margin-left: 10px;
+  height: 50px;
+  width: 150px;
+}
 
 .logo1 {
   margin-top: 50px;
@@ -35,4 +40,8 @@
 
 .from_border {
   width: 600px;
+}
+
+#button_space {
+  margin-right: 5px;
 }

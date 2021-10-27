@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { MdAddModerator } from 'react-icons/md';
 
 import '../Global/globalvariables';
+import Topbar from '../Components/Topbar';
 
 function LockerForm() {
   const [lockerID, setLockerID] = useState('');
@@ -14,7 +15,7 @@ function LockerForm() {
   const [lockerLocationID, setLockerLocationID] = useState('');
 
   const addLocker = () => {
-    Axios.post(`${global.url}/addlocker`, {
+    Axios.post(`${global.url}/api/locker/add`, {
       lockerid: lockerID,
       lockerlocationid: lockerLocationID,
       lockernumber: lockerNumber,
@@ -24,6 +25,7 @@ function LockerForm() {
   };
   return (
     <div>
+      <Topbar />
       <h3 class="top_margin">
         <MdAddModerator size={36} className="right_mar" />
         ADD A NEW LOCKER

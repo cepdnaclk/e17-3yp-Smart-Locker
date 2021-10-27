@@ -137,7 +137,7 @@ class _LogInPageState extends State<LogInPage> {
                               );
                             }
                           },
-                          text: "LOG IN")
+                          text: "LOG IN"),
                     ],
                   ),
                 ),
