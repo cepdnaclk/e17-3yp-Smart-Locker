@@ -15,7 +15,6 @@ class _LockerListState extends State<LockerList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -35,7 +34,7 @@ class _LockerListState extends State<LockerList> {
         children: [
           SingleChildScrollView(
             child: Container(
-              color: Colors.blue[100],
+              color: Colors.blue[50],
               width: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 children: [

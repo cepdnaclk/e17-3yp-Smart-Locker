@@ -13,6 +13,12 @@ import LogInTopbar from '../Components/LogInTopbar';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const login = () => {
+    if (email === 'admin@gmail.com' && password === 'admin') {
+      window.location.href = './home';
+    }
+  };
   return (
     <div>
       <LogInTopbar />
@@ -49,9 +55,9 @@ function Login() {
               </div>
 
               <div className="form-group py-1">
-                <Link to="/home">
-                  <button className="btn btn-primary">LOG IN</button>
-                </Link>
+                <button onClick={login()} className="btn btn-primary">
+                  LOG IN
+                </button>
               </div>
             </form>
           </div>
