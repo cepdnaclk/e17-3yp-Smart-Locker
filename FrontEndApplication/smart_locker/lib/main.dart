@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
               location: "",
               lockerID: "",
             ),
-        'directbooking': (context) => DirectBooking(),
-        'settings': (context) => SettingsPage(),
+        '/directbooking': (context) => DirectBooking(),
+        '/settings': (context) => SettingsPage(),
       },
     );
   }
