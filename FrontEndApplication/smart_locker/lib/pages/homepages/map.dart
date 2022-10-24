@@ -234,7 +234,7 @@ class _MapPageState extends State<MapPage> {
                 ),
                 backgroundColor: Color(0xFF003d80),
                 onPressed: () {
-                  Navigator.pushNamed(context, 'directbooking');
+                  Navigator.pushNamed(context, '/directbooking');
                 },
               ),
             ),
