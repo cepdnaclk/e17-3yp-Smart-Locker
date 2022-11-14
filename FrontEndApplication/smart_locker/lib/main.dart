@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Smart Locker",
-      home: LoadingPage(),
+      home: LogInPage(),
       routes: {
         '/login': (context) => LogInPage(),
         '/signup': (context) => SignUpPage(),
