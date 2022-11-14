@@ -43,7 +43,7 @@ app.use('/api/locker', locker);
 app.use('/api/location', location);
 
 // setup the server port
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 // listening port 3000
 app.listen(port, () => {
