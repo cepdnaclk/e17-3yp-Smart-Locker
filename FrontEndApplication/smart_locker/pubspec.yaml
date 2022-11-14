@@ -32,7 +32,7 @@ dependencies:
   http: ^0.13.0
   location_web: ^3.1.1
   fluttertoast: ^8.0.8
-  location: ^4.3.0
+  location: ^4.4.0
   flutter_spinkit: ^5.1.0
   animated_splash_screen: ^1.1.0
   share: ^2.0.4
