@@ -1,5 +1,5 @@
 // Address Keypad 0x20
-// Address LCD 0x25
+// Address LCD 0x27
 
 // I2C Keypad for Arduino
 // Venkateswara Rao.E 
@@ -34,7 +34,6 @@ char input[17];
 int cursorCol = 0;
 
 void setup(){
-    Wire.begin( ); 
     setUpKeyboard();
     setUpLCD("2", "1");
 }
@@ -43,51 +42,21 @@ void loop(){
     char key = kpd.getKey();  
     if (key){
       if(key == '*'){
-        input[--cursorCol] = '\0';
-        Serial.println(input);
-        lcd.setCursor(0,1);
-        lcd.setCursor(cursorCol,1);
-        lcd.print(" ");
+        eraseTheLastLetter();
       }
-      if(key == '#'){
-        if(password == input){
-         clearInput(input);
-         cursorCol = 0;
-         lcd.setCursor(0,1);
-         Serial.println("Correct Password");
-         lcd.print("Correct Password"); 
-         delay(500);
-         clearLCDLine(1);
-        }
-        if(password != input){
-         clearInput(input);
-         cursorCol = 0;
-         lcd.setCursor(0,1);
-         Serial.println("Incorrect Password");
-         lcd.print("Incorrect Password"); 
-         delay(500);
-         clearLCDLine(1);
-       }
+      else if(key == '#'){
+        checkPassword();
       }
       else{
-        input[cursorCol] = key;
-        Serial.println(input);
-        lcd.setCursor(cursorCol,1);
-        lcd.print(key);
-        cursorCol++;
+        getUserInput(key);
       }
     }
     if(password == input){
-      clearInput(input);
-      cursorCol = 0;
-      lcd.setCursor(0,1);
-      Serial.println("Correct Password");
-      lcd.print("Correct Password"); 
-      delay(500);
-      clearLCDLine(1);
+      actions_IfPasswordCorrect();
     }
 }
 
+/*Functions*/
 void clearLCDLine(int line)
 {               
         for(int n = 0; n < 16; n++)
@@ -107,6 +76,7 @@ void clearInput(char input[])
 
 void setUpKeyboard()
 {
+   Wire.begin(); 
    kpd.begin( makeKeymap(keys) );
    Serial.begin(9600);
    Serial.println( "start" );
@@ -119,4 +89,55 @@ void setUpLCD(String groupNo, String lockerNo)
     lcd.backlight();
     lcd.setCursor(0,0);
     lcd.print("Group: " + groupNo + " No: " + lockerNo);
+}
+
+void eraseTheLastLetter()
+{
+    input[--cursorCol] = '\0';
+    Serial.println(input);
+    lcd.setCursor(0,1);
+    lcd.setCursor(cursorCol,1);
+    lcd.print(" "); 
+}
+
+void checkPassword()
+{
+  if(password == input){
+    actions_IfPasswordCorrect();
+  }
+  
+  if(password != input){
+    actions_IfPasswordInCorrect();
+  }
+}
+
+void actions_IfPasswordCorrect()
+{
+  clearInput(input);
+  cursorCol = 0;
+  lcd.setCursor(0,1);
+  Serial.println("Correct Password");
+  lcd.print("Correct Password"); 
+  delay(750);
+  clearLCDLine(1);
+}
+
+void actions_IfPasswordInCorrect()
+{
+  clearInput(input);
+  cursorCol = 0;
+  lcd.setCursor(0,1);
+  Serial.println("Incorrect Retry");
+  lcd.print("Incorrect Retry"); 
+  delay(750);
+  clearLCDLine(1);
+}
+
+void getUserInput(char key)
+{
+  input[cursorCol] = key;
+  Serial.println(input);
+  lcd.setCursor(cursorCol,1);
+  lcd.print(key);
+  cursorCol++;  
 }
