@@ -42,6 +42,8 @@
 
         "jsonwebtoken": "^8.5.1",
 
+        "mqtt": "^4.3.7",
+
         "mysql": "^2.18.1",
 
         "mysql2": "^2.3.0",
@@ -56,7 +58,7 @@
 
     "devDependencies": {
 
-        "nodemon": "^2.0.13"
+        "nodemon": "^2.0.20"
 
     }
 
