@@ -82,7 +82,8 @@ router.post("/", (req, res) => {
                         "INSERT INTO Login(LoginUserID, RequestIP, RequestTime) values (?, ?, ?)",
                         [userId, requestIp.getClientIp(req), dateTime],
                         (errLog, resultLog) => {
-                          if (errLog) return res.status(500).send(errLog.message);
+                          if (errLog)
+                            return res.status(500).send(errLog.message);
                           let signInRes = {
                             locations: rowsLoc,
                             userData: rowsUser[0],
