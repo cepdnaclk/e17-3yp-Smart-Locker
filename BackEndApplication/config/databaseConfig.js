@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 config = {
-  host: 'localhost',
-  user: 'root',
-  password: 'maths123456',
-  database: 'SMARTLOCKERSYSTEM', // databasename
+  host: 'smart-locker.co4guqlo5yg8.ap-south-1.rds.amazonaws.com',
+  user: 'admin',
+  password: 'smart-locker',
+  database: 'SmartLocker', // databasename
 };
 
 var connection = mysql.createConnection(config);
