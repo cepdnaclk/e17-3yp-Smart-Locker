@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -31,6 +32,24 @@ class _ControlPanelState extends State<ControlPanel> {
         "x-auth-token": DataService.jwt,
       },
     );
+    return response;
+  }
+
+  Future<http.Response> lockUnlock(
+      String lockerNumber, String clusterNumber) async {
+    final String apiUrl = DataService.ip + "/api/locker/open";
+    Map<String, String> data = {
+      "lockerNumber": lockerNumber,
+      "clusterNumber": clusterNumber,
+    };
+    final body = json.encode(data);
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": DataService.jwt,
+        },
+        body: body);
+
     return response;
   }
 
@@ -434,7 +453,11 @@ class _ControlPanelState extends State<ControlPanel> {
             ),
             AnimatedToggle(
               values: ['Lock', 'Unlock'],
-              onToggleCallback: (value) {
+              onToggleCallback: (value) async {
+                final http.Response response = await lockUnlock(
+                    DataService.userLockers[index!].LockerNumber.toString(),
+                    DataService.userLockers[index!].LockerLocationID
+                        .toString());
                 setState(() {
                   _toggleValue = value;
                 });

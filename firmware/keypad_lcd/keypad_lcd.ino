@@ -27,6 +27,7 @@ byte rowPins[ROWS] = {0, 1, 2, 3}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {4, 5, 6, 7}; //connect to the column pinouts of the keypad
 
 Keypad_I2C kpd( makeKeymap(keys), rowPins, colPins, ROWS, COLS, I2CADDR_KEYPAD, PCF8574 );
+
 LiquidCrystal_I2C lcd(I2CADDR_LCD, 16, 2);
 
 String password = String("AC456DB");
@@ -50,9 +51,6 @@ void loop(){
       else{
         getUserInput(key);
       }
-    }
-    if(password == input){
-      actions_IfPasswordCorrect();
     }
 }
 
