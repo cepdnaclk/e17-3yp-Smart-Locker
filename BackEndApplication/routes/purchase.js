@@ -154,6 +154,9 @@ router.post("/:lockerID", auth, (req, res) => {
                   availability: 0,
                 };
                 const stringData = JSON.stringify(data)
+                console.log(`Topic Name: SmartLockerTokenPera/${clusterID}/${lockerNumber}`);
+                console.log(`${data}`);
+                console.log(`${stringData}`);
                 client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`, "purchase 2");
               });
               /******************************************************************/
