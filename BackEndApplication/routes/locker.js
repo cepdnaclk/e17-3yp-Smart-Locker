@@ -42,26 +42,15 @@ router.get('/', (req, res) => {
 });
 
 router.post('/open', auth, (req, res) => {
-  const lockerid = req.body.lockerNumber;
+  const lockerNumber = req.body.lockerNumber;
   const lockerlocationid = req.body.clusterNumber;
 
   var client = mqtt.connect('mqtt://test.mosquitto.org');
   client.on('connect', function () {
     console.log('connected');
-    client.publish(
-      //problem with the security
-      `SmartLockerLockerUnlockPera/${lockerlocationid}/${lockerid}`,
-      'open',
-      { qos: 0, retain: false },
-      (error) => {
-        if (error) {
-          console.log(error);
-          return res.status(400).send('Lock Open Error');
-        }
-        res.send('lock open successful');
-      }
-    );
+    client.publish(`SmartLockerLockerUnlockPera/${lockerlocationid}/${lockerNumber}`,'open');
   });
+  res.send('lock open successful');
 });
 
 module.exports = router;
