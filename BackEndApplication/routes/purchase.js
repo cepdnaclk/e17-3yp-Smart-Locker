@@ -15,7 +15,7 @@ function generateToken() {
   var result2;
   result1 = randomstring.generate({
     length: 3,
-    charset: "ABCD#*",
+    charset: "ABCD",
   });
   result2 = randomstring.generate({
     length: 7,
@@ -78,13 +78,14 @@ router.post("/direct", auth, (req, res) => {
               /*****************************************************************/
               var client = mqtt.connect("mqtt://test.mosquitto.org");
               client.on("connect", function () {
-                console.log("connected");
+                console.log("connected purchase 1");
                 const data = {
                   oneTimeToken: `${oneTimeToken}`,
                   sharedOneTimeToken: `${sharedOneTimeToken}`,
                   availability: 0,
                 };
-                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,JSON.stringify(data));
+                const stringData = JSON.stringify(data)
+                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,stringData);
               });
               /*****************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
@@ -142,17 +143,23 @@ router.post("/:lockerID", auth, (req, res) => {
             (errLocker, rowsLocker, fields) => {
               if (errLocker) return res.status(500).send("Database failure");
               /******************************************************************/
-              const lockerNumber = rowsLocker[0].lockerNumber;
-              const clusterID = rowsLocker[0].clusterID;
+
+              const lockerNumber = rowsLocker[0].LockerNumber;
+              const clusterID = rowsLocker[0].ClusterID;
+
               var client = mqtt.connect("mqtt://test.mosquitto.org");
               client.on("connect", function () {
-                console.log("connected");
+                console.log("connected purchase 2");
                 const data = {
                   oneTimeToken: `${oneTimeToken}`,
                   sharedOneTimeToken: `${sharedOneTimeToken}`,
                   availability: 0,
                 };
-                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,JSON.stringify(data));
+                const stringData = JSON.stringify(data)
+                console.log(`Topic Name: SmartLockerTokenPera/${clusterID}/${lockerNumber}`);
+                console.log(`${data}`);
+                console.log(`${stringData}`);
+                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`, stringData);
               });
               /******************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
