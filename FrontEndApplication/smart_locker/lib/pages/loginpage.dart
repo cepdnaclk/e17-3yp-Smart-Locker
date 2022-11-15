@@ -83,9 +83,12 @@ class _LogInPageState extends State<LogInPage> {
                             final String password = PasswordController.text;
 
                             try {
+                              print(email);
                               final http.Response response =
                                   await login(email, password)
                                       .timeout(Duration(seconds: 3));
+                              print("responce code:" +
+                                  response.statusCode.toString());
                               if (response.statusCode == 200) {
                                 DataService.jwt =
                                     response.headers["x-auth-token"]!;

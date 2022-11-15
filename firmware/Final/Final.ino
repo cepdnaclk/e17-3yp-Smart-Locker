@@ -4,13 +4,14 @@
 
 #define MSG_BUFFER_SIZE 50
 
-const char* ssid = "Eng-Student";
-const char* password = "3nG5tuDt";
+const char* ssid = "Virus@#$&@#$&&%$@";
+const char* password = "12345678";
 
 //const char* mqtt_server = "10.40.18.10";
 const char* mqtt_server = "test.mosquitto.org";
 //const char* topic_batteryReady = "3326project/smartbuilding/pv/battery/ready";
 const char* topic_dadoright = "dadoright";
+const char* topic_dadorightSub = "dadorightsub";
 
 char msg[MSG_BUFFER_SIZE];
 
@@ -54,6 +55,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       client.subscribe(topic_dadoright);
+      client.subscribe(topic_dadorightSub);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -64,7 +66,7 @@ void reconnect() {
   }
 }
 void callback(String topic, byte* message, unsigned int length) {
-  //DynamicJsonDocument doc(1024);
+  DynamicJsonDocument doc(1024);
   
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
@@ -79,16 +81,18 @@ void callback(String topic, byte* message, unsigned int length) {
   }
   Serial.println();
 
-  //deserializeJson(doc, messageTemp);
-  //JsonObject obj = doc.as<JsonObject>();
+  deserializeJson(doc, messageTemp);
+  JsonObject obj = doc.as<JsonObject>();
 
   // Feel free to add more if statements to control more GPIOs with MQTT
 
-  if(topic==dadoright){
+  if(topic==topic_dadoright){
     Serial.print("Connected");
+  }else if(topic=topic_dadorightSub){
+    Serial.print(String(obj["isAvailable"]));
   }
   
-  
+}
 
 
 void setup() {
@@ -106,5 +110,5 @@ void loop() {
   client.loop();
 
   snprintf(msg,MSG_BUFFER_SIZE,"%s","Sending Msg");
-  client.publish(dadoright,msg);
+//  client.publish(topic_dadoright,msg);
 }
