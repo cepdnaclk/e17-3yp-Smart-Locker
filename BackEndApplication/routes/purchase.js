@@ -143,8 +143,8 @@ router.post("/:lockerID", auth, (req, res) => {
             (errLocker, rowsLocker, fields) => {
               if (errLocker) return res.status(500).send("Database failure");
               /******************************************************************/
-              const lockerNumber = rowsLocker[0].lockerNumber;
-              const clusterID = rowsLocker[0].clusterID;
+              const lockerNumber = rowsLocker[0].LockerNumber;
+              const clusterID = rowsLocker[0].ClusterID;
               var client = mqtt.connect("mqtt://test.mosquitto.org");
               client.on("connect", function () {
                 console.log("connected purchase 2");
