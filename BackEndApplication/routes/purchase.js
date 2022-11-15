@@ -15,7 +15,7 @@ function generateToken() {
   var result2;
   result1 = randomstring.generate({
     length: 3,
-    charset: "ABCD#*",
+    charset: "ABCD",
   });
   result2 = randomstring.generate({
     length: 7,
@@ -143,7 +143,7 @@ router.post("/:lockerID", auth, (req, res) => {
             (errLocker, rowsLocker, fields) => {
               if (errLocker) return res.status(500).send("Database failure");
               /******************************************************************/
-              
+
               const lockerNumber = rowsLocker[0].LockerNumber;
               const clusterID = rowsLocker[0].ClusterID;
 
