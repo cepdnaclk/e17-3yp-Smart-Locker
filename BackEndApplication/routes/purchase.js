@@ -78,13 +78,14 @@ router.post("/direct", auth, (req, res) => {
               /*****************************************************************/
               var client = mqtt.connect("mqtt://test.mosquitto.org");
               client.on("connect", function () {
-                console.log("connected");
+                console.log("connected purchase 1");
                 const data = {
                   oneTimeToken: `${oneTimeToken}`,
                   sharedOneTimeToken: `${sharedOneTimeToken}`,
                   availability: 0,
                 };
-                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,JSON.stringify(data));
+                const stringData = JSON.stringify(data)
+                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,"purchase 1");
               });
               /*****************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
@@ -146,13 +147,14 @@ router.post("/:lockerID", auth, (req, res) => {
               const clusterID = rowsLocker[0].clusterID;
               var client = mqtt.connect("mqtt://test.mosquitto.org");
               client.on("connect", function () {
-                console.log("connected");
+                console.log("connected purchase 2");
                 const data = {
                   oneTimeToken: `${oneTimeToken}`,
                   sharedOneTimeToken: `${sharedOneTimeToken}`,
                   availability: 0,
                 };
-                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,JSON.stringify(data));
+                const stringData = JSON.stringify(data)
+                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`, "purchase 2");
               });
               /******************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
