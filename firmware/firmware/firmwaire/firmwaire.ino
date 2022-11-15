@@ -62,7 +62,7 @@ int distance;
 // Topics
 const char* topic_Tokens = "SmartLockerTokenPera/1/1";
 const char* topic_Unlock = "SmartLockerLockerUnlockPera/1/1";
-const char* topic_LockerData = "SmartLockerLockerData/1/1";
+const char* topic_LockerData = "SmartLockerLockerData";
 
 // Wifi client creation
 char msg[MSG_BUFFER_SIZE];
@@ -212,7 +212,7 @@ void eraseTheLastLetter()
 // validate the password
 void checkPassword()
 {
-  if(oneTimeToken == input || sharedOneTimeToken == input){
+  if( (oneTimeToken == input || sharedOneTimeToken == input)&& (availability == 0)){
     actions_IfPasswordCorrect();
   }
   else{
@@ -227,9 +227,12 @@ void actions_IfPasswordCorrect()
   cursorCol = 0;
   lcd.setCursor(0,1);
   Serial.println("Correct Password");
-  lcd.print("Correct Password"); 
+  lcd.print("Correct Password");
   delay(750);
   clearLCDLine(1);
+  digitalWrite(LockerLock,HIGH);
+  delay(30000);
+  digitalWrite(LockerLock,LOW); 
 }
 
 // Action for password incorrect

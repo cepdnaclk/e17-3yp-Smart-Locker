@@ -4,7 +4,7 @@ config = {
     host: 'smart-locker.co4guqlo5yg8.ap-south-1.rds.amazonaws.com',
     user: 'admin',
     password: 'smart-locker',
-    database: 'SmartLocker', // databasename
+    database: 'SmartLocker',
 };
 
 var connection = mysql.createConnection(config);
