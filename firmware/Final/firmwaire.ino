@@ -51,12 +51,14 @@ int availability = 1;
 // Ultrasonic Sensor
 const int trigPin = D5;
 const int echoPin = D6;
+const int LockerLock = D7;
+
 long duration;
 int distance;
 
 // Topics
 const char* topic_Tokens = "SmartLockerTokenPera/1";
-const char* topic_Unlock = "SmartLockerUnlockPera/1";
+const char* topic_Unlock = "SmartLockerLockerUnlockPera/1/1";
 const char* topic_LockerData = "SmartLockerLockerData/1";
 
 // Wifi client creation
@@ -142,6 +144,13 @@ void callback(String topic, byte* message, unsigned int length) {
     lcd.setCursor(0,0);
     String a = (availability == 1)?"YES":"NO ";
     lcd.print("G:" + String(lockerGroupNumber) + " N:" + String(lockerNumber)+" FREE:"+a);
+  }
+
+  if(topic == topic_Unlock){
+    //add security features
+    digitalWrite(LockerLock,HIGH);
+    delay(30000);
+    digitalWrite(LockerLock,LOW);
   }
   
 }
@@ -286,8 +295,11 @@ void checkEmpty(){
 void setup() {
   setUpLCD(lockerNumber, lockerGroupNumber);
   setUpKeyboard();
+
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  pinMode(LockerLock,OUTPUT);
+
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);  // public

@@ -1,5 +1,7 @@
 const express = require('express');
 const config = require('../config/databaseConfig');
+const auth = require('../middleware/auth');
+var mqtt = require('mqtt');
 
 const router = express.Router();
 const connection = config.connection;
@@ -36,6 +38,29 @@ router.get('/', (req, res) => {
   connection.query('SELECT * FROM Locker', (err, result) => {
     if (err) return res.status(500).send('Database Failure');
     res.send(result);
+  });
+});
+
+router.post('/open', auth, (req, res) => {
+  const lockerid = req.body.lockerNumber;
+  const lockerlocationid = req.body.clusterNumber;
+
+  var client = mqtt.connect('mqtt://test.mosquitto.org');
+  client.on('connect', function () {
+    console.log('connected');
+    client.publish(
+      //problem with the security
+      `SmartLockerLockerUnlockPera/${lockerlocationid}/${lockerid}`,
+      'open',
+      { qos: 0, retain: false },
+      (error) => {
+        if (error) {
+          console.log(error);
+          return res.status(400).send('Lock Open Error');
+        }
+        res.send('lock open successful');
+      }
+    );
   });
 });
 
