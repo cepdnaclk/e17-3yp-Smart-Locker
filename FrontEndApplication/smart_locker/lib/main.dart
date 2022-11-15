@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Smart Locker",
-      home: LogInPage(),
+      home: LoadingPage(),
       routes: {
         '/login': (context) => LogInPage(),
         '/signup': (context) => SignUpPage(),
