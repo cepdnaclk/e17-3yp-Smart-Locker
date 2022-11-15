@@ -21,7 +21,15 @@ class AnimatedToggle extends StatefulWidget {
 }
 
 class _AnimatedToggleState extends State<AnimatedToggle> {
-  bool initialPosition = true;
+  bool initialPosition = false;
+  late Timer timer;
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,12 +40,22 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              initialPosition = !initialPosition;
+              if (initialPosition) {
+                initialPosition = !initialPosition;
+              }
+
               var index = 0;
               if (!initialPosition) {
                 index = 1;
               }
               widget.onToggleCallback!(index);
+              timer = new Timer(const Duration(seconds: 30), () {
+                setState(() {
+                  if (!initialPosition) {
+                    initialPosition = !initialPosition;
+                  }
+                });
+              });
               setState(() {});
             },
             child: Container(
@@ -72,7 +90,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
             ),
           ),
           AnimatedAlign(
-            duration: const Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 450),
             curve: Curves.decelerate,
             alignment:
                 initialPosition ? Alignment.centerLeft : Alignment.centerRight,
