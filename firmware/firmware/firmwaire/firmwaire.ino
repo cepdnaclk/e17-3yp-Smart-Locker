@@ -35,8 +35,11 @@ char input[17];
 Ticker tickerTimer;
 
 // Wifi Connetion
-const char* ssid = "Virus@#$&@#$&&%$@";
-const char* password = "12345678";
+//const char* ssid = "Virus@#$&@#$&&%$@";
+//const char* password = "12345678";
+const char* ssid = "Eng-Student";
+const char* password = "3nG5tuDt";
+
 
 // mqtt connection
 const char* mqtt_server = "test.mosquitto.org";
@@ -57,9 +60,9 @@ long duration;
 int distance;
 
 // Topics
-const char* topic_Tokens = "SmartLockerTokenPera/1";
+const char* topic_Tokens = "SmartLockerTokenPera/1/1";
 const char* topic_Unlock = "SmartLockerLockerUnlockPera/1/1";
-const char* topic_LockerData = "SmartLockerLockerData/1";
+const char* topic_LockerData = "SmartLockerLockerData/1/1";
 
 // Wifi client creation
 char msg[MSG_BUFFER_SIZE];
@@ -103,6 +106,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       client.subscribe(topic_Tokens);
+      client.subscribe(topic_Unlock);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -146,7 +150,7 @@ void callback(String topic, byte* message, unsigned int length) {
     lcd.print("G:" + String(lockerGroupNumber) + " N:" + String(lockerNumber)+" FREE:"+a);
   }
 
-  if(topic == topic_Unlock){
+  else if(topic == topic_Unlock){
     //add security features
     digitalWrite(LockerLock,HIGH);
     delay(30000);
