@@ -42,6 +42,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/open', auth, (req, res) => {
+  //add auth if necessary
   const lockerid = req.body.lockerNumber;
   const lockerlocationid = req.body.clusterNumber;
 
