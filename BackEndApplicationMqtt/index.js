@@ -16,7 +16,7 @@ client.on('message', async(topic, message) => {
         //console.log(obj.isEmpty);
         console.log(obj);
         const connection = await databaseConnection.createConnection();
-        let table_name = 'locker';
+        let table_name = 'Locker';
         const updateNonEmpty = `UPDATE ${table_name} SET isEmpty = ${obj.isEmpty}
     WHERE LockerNumber = "${obj.lockerNumber}" and ClusterID = "${obj.lockerGroupNumber}"  `;
 
