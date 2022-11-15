@@ -103,6 +103,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       client.subscribe(topic_Tokens);
+      client.subscribe(topic_Unlock);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -146,7 +147,7 @@ void callback(String topic, byte* message, unsigned int length) {
     lcd.print("G:" + String(lockerGroupNumber) + " N:" + String(lockerNumber)+" FREE:"+a);
   }
 
-  if(topic == topic_Unlock){
+  else if(topic == topic_Unlock){
     //add security features
     digitalWrite(LockerLock,HIGH);
     delay(30000);
