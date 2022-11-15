@@ -35,8 +35,11 @@ char input[17];
 Ticker tickerTimer;
 
 // Wifi Connetion
-const char* ssid = "Virus@#$&@#$&&%$@";
-const char* password = "12345678";
+//const char* ssid = "Virus@#$&@#$&&%$@";
+//const char* password = "12345678";
+const char* ssid = "Eng-Student";
+const char* password = "3nG5tuDt";
+
 
 // mqtt connection
 const char* mqtt_server = "test.mosquitto.org";
@@ -51,13 +54,15 @@ int availability = 1;
 // Ultrasonic Sensor
 const int trigPin = D5;
 const int echoPin = D6;
+const int LockerLock = D7;
+
 long duration;
 int distance;
 
 // Topics
-const char* topic_Tokens = "SmartLockerTokenPera/1";
-const char* topic_Unlock = "SmartLockerUnlockPera/1";
-const char* topic_LockerData = "SmartLockerLockerData/1";
+const char* topic_Tokens = "SmartLockerTokenPera/1/1";
+const char* topic_Unlock = "SmartLockerLockerUnlockPera/1/1";
+const char* topic_LockerData = "SmartLockerLockerData/1/1";
 
 // Wifi client creation
 char msg[MSG_BUFFER_SIZE];
@@ -101,6 +106,7 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       client.subscribe(topic_Tokens);
+      client.subscribe(topic_Unlock);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -142,6 +148,13 @@ void callback(String topic, byte* message, unsigned int length) {
     lcd.setCursor(0,0);
     String a = (availability == 1)?"YES":"NO ";
     lcd.print("G:" + String(lockerGroupNumber) + " N:" + String(lockerNumber)+" FREE:"+a);
+  }
+
+  else if(topic == topic_Unlock){
+    //add security features
+    digitalWrite(LockerLock,HIGH);
+    delay(30000);
+    digitalWrite(LockerLock,LOW);
   }
   
 }
@@ -286,8 +299,11 @@ void checkEmpty(){
 void setup() {
   setUpLCD(lockerNumber, lockerGroupNumber);
   setUpKeyboard();
+
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+  pinMode(LockerLock,OUTPUT);
+
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);  // public
