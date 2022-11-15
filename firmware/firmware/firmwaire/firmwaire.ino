@@ -277,7 +277,7 @@ void checkEmpty(){
   StaticJsonDocument<256> doc;
   JsonObject object = doc.to<JsonObject>();
   
-  if (distance < 40)
+  if (distance < 8)
   {
     Serial.print("There is object");
     object["isEmpty"] = 0;
@@ -296,7 +296,7 @@ void checkEmpty(){
   char bufferMessage[256];
   serializeJson(object, bufferMessage);
   client.publish(topic_LockerData, bufferMessage);
-//  delay(5);
+  delay(50);
 }
 
 void setup() {

@@ -21,7 +21,7 @@ class AnimatedToggle extends StatefulWidget {
 }
 
 class _AnimatedToggleState extends State<AnimatedToggle> {
-  bool initialPosition = false;
+  bool initialPosition = true;
   late Timer timer;
 
   @override
@@ -49,7 +49,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                 index = 1;
               }
               widget.onToggleCallback!(index);
-              timer = new Timer(const Duration(seconds: 30), () {
+              timer = new Timer(const Duration(seconds: 15), () {
                 setState(() {
                   if (!initialPosition) {
                     initialPosition = !initialPosition;
