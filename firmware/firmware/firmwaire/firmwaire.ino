@@ -47,8 +47,12 @@ const char* mqtt_server = "test.mosquitto.org";
 // locker data
 const int lockerNumber = 1;
 const int lockerGroupNumber = 1;
+
+//remove the values
 String oneTimeToken = "";
 String sharedOneTimeToken = "";
+
+//make availability 1
 int availability = 1;
 
 // Ultrasonic Sensor
@@ -60,9 +64,9 @@ long duration;
 int distance;
 
 // Topics
-const char* topic_Tokens = "SmartLockerTokenPera/1/1";
-const char* topic_Unlock = "SmartLockerLockerUnlockPera/1/1";
-const char* topic_LockerData = "SmartLockerLockerData";
+const char* topic_Tokens = "SmartLockerTokenPeradeniya/1/1";
+const char* topic_Unlock = "SmartLockerLockerUnlockPeradeniya/1/1";
+const char* topic_LockerData = "SmartLockerLockerDataPeradeniya";
 
 // Wifi client creation
 char msg[MSG_BUFFER_SIZE];
