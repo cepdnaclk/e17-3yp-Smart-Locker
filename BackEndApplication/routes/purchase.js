@@ -85,7 +85,7 @@ router.post("/direct", auth, (req, res) => {
                   availability: 0,
                 };
                 const stringData = JSON.stringify(data)
-                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,stringData);
+                client.publish(`SmartLockerTokenPeradeniya/${clusterID}/${lockerNumber}`,stringData);
               });
               /*****************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
@@ -156,10 +156,10 @@ router.post("/:lockerID", auth, (req, res) => {
                   availability: 0,
                 };
                 const stringData = JSON.stringify(data)
-                console.log(`Topic Name: SmartLockerTokenPera/${clusterID}/${lockerNumber}`);
+                console.log(`Topic Name: SmartLockerTokenPeradeniya/${clusterID}/${lockerNumber}`);
                 console.log(`${data}`);
                 console.log(`${stringData}`);
-                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`, stringData);
+                client.publish(`SmartLockerTokenPeradeniya/${clusterID}/${lockerNumber}`, stringData);
               });
               /******************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
