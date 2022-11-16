@@ -206,7 +206,8 @@ class _ControlPanelState extends State<ControlPanel> {
                   child: Text(
                     index != null
                         ? DateFormat('yyyy/MM/dd  hh:mm a')
-                            .format(DataService.userLockers[index!].ExpireDate!)
+                            .format(DataService.userLockers[index!].ExpireDate!
+                                .toLocal())
                             .toString()
                         : "",
                     textScaleFactor: 1.8,

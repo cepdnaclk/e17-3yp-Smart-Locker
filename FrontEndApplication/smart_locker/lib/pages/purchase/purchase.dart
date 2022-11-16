@@ -54,6 +54,12 @@ class _PurchaseState extends State<Purchase> {
     return expiredate;
   }
 
+  DateTime getUTCExpireDate(int hours, int days) {
+    DateTime expiredate =
+        DateTime.now().add(Duration(hours: hours, days: days)).toUtc();
+    return expiredate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -223,7 +229,7 @@ class _PurchaseState extends State<Purchase> {
                       text: "Cancel"),
                   SubmitButton(
                       onSubmitHandler: () async {
-                        DateTime expiredate = getExpireDate(
+                        DateTime expiredate = getUTCExpireDate(
                             durationPicker.hours, durationPicker.days);
 
                         final http.Response response =

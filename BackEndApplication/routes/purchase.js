@@ -1,4 +1,3 @@
-// Secure
 const config = require("../config/databaseConfig");
 const express = require("express");
 const Joi = require("joi");
@@ -6,6 +5,7 @@ const auth = require("../middleware/auth");
 const randomstring = require("randomstring");
 const Cryptr = require("cryptr");
 const cryptr = new Cryptr("smartlocker_secretkey");
+var mqtt = require("mqtt");
 
 const router = express.Router();
 const connection = config.connection;
@@ -15,7 +15,7 @@ function generateToken() {
   var result2;
   result1 = randomstring.generate({
     length: 3,
-    charset: "ABCD#*",
+    charset: "ABCD",
   });
   result2 = randomstring.generate({
     length: 7,
@@ -34,7 +34,7 @@ router.post("/direct", auth, (req, res) => {
   const result = schema.validate(req.body);
 
   if (result.error) {
-    return res.status(400).send(result.error.details[0].message+"aaa");
+    return res.status(400).send(result.error.details[0].message + "aaa");
   }
 
   var lockerNumber = parseInt(req.body.lockerNumber);
@@ -66,7 +66,7 @@ router.post("/direct", auth, (req, res) => {
           encryptedOneTimeToken,
           encryptedsharedOneTimeToken,
           lockerNumber,
-          clusterID
+          clusterID,
         ],
         (err, rows) => {
           if (err) return res.status(500).send("Database failure");
@@ -75,7 +75,19 @@ router.post("/direct", auth, (req, res) => {
             [lockerNumber, clusterID],
             (errLocker, rowsLocker, fields) => {
               if (errLocker) return res.status(500).send("Database failure");
-
+              /*****************************************************************/
+              var client = mqtt.connect("mqtt://test.mosquitto.org");
+              client.on("connect", function () {
+                console.log("connected purchase 1");
+                const data = {
+                  oneTimeToken: `${oneTimeToken}`,
+                  sharedOneTimeToken: `${sharedOneTimeToken}`,
+                  availability: 0,
+                };
+                const stringData = JSON.stringify(data)
+                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`,stringData);
+              });
+              /*****************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
             }
           );
@@ -84,7 +96,6 @@ router.post("/direct", auth, (req, res) => {
     }
   );
 });
-
 
 router.post("/:lockerID", auth, (req, res) => {
   const schema = Joi.object({
@@ -131,7 +142,26 @@ router.post("/:lockerID", auth, (req, res) => {
             [lockerID],
             (errLocker, rowsLocker, fields) => {
               if (errLocker) return res.status(500).send("Database failure");
+              /******************************************************************/
 
+              const lockerNumber = rowsLocker[0].LockerNumber;
+              const clusterID = rowsLocker[0].ClusterID;
+
+              var client = mqtt.connect("mqtt://test.mosquitto.org");
+              client.on("connect", function () {
+                console.log("connected purchase 2");
+                const data = {
+                  oneTimeToken: `${oneTimeToken}`,
+                  sharedOneTimeToken: `${sharedOneTimeToken}`,
+                  availability: 0,
+                };
+                const stringData = JSON.stringify(data)
+                console.log(`Topic Name: SmartLockerTokenPera/${clusterID}/${lockerNumber}`);
+                console.log(`${data}`);
+                console.log(`${stringData}`);
+                client.publish(`SmartLockerTokenPera/${clusterID}/${lockerNumber}`, stringData);
+              });
+              /******************************************************************/
               res.send({ purchasedLocker: rowsLocker[0] });
             }
           );
@@ -140,6 +170,5 @@ router.post("/:lockerID", auth, (req, res) => {
     }
   );
 });
-
 
 module.exports = router;
