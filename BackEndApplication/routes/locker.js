@@ -41,14 +41,15 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/open', auth, (req, res) => {
+router.post('/open', (req, res) => {
   const lockerNumber = req.body.lockerNumber;
   const lockerlocationid = req.body.clusterNumber;
 
   var client = mqtt.connect('mqtt://test.mosquitto.org');
   client.on('connect', function () {
     console.log('connected');
-    client.publish(`SmartLockerLockerUnlockPera/${lockerlocationid}/${lockerNumber}`,'open');
+    client.publish(`SmartLockerLockerUnlockPeradeniya/${lockerlocationid}/${lockerNumber}`,'open');
+    console.log(`Successfully published Topic: SmartLockerLockerUnlockPeradeniya/${lockerlocationid}/${lockerNumber}`);
   });
   res.send('lock open successful');
 });
