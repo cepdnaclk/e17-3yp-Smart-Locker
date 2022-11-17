@@ -67,6 +67,12 @@ const int trigPin = D5;
 const int echoPin = D6;
 const int LockerLock = D7;
 
+// Door Sensor
+const int sensor = D8;
+const int ledR = D3;
+const int ledG = D4;
+int state;
+
 long duration;
 int distance;
 
@@ -340,6 +346,9 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(LockerLock,OUTPUT);
+  pinMode(sensor, INPUT_PULLUP);
+  pinMode(ledR, OUTPUT);
+  pinMode(ledG, OUTPUT);
 
   Serial.begin(115200);
   LittleFS.begin();
@@ -386,4 +395,18 @@ void loop() {
       getUserInput(key);
     }
   }
+
+  // Door Sensor
+  state = digitalRead(sensor);
+  if (state == HIGH){
+//    Serial.println("1");
+    digitalWrite(ledR, HIGH);
+    digitalWrite(ledG, LOW);
+  }
+  else{
+//    Serial.println("0");
+    digitalWrite(ledR, LOW);
+    digitalWrite(ledG, HIGH);
+  }
+  delay(5);
 }
