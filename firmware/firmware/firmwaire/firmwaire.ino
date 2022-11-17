@@ -157,8 +157,10 @@ void callback(String topic, byte* message, unsigned int length) {
   else if(topic == topic_Unlock){
     //add security features
     digitalWrite(LockerLock,HIGH);
+    Serial.println("LockerLock HIGH Logic");
     delay(30000);
     digitalWrite(LockerLock,LOW);
+    Serial.println("LockerLock LOW Logic");
   }
   
 }
@@ -235,8 +237,10 @@ void actions_IfPasswordCorrect()
   delay(750);
   clearLCDLine(1);
   digitalWrite(LockerLock,HIGH);
+  Serial.println("LockerLock HIGH Logic");
   delay(30000);
   digitalWrite(LockerLock,LOW); 
+  Serial.println("LockerLock LOW Logic");
 }
 
 // Action for password incorrect
@@ -316,6 +320,7 @@ void setup() {
   client.setServer(mqtt_server, 1883);  // public
   client.setCallback(callback);
   tickerTimer.attach(60,checkEmpty);
+  Serial.println("LockerLock LOW logic");
 }
 
 
