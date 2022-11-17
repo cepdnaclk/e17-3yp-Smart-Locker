@@ -73,7 +73,15 @@ router.post("/direct", auth, (req, res) => {
                         (errLocker, rowsLocker, fields) => {
                             if (errLocker) return res.status(500).send("Database failure");
                             /*****************************************************************/
-                            var client = mqtt.connect("mqtt://test.mosquitto.org");
+                            var options = {
+                                host: 'f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud',
+                                port: 8883,
+                                protocol: 'mqtts',
+                                username: 'SmartLocker',
+                                password: 'SmartLocker1'
+                            }
+
+                            var client = mqtt.connect(options);
                             client.on("connect", function() {
                                 console.log("connected purchase 1");
                                 const data = {
@@ -81,7 +89,10 @@ router.post("/direct", auth, (req, res) => {
                                     sharedOneTimeToken: `${sharedOneTimeToken}`,
                                     availability: 0,
                                 };
-                                const stringData = JSON.stringify(data)
+                                const stringData = JSON.stringify(data);
+                                console.log(`Topic Name: SmartLockerTokenPeradeniya/${clusterID}/${lockerNumber}`);
+                                console.log(`${data}`);
+                                console.log(`${stringData}`);
                                 client.publish(`SmartLockerTokenPeradeniya/${clusterID}/${lockerNumber}`, stringData);
                             });
                             /*****************************************************************/

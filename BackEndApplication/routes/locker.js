@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/open', (req, res) => {
+router.post('/open', auth, (req, res) => {
     const lockerNumber = req.body.lockerNumber;
     const lockerlocationid = req.body.clusterNumber;
 
