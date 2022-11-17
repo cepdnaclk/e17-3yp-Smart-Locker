@@ -42,10 +42,10 @@ Ticker tickerTimer;
 // Wifi Connetion
 //const char* ssid = "Virus@#$&@#$&&%$@";
 //const char* password = "12345678";
-//const char* ssid = "Eng-Student";
-//const char* password = "3nG5tuDt";
-const char* ssid = "Dialog 4G";
-const char* password = "1234KHSP";
+const char* ssid = "Eng-Student";
+const char* password = "3nG5tuDt";
+//const char* ssid = "Dialog 4G";
+//const char* password = "1234KHSP";
 
 // mqtt connection
 const char* mqtt_server = "f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud";
@@ -148,7 +148,7 @@ void callback(String topic, byte* message, unsigned int length) {
     Serial.print((char)message[i]);
     messageTemp += (char)message[i];
   }
-  Serial.println();
+  Serial.println(messageTemp);
 
   deserializeJson(doc, messageTemp);
   JsonObject obj = doc.as<JsonObject>();
@@ -336,7 +336,6 @@ void checkEmpty(){
   char bufferMessage[256];
   serializeJson(object, bufferMessage);
   client->publish(topic_LockerData, bufferMessage);
-  delay(50);
 }
 
 void setup() {
@@ -369,10 +368,13 @@ void setup() {
   client->setServer(mqtt_server, 8883);  // public
   client->setCallback(callback);
   
-  tickerTimer.attach(60,checkEmpty);
+  tickerTimer.attach(5,checkEmpty);
   Serial.println("LockerLock LOW logic");
 }
 
+//void test(){
+//  Serial.print("test");  
+//}
 
 
 void loop() {
