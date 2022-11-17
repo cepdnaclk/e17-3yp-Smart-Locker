@@ -6,6 +6,11 @@
 #include <Keypad.h>
 #include <LiquidCrystal_I2C.h>
 #include <Ticker.h>
+#include <time.h>
+#include <TZ.h>
+#include <FS.h>
+#include <LittleFS.h>
+#include <CertStoreBearSSL.h>
 
 #define I2CADDR_KEYPAD 0x20
 #define I2CADDR_LCD 0x27
@@ -37,12 +42,14 @@ Ticker tickerTimer;
 // Wifi Connetion
 //const char* ssid = "Virus@#$&@#$&&%$@";
 //const char* password = "12345678";
-const char* ssid = "Eng-Student";
-const char* password = "3nG5tuDt";
-
+//const char* ssid = "Eng-Student";
+//const char* password = "3nG5tuDt";
+const char* ssid = "Dialog 4G";
+const char* password = "1234KHSP";
 
 // mqtt connection
-const char* mqtt_server = "test.mosquitto.org";
+const char* mqtt_server = "f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud";
+BearSSL::CertStore certStore;
 
 // locker data
 const int lockerNumber = 1;
@@ -70,8 +77,8 @@ const char* topic_LockerData = "SmartLockerLockerDataPeradeniya";
 
 // Wifi client creation
 char msg[MSG_BUFFER_SIZE];
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClientSecure espClient;
+PubSubClient * client;
 
 // Wifi setup function
 void setup_wifi() {
@@ -99,7 +106,7 @@ void setup_wifi() {
 
 void reconnect() {
   // Loop until we're reconnected
-  while (!client.connected()) {
+  while (!client->connected()) {
     Serial.print("Attempting MQTT connection...");
     
     // Create a random client ID
@@ -107,13 +114,13 @@ void reconnect() {
     clientId += String(random(0xffff), HEX);
     
     // Attempt to connect
-    if (client.connect(clientId.c_str())) {
+    if (client->connect(clientId.c_str(), "SmartLocker", "SmartLocker1")) {
       Serial.println("connected");
-      client.subscribe(topic_Tokens);
-      client.subscribe(topic_Unlock);
+      client->subscribe(topic_Tokens);
+      client->subscribe(topic_Unlock);
     } else {
       Serial.print("failed, rc=");
-      Serial.print(client.state());
+      Serial.print(client->state());
       Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
       delay(5000);
@@ -226,6 +233,25 @@ void checkPassword()
   }
 }
 
+void setDateTime() {
+  // You can use your own timezone, but the exact time is not used at all.
+  // Only the date is needed for validating the certificates.
+  configTime(TZ_Europe_Berlin, "pool.ntp.org", "time.nist.gov");
+
+  Serial.print("Waiting for NTP time sync: ");
+  time_t now = time(nullptr);
+  while (now < 8 * 3600 * 2) {
+    delay(100);
+    Serial.print(".");
+    now = time(nullptr);
+  }
+  Serial.println();
+
+  struct tm timeinfo;
+  gmtime_r(&now, &timeinfo);
+  Serial.printf("%s %s", tzname[0], asctime(&timeinfo));
+}
+
 // Action for password correct
 void actions_IfPasswordCorrect()
 {
@@ -303,7 +329,7 @@ void checkEmpty(){
   object["lockerGroupNumber"] = lockerGroupNumber;
   char bufferMessage[256];
   serializeJson(object, bufferMessage);
-  client.publish(topic_LockerData, bufferMessage);
+  client->publish(topic_LockerData, bufferMessage);
   delay(50);
 }
 
@@ -316,9 +342,24 @@ void setup() {
   pinMode(LockerLock,OUTPUT);
 
   Serial.begin(115200);
+  LittleFS.begin();
   setup_wifi();
-  client.setServer(mqtt_server, 1883);  // public
-  client.setCallback(callback);
+  setDateTime();
+
+  int numCerts = certStore.initCertStore(LittleFS, PSTR("/certs.idx"), PSTR("/certs.ar"));
+  Serial.printf("Number of CA certs read: %d\n", numCerts);
+  if (numCerts == 0) {
+    Serial.printf("No certs found. Did you run certs-from-mozilla.py and upload the LittleFS directory before running?\n");
+    return;
+  }
+
+  BearSSL::WiFiClientSecure *bear = new BearSSL::WiFiClientSecure();
+  bear->setCertStore(&certStore);
+  
+  client = new PubSubClient(*bear);
+  client->setServer(mqtt_server, 8883);  // public
+  client->setCallback(callback);
+  
   tickerTimer.attach(60,checkEmpty);
   Serial.println("LockerLock LOW logic");
 }
@@ -327,11 +368,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (!client.connected()) {
+  if (!client->connected()) {
     reconnect();
   }
   
-  client.loop();
+  client->loop();
   // Keypad
   char key = kpd.getKey();  
   if (key){
