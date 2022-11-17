@@ -6,6 +6,10 @@
 #include <Keypad.h>
 #include <LiquidCrystal_I2C.h>
 #include <Ticker.h>
+#include <TZ.h>
+#include <FS.h>
+#include <LittleFS.h>
+#include <CertStoreBearSSL.h>
 
 #define I2CADDR_KEYPAD 0x20
 #define I2CADDR_LCD 0x27
@@ -37,12 +41,15 @@ Ticker tickerTimer;
 // Wifi Connetion
 //const char* ssid = "Virus@#$&@#$&&%$@";
 //const char* password = "12345678";
+//const char* ssid = "DELL's iPhone";
+//const char* password = "dado1998";
 const char* ssid = "Eng-Student";
 const char* password = "3nG5tuDt";
 
 
 // mqtt connection
-const char* mqtt_server = "test.mosquitto.org";
+const char* mqtt_server = "f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud";
+BearSSL::CertStore certStore;
 
 // locker data
 const int lockerNumber = 1;
@@ -66,8 +73,8 @@ const char* topic_LockerData = "SmartLockerLockerData";
 
 // Wifi client creation
 char msg[MSG_BUFFER_SIZE];
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClientSecure espClient;
+PubSubClient * client;
 
 // Wifi setup function
 void setup_wifi() {
@@ -308,8 +315,20 @@ void setup() {
   pinMode(LockerLock,OUTPUT);
 
   Serial.begin(115200);
+  LittleFS.begin();
   setup_wifi();
-  client.setServer(mqtt_server, 1883);  // public
+  int numCerts = certStore.initCertStore(LittleFS, PSTR("/certs.idx"), PSTR("/certs.ar"));
+  Serial.printf("Number of CA certs read: %d\n", numCerts);
+  if (numCerts == 0) {
+    Serial.printf("No certs found. Did you run certs-from-mozilla.py and upload the LittleFS directory before running?\n");
+    return;
+  }
+
+  BearSSL::WiFiClientSecure *bear = new BearSSL::WiFiClientSecure();
+  bear.setCertStore(&certStore);
+
+  client = new PubSubClient(*bear);
+  client.setServer(mqtt_server, 8883);  // public
   client.setCallback(callback);
   tickerTimer.attach(60,checkEmpty);
 }
