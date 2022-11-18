@@ -68,7 +68,7 @@ const int echoPin = D6;
 const int LockerLock = D7;
 
 // Door Sensor
-const int sensor = D8;
+const int sensor = A0;
 const int ledR = D3;
 const int ledG = D4;
 int state;
@@ -399,8 +399,9 @@ void loop() {
   }
 
   // Door Sensor
-  state = digitalRead(sensor);
-  if (state == HIGH){
+  state = analogRead(sensor);
+  Serial.print(state);
+  if (state > 200){
 //    Serial.println("1");
     digitalWrite(ledR, HIGH);
     digitalWrite(ledG, LOW);
