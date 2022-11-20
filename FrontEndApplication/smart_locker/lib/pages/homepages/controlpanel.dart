@@ -297,7 +297,13 @@ class _ControlPanelState extends State<ControlPanel> {
                           child: Container(
                             child: Center(
                               child: Text(
-                                "Yes",
+                                index != null
+                                    ? ((DataService
+                                                .userLockers[index!].IsEmpty ==
+                                            1)
+                                        ? "YES"
+                                        : "No")
+                                    : "",
                                 style: TextStyle(
                                     color: Colors.green[800],
                                     fontFamily: "Aller",
@@ -435,7 +441,12 @@ class _ControlPanelState extends State<ControlPanel> {
                         ),
                         child: Center(
                           child: Text(
-                            "No",
+                            index != null
+                                ? ((DataService.userLockers[index!].IsLocked! ==
+                                        1)
+                                    ? "NO"
+                                    : "YES")
+                                : "",
                             style: TextStyle(
                                 color: Colors.green[800],
                                 fontFamily: "Aller",
