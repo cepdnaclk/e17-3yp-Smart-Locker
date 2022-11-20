@@ -53,7 +53,7 @@ router.post('/open', auth, (req, res) => {
         port: 8883,
         protocol: 'mqtts',
         username: 'Smart_LockerUOP',
-        password: 'Smart_LockerUOP'
+        password: 'SmartLockerUOP'
     }
 
     var client = mqtt.connect(options);

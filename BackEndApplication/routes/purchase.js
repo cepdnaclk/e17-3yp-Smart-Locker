@@ -162,10 +162,10 @@ router.post("/:lockerID", auth, (req, res) => {
                                 port: 8883,
                                 protocol: 'mqtts',
                                 username: 'Smart_LockerUOP',
-                                password: 'Smart_LockerUOP'
+                                password: 'SmartLockerUOP'
 
                             }
-
+                            console.log("check");
                             var client = mqtt.connect(options);
                             client.on("connect", function() {
                                 console.log("connected purchase 2");
