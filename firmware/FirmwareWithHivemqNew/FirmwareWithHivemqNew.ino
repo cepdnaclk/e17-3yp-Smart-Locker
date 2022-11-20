@@ -50,7 +50,7 @@ const char* password = "3nG5tuDt";
 //const char* password = "maaya1998";
 
 // mqtt connection
-const char* mqtt_server = "f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud";
+const char* mqtt_server = "0447f76c849048d1a140b9601bd5d8df.s2.eu.hivemq.cloud";
 BearSSL::CertStore certStore;
 
 // locker data
@@ -123,7 +123,7 @@ void reconnect() {
     clientId += String(random(0xffff), HEX);
     
     // Attempt to connect
-    if (client->connect(clientId.c_str(), "SmartLocker", "SmartLocker1")) {
+    if (client->connect(clientId.c_str(), "Smart_LockerUOP", "Smart_LockerUOP")) {
       Serial.println("connected");
       client->subscribe(topic_Tokens);
       client->subscribe(topic_Unlock);
@@ -174,7 +174,7 @@ void callback(String topic, byte* message, unsigned int length) {
     //add security features
     digitalWrite(LockerLock,HIGH);
     Serial.println("LockerLock HIGH Logic");
-    delay(15000);
+    delay(5000);
     digitalWrite(LockerLock,LOW);
     Serial.println("LockerLock LOW Logic");
   }
@@ -234,7 +234,7 @@ void eraseTheLastLetter()
 // validate the password
 void checkPassword()
 {
-  if( (oneTimeToken == input || sharedOneTimeToken == input) *&& (avilability == 0)){
+  if((oneTimeToken == input || sharedOneTimeToken == input) && (availability == 0)){
     actions_IfPasswordCorrect();
   }
   else{
@@ -393,7 +393,7 @@ void loop() {
     }
     else if(key == '#'){
       checkPassword();
-//      setUpLCD(lockerNumber, lockerGroupNumber);
+      setUpLCD(lockerNumber, lockerGroupNumber);
     }
     else{
       getUserInput(key);

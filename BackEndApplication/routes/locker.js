@@ -44,11 +44,16 @@ router.post('/open', (req, res) => {
     const lockerlocationid = req.body.clusterNumber;
 
     var options = {
-        host: 'f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud',
+        // host: 'f52e464d5ba446bbb7ce1e8bf72f8221.s2.eu.hivemq.cloud',
+        // port: 8883,
+        // protocol: 'mqtts',
+        // username: 'SmartLocker',
+        // password: 'SmartLocker1'
+        host: '0447f76c849048d1a140b9601bd5d8df.s2.eu.hivemq.cloud',
         port: 8883,
         protocol: 'mqtts',
-        username: 'SmartLocker',
-        password: 'SmartLocker1'
+        username: 'Smart_LockerUOP',
+        password: 'Smart_LockerUOP'
     }
 
     var client = mqtt.connect(options);
