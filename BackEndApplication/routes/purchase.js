@@ -161,7 +161,7 @@ router.post("/:lockerID", auth, (req, res) => {
                                 host: '0447f76c849048d1a140b9601bd5d8df.s2.eu.hivemq.cloud',
                                 port: 8883,
                                 protocol: 'mqtts',
-                                username: 'Smart_LockerUOP',
+                                username: 'Smart_LokerUOP',
                                 password: 'SmartLockerUOP'
 
                             }
