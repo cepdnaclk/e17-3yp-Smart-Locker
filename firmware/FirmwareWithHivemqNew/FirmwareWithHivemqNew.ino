@@ -123,7 +123,7 @@ void reconnect() {
     clientId += String(random(0xffff), HEX);
     
     // Attempt to connect
-    if (client->connect(clientId.c_str(), "Smart_LockerUOP", "Smart_LockerUOP")) {
+    if (client->connect(clientId.c_str(), "Smart_LockerUOP", "SmartLockerUOP")) {
       Serial.println("connected");
       client->subscribe(topic_Tokens);
       client->subscribe(topic_Unlock);
