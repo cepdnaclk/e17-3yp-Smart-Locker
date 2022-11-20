@@ -26,6 +26,7 @@
           <a href="#tech" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Technologies</a>
           <a href="#security" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Security & Failure Handling</a>
           <a href="#testing" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Testing</a>
+          <a href="#hardware" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Hardware</a>
           <a href="#Budget" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Budget</a>
           <a href="#demo" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Demonstration plan</a>
           <a href="#timeline" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Timeline</a>
@@ -178,6 +179,118 @@
       <img src="images/testingplan.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
     </div>
     <hr>
+    <br>
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="hardware">
+      <h1 class="w3-wide">Hardware Implementation</h1><br><br>
+      <img src="images/Hardware_Design.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:100%">
+      <br><br>
+      <p class="w3-justify"  style="font-size:20px">
+        The physical implementation of the hardware will look as above,
+        where it consists of the LCD Display, Keypad, Handle and the LEDs.
+        Keypad is used to input the passwords,
+        LCD Display is used to display necessary information like the password and free nature of the locker,
+        Group number and locker number. LEDs display whether the locker door is open or not. 
+      </p>
+      <br>
+      <img src="images/Hardware_Side_view.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:80%">
+      <br>
+      <p class="w3-justify"  style="font-size:20px">
+        The Lateral view of the hardware shows two additional components the Door Sensor and the Solenoid lock,
+        the solenoid lock is used to lock the locker and open the locker whenever necessary. 
+        The Door Sensor is used to check whether the door is open or not and change the color of the LEDs that are connected to the door. 
+      </p>
+      <br><br>
+      <img src="images/Cross Section View .png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:80%">
+      <br>
+      <p class="w3-justify"  style="font-size:20px">
+        The inner cross section of the locker shows what is there inside the locker, 
+        there are Ultra Sonic Sensors to identify whether there is an object in there or not. 
+        Other than that, there is the component box where it includes the microcontroller and the wirings that are required to make the connections between 
+        the hardware components. 
+      </p>
+      <br><br>
+      <h3 class="w3-wide">high-level implementation of the hardware connectivity  </h3> <br>
+      <br><br>
+      <img src="images/High_level_hardware.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:80%">
+      <br><br>
+      <h3 class="w3-wide">Hardware Components</h3> <br><br>
+      <p class="w3-justify"  style="font-size:18px">
+      1.NodeMCU
+        <br><br>
+      Used as the main micro controller and the processing unit of the hardware system.
+      And a ESP8266 IC is integrated into this Micro controller.
+      This can be used to connect to internet using Wi-Fi when programmed to do so. 
+      Power Supply is provided to the Node MCU Using a 5-volt 2-ampere power regulator (power pack).
+      The positive terminal is connected to the Vin pin of the Micro controller while the ground of the power pack is connected to a ground pin of the NodeMCU. 
+      <br>The D1, D2 pins are connected to SDL and SCL of the I2C expander.
+      These pins are predetermined by the NodeMCU and the SCL of the expander is always connected to the D1 pin of the NodeMCU. 
+      and SDL pin is always connected to the D2 pin of the NodeMCU. 
+      <br>
+      A0 is connected to the door sensor.
+      When the door is opened there will be an analog signal which will send into the NodeMCU.
+      That signal is processed by the NodeMCU and two LEDs (Green and Red) which are connected to the D3, D4 pins of the NodeMCU will be lighted accordingly. 
+      <br>
+      D5, D6 Echo and Trigger pins of the Ultra Sonic Sensor the D5 pin is connected to the Trig of the Ultrasonic Sensor
+      while D6 is connected to Echo Pin of the Ultrasonic Sensor. 
+      <br>
+      D7 is connected to the 5v 1channel relay in pin.
+      The negative logic will switch the relay into normally open port of the relay.  
+      </p> 
+      <p class="w3-justify"  style="font-size:18px">
+        2. 5V 1Channel relay 
+          <br><br>
+          The D7 pin in the NodeMCU is connected to the “IN” pin of the relay.
+          The power is given by 3.3v pin on the NodeMCU while ground is connected to a ground pin or ground of the 5v input that is given to the system. 
+          <br>
+          The 12v power supply of the power pack is connected to the common of the relay
+          and the positive terminal of the solenoid lock is connected to the normally closed terminal of the relay.
+           The solenoid lock is connected to the normally closed terminal because then in most of the time the lock is closed by current is running through it therefore it will not get heated up. 
+        </p> 
+        <p class="w3-justify"  style="font-size:18px">
+          3. Solenoid Lock 
+            <br><br>
+             The solenoid lock is used to open and close the locker. 
+             When a current is not provided it in the closed condition therefore the locker is locked. 
+             When we provide a current to the solenoid lock it will open up therefore the locker is also opened. 
+             The locker is connected to the normally closed terminal of the relay. 
+             Therefore, when a signal is received via “mqqt” the d7 pin will send a signal therefore the locker will open up. 
+            <br>
+            A 12v power pack is used to power up the solenoid lock. 
+            therefore the positive terminal of the 12v is connected to the common of the relay
+             while the negative terminal of the solenoid is connected to the negative of the power pack. 
+          </p> 
+          <p class="w3-justify"  style="font-size:18px">
+            4. 4x4 Matrix keypad 
+              <br><br>
+              The keypad is used to input the passwords into the locker, 
+              the inserted password is displayed on the display. 
+              The power supply to the keyboard is provided via the I/O expander. 
+              The power for the I/O expander is given through the 5v power pack.  
+            </p>
+            <p class="w3-justify"  style="font-size:18px">
+              5. 16x2 LCD Display  
+                <br><br>
+                The LCD Display displays the required information of the locker. 
+                It will show the group number and the locker number and the availability of the locker, 
+                once someone rents out the locker then the availability is set to zero. 
+                <br>
+                When someone is inserting the password, 
+                it is displayed on the display and if the password is correct, 
+                it will display “the password is correct” and if not, it will display the “password is incorrect”. 
+                The power is provided to the display via the expander, and it takes 5v.    
+              </p>
+              <p class="w3-justify"  style="font-size:18px">
+                6. Ultrasonic Sensor 
+                  <br><br>
+                  The Ultrasonic sensor will detect whether there is an object or not within the locker and it will send that value to the micro controller. 
+                  By using this signal the customer will surely know that there is an object inside the locker. 
+                  <br>
+                  The power for the ultrasonic sensor is taken from the 5v input that was given in by the power pack.     
+                </p>
+        
+      
+    </div>
+    <hr>
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="Budget">
       <h1 class="w3-wide">Budget</h1> <br>
       <img src="images/Budget.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:80%">
@@ -194,9 +307,12 @@
         guy opens the same locker using the mobile application as well as the keypad by entering the token. Moreover, after 
         expiring the time duration, the owner cannot open the locker furthermore.
       </p>
+
+      
     </div>
     <hr>
     <br>
+    
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="timeline">
       <h1 class="w3-wide">TimeLine</h1> <br>
       <img src="images/Time.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
